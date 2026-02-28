@@ -114,7 +114,7 @@ export default function MethodologyPage() {
                                 המסמך מספק אומדנים רשמיים לשווי ולמספר החבילות הפטורות ממסים עד 75$, לעלות הפיסקלית
                                 של פטור המע"מ הקיים (מאות מיליוני ש"ח בשנה), ולאובדן הכנסות צפוי במקרה של העלאת התקרה ל-150$.
                             </p>
-                            <a href="https://fs.knesset.gov.il/globaldocs/MMM/1f31f6ca-80f7-ef11-815e-005056aac6c3/2_1f31f6ca-80f7-ef11-815e-005056aac6c3_11_21125.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                            <a href="https://fs.knesset.gov.il/globaldocs/MMM/51fb27d8-dddf-f011-a866-005056aa9911/2_51fb27d8-dddf-f011-a866-005056aa9911_11_21353.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
                                 דוח ממ"מ הכנסת (PDF)
                                 <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                             </a>
@@ -129,7 +129,7 @@ export default function MethodologyPage() {
                                 העמוד הרשמי מתאר את כללי המיסוי ביבוא אישי ואת חישוב המסים והמע"מ. בפרויקט נעשה שימוש
                                 בגרסה מפושטת של כללים אלה לצורך בניית מנגנון החישוב בתרחישים.
                             </p>
-                            <a href="https://www.gov.il/he/service/customs-tax-calculation-import-by-israelis" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                            <a href="https://www.gov.il/he/pages/tax-importsofproducts" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
                                 רשות המסים (gov.il)
                                 <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                             </a>
@@ -256,7 +256,7 @@ export default function MethodologyPage() {
                 <ul className="space-y-3 text-sm md:text-base">
                     <li>
                         <a
-                            href="https://fs.knesset.gov.il/globaldocs/MMM/1f31f6ca-80f7-ef11-815e-005056aac6c3/2_1f31f6ca-80f7-ef11-815e-005056aac6c3_11_21125.pdf"
+                            href="https://fs.knesset.gov.il/globaldocs/MMM/51fb27d8-dddf-f011-a866-005056aa9911/2_51fb27d8-dddf-f011-a866-005056aa9911_11_21353.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
@@ -267,7 +267,7 @@ export default function MethodologyPage() {
                     </li>
                     <li>
                         <a
-                            href="https://www.gov.il/he/service/customs-tax-calculation-import-by-israelis"
+                            href="https://www.gov.il/he/pages/tax-importsofproducts"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
