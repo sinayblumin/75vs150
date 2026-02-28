@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import '@fontsource/rubik/400.css';
@@ -48,6 +49,7 @@ export default function RootLayout({
                     </div>
                 </footer>
                 <SpeedInsights />
+                <Analytics />
             </body>
         </html>
     );
