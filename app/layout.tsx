@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function RootLayout({
                 <footer className="mt-12 py-6 text-center text-sm text-gray-500 border-t border-gray-200">
                     נבנה כפרויקט קוד פתוח. לא כלי ממשלתי רשמי.
                 </footer>
+                <SpeedInsights />
             </body>
         </html>
     );
