@@ -232,8 +232,8 @@ export default function DashboardClient({
                                 type="button"
                                 onClick={() => setBehaviorMode("static")}
                                 className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${behaviorMode === "static"
-                                        ? "bg-blue-600 text-white"
-                                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                                     }`}
                             >
                                 ללא שינוי התנהגותי
@@ -242,8 +242,8 @@ export default function DashboardClient({
                                 type="button"
                                 onClick={() => setBehaviorMode("behavioral")}
                                 className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${behaviorMode === "behavioral"
-                                        ? "bg-blue-600 text-white"
-                                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
                                     }`}
                             >
                                 עם שינוי התנהגותי
@@ -312,7 +312,10 @@ export default function DashboardClient({
                         הממצאים מדגישים את הדילמה: מצד אחד הרחבת הפטור מקלה על חלק מהצרכנים, ומצד שני מצמצמת הכנסות מדינה ומעבירה ביקוש החוצה.
                     </p>
                     <p className="text-slate-600 leading-relaxed font-medium">
-                        זהו כלי לחשיבה מבוססת נתונים על הטרייד-אוף, ולא הכרעה ערכית חד-משמעית.
+                        הכלי מתעלם מההכנסות מע"מ למדינה ממכירות של עסקים מקומיים במטרה לשמור על הנתונים כמה שפחות תיאורטיים, בהינתן נתונים מדויקים יותר התמונה הייתה רק מחזקת את הפסד הכנסות המדינה הכוללים.
+                    </p>
+                    <p className="text-slate-600 leading-relaxed font-medium">
+                        הטרייד אוף ברור - פטור ממע"מ ביבוא אישי טוב לצרכן, אבל פוגע משמעותית בהכנסות המדינה.
                     </p>
                 </section>
 
