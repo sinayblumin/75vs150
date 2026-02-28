@@ -108,7 +108,7 @@ export default function MethodologyPage() {
                 </section>
 
                 <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 overflow-x-auto">
-                    <SectionHeading title="ההנחות המרכזיות" subtitle="הערכים שלמטה הינם הערכה תיאורטית לצורך חישוב כללי. בהינתן נתונים מדויקים, המודל יעודכן בהתאם." />
+                    <SectionHeading title="ההנחות המרכזיות" subtitle="הערכים שלמטה הינם הערכה תיאורטית לצורך חישוב כללי. בהינתן נתונים מדויקים המודל יעודכן בהתאם." />
                     <TooltipProvider>
                         <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
                             <table className="min-w-full divide-y divide-slate-200 text-right text-sm">
