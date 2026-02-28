@@ -143,36 +143,17 @@ export default function MethodologyPage() {
                     <SectionHeading title="איך בנינו את המודל?" />
                     <div className="text-slate-600 leading-relaxed text-sm space-y-4">
                         <p>
-                            זהו מודל תרחישים מייצג. מאחר שאין מאגר ציבורי מלא ואחיד לכל רכיבי יבוא אישי,
-                            חילקנו את החבילות לשלוש רצועות ערך: עד 75$, בין 75$ ל-150$, ומעל 150$.
+                            המודל מציג השוואה תמציתית בין שני תרחישים: פטור עד 75$ מול פטור עד 150$.
+                            הנתונים מכוילים לסדרי הגודל שמופיעים במסמכים רשמיים, תוך שימוש בהנחות עבודה שקופות.
                         </p>
                         <p>
-                            המודל בתרחישי 75$ ו-150$ כויל לסדרי הגודל שמופיעים במסמך המחקר של הכנסת:
-                            מספר החבילות ושווי החבילות הפטורות עד 75$, וההיקף הכולל של פטור המע"מ.
-                            המספרים מדויקים פחות מהמחקר עצמו, אך נשמרים עקביים עם ההיקף הרשמי כדי לשמור על ריאליזם.
+                            לצורך פשטות, חישובי המס מתמקדים במע״מ בלבד, והחיסכון לצרכנים בדשבורד מוצג כחיסכון ממע״מ.
+                            לכן המדד אינו כולל את כלל השפעות המחיר האפשריות בעולם האמיתי.
                         </p>
-                        <p>
-                            בהתאם לכללים הכלליים של רשות המסים, מע"מ נגבה על ערך חייב במס (ובדין המלא עשויים להיכלל
-                            גם רכיבים נלווים כמו שילוח וביטוח). לצורך פשטות, המודל מתמקד במע"מ בלבד, מתעלם ממכס ומס קנייה,
-                            ומקרב את בסיס המס לערך המוצהר של החבילה.
-                        </p>
-                        <p>
-                            לכן תיאור המע"מ במודל הוא פישוט של הכללים המשפטיים המלאים המופיעים באתר רשות המסים.
-                        </p>
-                        <div className="bg-blue-50/60 p-4 border border-blue-100 rounded-xl text-slate-800 space-y-2">
-                            <p>
-                                שלושת מדדי ה-KPI בדשבורד מוגדרים כך: ״מע״מ שנגבה ע״י המדינה״ מציג את סך גביית המע״מ בכל תרחיש,
-                                ״חיסכון שנתי לצרכנים ממע״מ״ מחושב כהפרש בגביית המע״מ בין תרחיש 75$ לתרחיש 150$,
-                                ו-״אובדן הכנסה לעסקים מקומיים״ מחושב כהפרש בהכנסה המקומית המשוערת בין שני התרחישים.
-                            </p>
-                            <p>
-                                לצורך פישוט, חיסכון הצרכנים במודל נשען בעיקר על רכיב המע״מ ולכן אינו כולל את כל השפעות המחיר האפשריות בעולם האמיתי.
-                            </p>
+                        <div className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
+                            <strong>תחליפיות (Substitution):</strong> כאשר צרכן קונה בחו״ל בטווח 75$-150$, המודל מניח שחלק מהקניות
+                            מחליפות קנייה מקומית. זהו האומדן שמשמש להערכת אובדן ההכנסה לעסקים מקומיים.
                         </div>
-                        <p className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
-                            <strong>תחליפיות (Substitution):</strong> כאשר צרכן קונה בחו"ל פריט בטווח 75$-150$,
-                            אנו מניחים שחלק מהקניות היו מתבצעות אחרת בישראל. שיעור זה משמש כפרוקסי להשפעה על מחזורי מכירה מקומיים.
-                        </p>
                     </div>
                 </section>
 
@@ -258,45 +239,6 @@ export default function MethodologyPage() {
                 </ul>
             </section>
 
-            <section className="bg-blue-50/60 p-8 rounded-2xl border border-blue-100 shadow-sm">
-                <h2 className="text-xl md:text-2xl font-heading font-bold text-slate-900 mb-3">לקריאה נוספת ולהעמקה</h2>
-                <p className="text-slate-600 text-sm md:text-base mb-4 leading-relaxed">
-                    למי שרוצה להעמיק בהיבטים המשפטיים והכלכליים של הנושא, הנה כמה מקורות רשמיים נוספים.
-                </p>
-                <ul className="space-y-3 text-sm md:text-base">
-                    <li>
-                        <a
-                            href="https://fs.knesset.gov.il/globaldocs/MMM/51fb27d8-dddf-f011-a866-005056aa9911/2_51fb27d8-dddf-f011-a866-005056aa9911_11_21353.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
-                        >
-                            מרכז המחקר והמידע של הכנסת: "תיאור וניתוח העלאת תקרת הפטור ממיסים ביבוא אישי" (PDF)
-                            <ExternalLink className="w-4 h-4" />
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="https://www.gov.il/he/pages/tax-importsofproducts"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
-                        >
-                            רשות המסים: מיסוי יבוא מוצרים לישראל
-                            <ExternalLink className="w-4 h-4" />
-                        </a>
-                    </li>
-                </ul>
-            </section>
-
-            <section className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
-                <SectionHeading title="איך אפשר להשתמש במודל הזה?" />
-                <div className="text-slate-700 leading-relaxed text-sm md:text-base space-y-3">
-                    <p>משרד ממשלתי יכול להזין הנחות אחרות לגבי מספר החבילות והתפלגות הערכים, כדי לבחון תרחישים חלופיים.</p>
-                    <p>ארגוני צרכנים יכולים להשתמש במודל כדי להדגיש את ההשפעה היחסית על קבוצות שונות של משקי בית.</p>
-                    <p>עיתונאים וכלכלנים יכולים לשנות הנחות ולראות במהירות איך זה משנה את גודל הוויתורים בין הצרכנים, המדינה והעסקים.</p>
-                </div>
-            </section>
         </div>
     );
 }
