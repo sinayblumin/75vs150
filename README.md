@@ -1,48 +1,99 @@
-# מודל יבוא אישי - 75$ לעומת 150$ (Personal Import Model)
+# מודל יבוא אישי – האם העלאת פטור המע״מ ל‑150$ טובה לציבור?
 
-This is a Next.js 15+ application that models the economic impact of raising the personal import VAT-exemption threshold in Israel from $75 to $150. Based on public open data, OECD insights, and generalized assumptions, this model visualizes the trade-offs affecting Israeli consumers, government revenue, and local businesses.
+Interactive data project that explores a simple but important policy question in Israel:
 
-## Features
+> What happens if the VAT‑exemption threshold on **personal import parcels** is raised  
+> from **75 $ to 150 $**?  
+> Who benefits and who loses – consumers, the Israeli government, or local businesses?
 
-- **Built with Next.js 15+ (App Router)** and TypeScript.
-- **Styling with Tailwind CSS** for a responsive, clean Hebrew UI.
-- **Charts using Recharts**.
-- **Build-time Data Fetching**: Retrieves sample import data from data.gov.il at build time and writes it to `/data/imports_sample.json`.
-- **Methodology Page**: Complete transparency and citations on how numbers are derived.
+The site is in **Hebrew** and built as a BI‑style dashboard that presents a **transparent scenario model** based on open data and explicit assumptions.
 
-## Prerequisites
+---
 
-- **Node.js 18.18.0 or later** (Required by Next.js 15+)
+## 🎯 Project goals
 
-## Getting Started Locally
+- Present a **clear, visual comparison** between two policy scenarios:
+  - Current situation – VAT exemption up to **75 $**
+  - Proposed scenario – VAT exemption up to **150 $**
+- Quantify, in a simple way:
+  - Estimated **VAT revenue** for the state  
+  - Estimated **annual savings** for consumers  
+  - Approximate **shift of spending** from Israeli businesses to foreign sellers
+- Demonstrate **BI & data‑product skills**:
+  - Working with public datasets
+  - Building a transparent model with documented assumptions
+  - Designing a clean, user‑friendly dashboard in Hebrew
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+---
 
-2. Run the development server (Note: The `predev` or `prebuild` scripts will run the data scraper from data.gov.il):
-   ```bash
-   npm run prebuild # To seed data/imports_sample.json
-   npm run dev
-   ```
+## 🧠 Concept & data model
 
-3. Open [http://localhost:3000](http://localhost:3000) with your browser to view the application.
+Because full, granular official data about personal import parcels is not public, this project uses a **scenario model**:
 
-## Vercel Deployment
+- Assume an annual number of personal‑import parcels and split them into three value bands:
+  - `< 75 $`
+  - `75–150 $`
+  - `> 150 $`
+- For each band, assume an average parcel value and apply simplified VAT rules:
+  - Scenario A: exemption up to **75 $**
+  - Scenario B: exemption up to **150 $**
+- Compute for each scenario:
+  - Total VAT collected
+  - Difference in VAT (lost revenue for the state)
+  - Consumer savings (assuming all VAT savings flow to consumers)
+  - Rough estimate of spending shifted away from local businesses
+- All assumptions are stored in a JSON file and documented on the **Methodology** page so they can be easily reviewed and changed.
 
-This project is fully ready for deployment on the Vercel (Hobby) Free Tier.
+This is **not** a forecast or an official model – it’s a transparent tool for discussion.
 
-1. Push your code to a GitHub repository.
-2. Go to [Vercel](https://vercel.com) and click **"Add New" > "Project"**.
-3. Import your GitHub repository.
-4. Leave the default settings (Next.js framework preset). **No special environment variables or build commands are required**.
-5. Click **"Deploy"**.
+---
 
-**Note on initial deploy:** During the Vercel build step (`npm run build`), the `prebuild` script automatically runs `node scripts/fetch-data.mjs`, pulling the latest subset of data from the Israeli open API (data.gov.il) and generating the sample file. This is standard configuration and Vercel will handle it seamlessly.
+## 📊 Main features
 
-## About the Data
+- **Interactive scenario toggle**  
+  Switch between “פטור עד 75 $” and “פטור עד 150 $” and see all KPIs and charts update.
 
-- All explicit assumptions (model weights, average basket sizes, tax rules) are documented inside `data/assumptions.json` and `data/tax_rules.json`.
-- Historical price level assertions are sourced from the *OECD Economic Survey: Israel 2025* and documented in `data/oecd_context.json`.
-- No database is required for this dashboard.
+- **Key metrics (KPIs)**  
+  - Annual VAT collected from personal import parcels  
+  - Estimated annual savings for consumers  
+  - Estimated annual volume of spending shifted abroad  
+  - Context about Israel’s high cost of living compared to OECD countries
+
+- **Charts**  
+  - Bar chart: VAT collected by value band in each scenario  
+  - Donut/pie chart: “who gains and who loses” – consumers vs state vs local businesses  
+
+- **Methodology & data sources page**  
+  A dedicated page (in Hebrew) explaining:
+  - Data sources  
+  - Model structure  
+  - Core assumptions (with a table)  
+  - Limitations and caveats  
+  - Why this kind of BI visualization helps public debate
+
+---
+
+## 🧩 Tech stack
+
+- **Framework:** Next.js (App Router) + TypeScript  
+- **Styling:** Tailwind CSS  
+- **Charts:** React‑based chart library (Recharts / Chart.js)  
+- **Data:**  
+  - Simplified scenario assumptions in local JSON  
+  - Reference to Israeli open‑data & official information sources (data.gov.il, Ministry of Economy, Kol Zchut, etc.)
+
+The architecture is intentionally simple: no database, no auth – just a small, focused data product that’s easy to deploy and maintain.
+
+---
+
+## 🚀 Getting started
+
+```bash
+# install dependencies
+npm install
+
+# run dev server
+npm run dev
+
+# open in browser
+http://localhost:3000
