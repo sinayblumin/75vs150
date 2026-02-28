@@ -1,4 +1,7 @@
 import assumptions from '@/data/assumptions.json';
+import { SectionHeading } from '@/components/SectionHeading';
+import { HelpCircle, ExternalLink, Database, FileText, Info } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const metadata = {
     title: 'מתודולוגיה ומקורות - יבוא אישי',
@@ -6,144 +9,204 @@ export const metadata = {
 
 export default function MethodologyPage() {
     return (
-        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-12">
-            <section>
-                <h1 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900">
-                    מתודולוגיה ומקורות נתונים
-                </h1>
-                <p className="text-lg text-gray-700 mb-10 border-b pb-8">
-                    המודל באתר מבוסס על שילוב בין נתונים פתוחים של ממשלת ישראל, מידע רשמי על כללי יבוא אישי, ודוח של ה‑OECD בנושא יוקר המחיה בישראל, יחד עם מספר הנחות פשוטות ומוצהרות. כאן תמצאו פירוט של מקורות הנתונים, ההנחות וההגבלות.
+        <div className="space-y-12 animate-in fade-in duration-500">
+            <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+                <SectionHeading
+                    title="מתודולוגיה ומקורות נתונים"
+                />
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-4xl">
+                    המודל באתר מבוסס על שילוב בין נתונים פתוחים של ממשלת ישראל, מידע רשמי על כללי יבוא אישי, ודוח של ה‑OECD בנושא יוקר המחיה בישראל, יחד עם מספר הנחות פשוטות ומוצהרות. כאן תמצאו פירוט מלא ושקוף של מקורות הנתונים ההנחות וההגבלות.
                 </p>
+            </section>
 
-                <h2 className="text-2xl font-semibold mb-4 text-slate-800">
-                    מקורות הנתונים
-                </h2>
-                <ul className="list-disc pr-6 text-gray-700 mb-4 text-sm md:text-base space-y-3 leading-relaxed">
-                    <li>
-                        <span className="font-semibold text-gray-900">מאגרי המידע הממשלתיים (data.gov.il):</span>
-                        &nbsp;מאגר נתונים פתוח של משרדי הממשלה וגופי ציבור, ממנו נמשכו דוגמאות נתונים על יבוא וסחר חוץ לצורך כיול סדרי גודל והפצת ערכים.
-                        {' '}<a href="https://data.gov.il/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">למעבר למאגרים</a>
+            <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+                <SectionHeading title="מקורות הנתונים" />
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700">
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <Database className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">מאגרי המידע הממשלתיים (data.gov.il)</span>
+                            <p className="text-sm mb-2 leading-relaxed">מאגר נתונים פתוח של משרדי הממשלה וגופי ציבור, ממנו נמשכו דוגמאות נתונים על יבוא וסחר חוץ לצורך כיול סדרי גודל.</p>
+                            <a href="https://data.gov.il/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                רשויות ממשלתיות
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
-                    <li>
-                        <span className="font-semibold text-gray-900">אתר משרד הכלכלה – &quot;יבוא אישי&quot;:</span>
-                        &nbsp;האתר הרשמי שמרכז מידע והנחיות לציבור על דרישות ליבוא מוצרי צריכה לישראל, כולל קישורים לצו יבוא אישי ולמדריך ליבוא אישי.
-                        {' '}<a href="https://apps.economy.gov.il/Apps/PersonalImport/Home/Digital_Order" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לאתר משרד הכלכלה</a>
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">אתר משרד הכלכלה – &quot;יבוא אישי&quot;</span>
+                            <p className="text-sm mb-2 leading-relaxed">האתר הרשמי שמרכז מידע והנחיות לציבור על דרישות ליבוא מוצרי צריכה לישראל.</p>
+                            <a href="https://apps.economy.gov.il/Apps/PersonalImport/Home/Digital_Order" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                משרד הכלכלה
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
-                    <li>
-                        <span className="font-semibold text-gray-900">צו יבוא אישי – מהדורה דיגיטלית:</span>
-                        &nbsp;המסמך המשפטי שמגדיר מהו &quot;יבוא אישי&quot;, אילו מוצרים מותר לייבא, באילו כמויות, ואילו רשויות מעורבות.
-                        {' '}<a href="https://www.gov.il/he/departments/legalInfo/personal_import_order" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לקריאת צו יבוא אישי</a>
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">צו יבוא אישי – מהדורה דיגיטלית</span>
+                            <p className="text-sm mb-2 leading-relaxed">המסמך המשפטי שמגדיר מהו &quot;יבוא אישי&quot;, הכמויות המותרות והרשויות המעורבות.</p>
+                            <a href="https://www.gov.il/he/departments/legalInfo/personal_import_order" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                קריאת הצו
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
-                    <li>
-                        <span className="font-semibold text-gray-900">כל‑זכות – זכותון בנושא יבוא אישי:</span>
-                        &nbsp;עמוד הסבר לציבור שמפרט בשפה פשוטה את הכללים לגבי פטור ממסים, מע&quot;מ ועמלות על חבילות מחו&quot;ל, וההבדל בין יבוא אישי ליבוא מסחרי.
-                        {' '}<a href="https://www.kolzchut.org.il/he/%D7%96%D7%9B%D7%95%D7%AA%D7%95%D7%9F_%D7%91%D7%A0%D7%95%D7%A9%D7%90_%D7%99%D7%91%D7%95%D7%90_%D7%90%D7%99%D7%A9%D7%99_(%D7%97%D7%91%D7%99%D7%9C%D7%95%D7%AA_%D7%9E%D7%97%D7%95%22%D7%9C)" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לזכותון כל-זכות</a>
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <Info className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">כל‑זכות – זכותון יבוא אישי</span>
+                            <p className="text-sm mb-2 leading-relaxed">הסבר בשפה פשוטה על כללי מסים, מע&quot;מ ועמלות, וההבדל ליבוא מסחרי.</p>
+                            <a href="https://www.kolzchut.org.il/he/%D7%96%D7%9B%D7%95%D7%AA%D7%95%D7%9F_%D7%91%D7%A0%D7%95%D7%A9%D7%90_%D7%99%D7%91%D7%95%D7%90_%D7%90%D7%99%D7%A9%D7%99_(%D7%97%D7%91%D7%99%D7%9C%D7%95%D7%AA_%D7%9E%D7%97%D7%95%22%D7%9C)" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                זכותון כל-זכות
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
-                    <li>
-                        <span className="font-semibold text-gray-900">דואר ישראל – תשלום מכס ומסי יבוא:</span>
-                        &nbsp;מידע על אופן התשלום, העמלות והטיפול בחבילות החייבות במס, המשמש כבסיס להנחה על עמלות טיפול ממוצעות לחבילה.
-                        {' '}<a href="https://doar.israelpost.co.il/content/tax-payments/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">למידע בדואר ישראל</a>
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">דואר ישראל – משלוחים ומסים</span>
+                            <p className="text-sm mb-2 leading-relaxed">מידע על אופן התשלום והעמלות, המשמש להערכת עלויות טיפול.</p>
+                            <a href="https://doar.israelpost.co.il/content/tax-payments/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                דואר ישראל
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
-                    <li>
-                        <span className="font-semibold text-gray-900">OECD Economic Survey: Israel 2025:</span>
-                        &nbsp;דוח כלכלי של ה‑OECD שממנו נלקחה העובדה שישראל נמצאת בין המדינות בעלות רמת המחירים הגבוהה ביותר ב‑OECD, מה שממחיש את חשיבות התחרות בשוק המקומי.
-                        {' '}<a href="https://www.oecd.org/en/publications/oecd-economic-surveys-israel-2025_d6dd02bc-en/full-report/addressing-the-high-cost-of-living_bfe408a2.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לקריאת דוח OECD</a>
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <Database className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">OECD Economic Survey 2025</span>
+                            <p className="text-sm mb-2 leading-relaxed">דוח הממחיש שרמת המחירים בישראל היא מהגבוהות ב-OECD.</p>
+                            <a href="https://www.oecd.org/en/publications/oecd-economic-surveys-israel-2025_d6dd02bc-en/full-report/addressing-the-high-cost-of-living_bfe408a2.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
+                                דוח OECD
+                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                            </a>
+                        </div>
                     </li>
                 </ul>
             </section>
 
-            <section>
-                <h2 className="text-2xl font-semibold mb-4 text-slate-800 border-b pb-2">
-                    איך בנינו את המודל?
-                </h2>
-                <div className="text-gray-700 leading-relaxed space-y-3 mb-8">
-                    <p>
-                        בפועל, אין כיום לציבור נתונים מלאים ומפורטים על מספר החבילות ביבוא אישי לפי ערך מדויק, ולכן בנינו מודל תרחישים שמבוסס על סדרי גודל סבירים, חלוקה לשלוש קבוצות ערך וכללי המס הרשמיים.
-                    </p>
-                    <p>
-                        המודל מניח מספר שנתי מסוים של חבילות ביבוא אישי, מחלק אותן לשלוש רצועות מחיר (מתחת ל‑75&nbsp;$, בין 75 ל‑150&nbsp;$ ומעל 150&nbsp;$), ומחשב עבור כל רצועה את גביית המע&quot;מ בתרחיש של פטור עד 75&nbsp;$ לעומת פטור עד 150&nbsp;$.
-                    </p>
-                    <p>
-                        בנוסף, המודל מניח שחלק מהקניות בטווח 75–150&nbsp;$ &quot;מחליפות&quot; קנייה מעסק ישראלי ברכישה מאתר בחו&quot;ל, וכך מאפשר להעריך בצורה גסה את היקף המחזור שעובר מהמשק המקומי ליבוא אישי מקוון.
-                    </p>
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:col-span-1">
+                    <SectionHeading title="איך בנינו את המודל?" />
+                    <div className="text-slate-600 leading-relaxed text-sm space-y-4">
+                        <p>
+                            בפועל, אין כיום לציבור נתונים מלאים על הכמות המדויקת של חבילות יבוא אישי, ולכן המודל נבנה כמודל <strong>תרחישים מייצג</strong> המבוסס על שלוש רצועות ערך.
+                        </p>
+                        <p>
+                            פירקנו את אוכלוסיית החבילות כך שחלקן נהנות מפטור כבר היום (עד 75$), וחלקן ייהנו מהרחבתו (75$-150$). המודל מחשב את המע"מ רק עבור אלו שעוברות את התקרה הרלוונטית לתרחיש.
+                        </p>
+                        <p className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
+                            <strong>תחליפיות (Substitution):</strong> ההנחה החדשנית של המודל היא שכשצרכן קונה פריט עד 150$ בחו"ל בפטור ממס, חלק מהקניות הללו "באות על חשבון" קנייה מקומית שהיתה מניבה מע"מ ותורמת למחזור של עסק ישראלי.
+                        </p>
+                    </div>
+                </section>
 
-                <h3 className="text-xl font-semibold mb-2 text-slate-800">
-                    ההנחות המרכזיות במודל
-                </h3>
-                <p className="text-gray-700 mb-4 leading-relaxed text-sm md:text-base">
-                    הטבלה הבאה מציגה את ההנחות המשמעותיות ביותר ששימשו לחישוב התוצאות בדשבורד. כל הערכים ניתנים לשינוי בקוד, והם מתוארים כאן כדי שהקוראים יוכלו להבין מה עומד מאחורי כל מספר.
-                </p>
-                <div className="overflow-x-auto border rounded-lg shadow-sm">
-                    <table className="min-w-full bg-white divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">פרמטר בחישוב</th>
-                                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">ערך שהוכנס למודל</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            <tr>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-b">כמות חבילות שנתית משוערת בישראל</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 border-b">{assumptions.annual_parcels_total.toLocaleString()} חבילות</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-b">חלוקה: מתחת ל-75$</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 border-b">{(assumptions.share_under_75 * 100).toFixed(0)}% (שווי ממוצע: {assumptions.avg_value_under_75}$)</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-b">חלוקה: בין 75$ ל-150$</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 border-b">{(assumptions.share_75_to_150 * 100).toFixed(0)}% (שווי ממוצע: {assumptions.avg_value_75_to_150}$)</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-b">חלוקה: מעל 150$</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 border-b">{(assumptions.share_over_150 * 100).toFixed(0)}% (שווי ממוצע: {assumptions.avg_value_over_150}$)</td>
-                            </tr>
-                            <tr>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 border-b">אפקט המרה (קנייה מקומית מוחלפת ליבוא)</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 border-b">{(assumptions.substitution_rate * 100).toFixed(0)}% במדרגות שבהן הפטור מורחב</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 overflow-x-auto">
+                    <SectionHeading title="ההנחות המרכזיות בקוד" subtitle="כל הערכים שלמטה ניתנים לשינוי בקליינט. אלה הערכים שהמודל מאותחל איתם." />
+                    <TooltipProvider>
+                        <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                            <table className="min-w-full divide-y divide-slate-200 text-right text-sm">
+                                <thead className="bg-slate-50">
+                                    <tr>
+                                        <th className="px-6 py-4 font-semibold text-slate-700">פרמטר</th>
+                                        <th className="px-6 py-4 font-semibold text-slate-700">הנחה במודל</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-200 bg-white">
+                                    <tr className="hover:bg-slate-50 transition-colors">
+                                        <td className="px-6 py-4 font-medium text-slate-900 border-l border-slate-100 flex items-center gap-2">
+                                            סך הכל חבילות בשנה
+                                            <Tooltip>
+                                                <TooltipTrigger><HelpCircle className="w-4 h-4 text-slate-400" /></TooltipTrigger>
+                                                <TooltipContent>אומדן כללי של כמות החבילות הנכנסות בשנה ביבוא אישי.</TooltipContent>
+                                            </Tooltip>
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600 font-mono" dir="ltr">{assumptions.annual_parcels_total.toLocaleString()}</td>
+                                    </tr>
+                                    <tr className="hover:bg-slate-50 transition-colors">
+                                        <td className="px-6 py-4 font-medium text-slate-900 border-l border-slate-100 flex items-center gap-2">
+                                            חלוקה לרצועת &lt; 75$
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600 font-mono" dir="ltr">
+                                            {(assumptions.share_under_75 * 100).toFixed(0)}% (avg ${assumptions.avg_value_under_75})
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-slate-50 transition-colors">
+                                        <td className="px-6 py-4 font-medium text-slate-900 border-l border-slate-100 flex items-center gap-2">
+                                            חלוקה לרצועת 75$-150$
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600 font-mono" dir="ltr">
+                                            {(assumptions.share_75_to_150 * 100).toFixed(0)}% (avg ${assumptions.avg_value_75_to_150})
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-slate-50 transition-colors">
+                                        <td className="px-6 py-4 font-medium text-slate-900 border-l border-slate-100 flex items-center gap-2">
+                                            חלוקה לרצועת &gt; 150$
+                                        </td>
+                                        <td className="px-6 py-4 text-slate-600 font-mono" dir="ltr">
+                                            {(assumptions.share_over_150 * 100).toFixed(0)}% (avg ${assumptions.avg_value_over_150})
+                                        </td>
+                                    </tr>
+                                    <tr className="hover:bg-slate-50 transition-colors bg-blue-50/30">
+                                        <td className="px-6 py-4 font-bold text-slate-900 border-l border-slate-100 flex items-center gap-2">
+                                            שיעור החלפה (Substitution)
+                                            <Tooltip>
+                                                <TooltipTrigger><HelpCircle className="w-4 h-4 text-blue-500" /></TooltipTrigger>
+                                                <TooltipContent className="max-w-xs text-right">אחוז היבוא האישי שמבטל קניה שהיתה מבוצעת באותה עלות בעסק ישראלי לו לא היה פטור.</TooltipContent>
+                                            </Tooltip>
+                                        </td>
+                                        <td className="px-6 py-4 text-accent-DEFAULT font-bold font-mono" dir="ltr">
+                                            {(assumptions.substitution_rate * 100).toFixed(0)}%
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </TooltipProvider>
+                </section>
+            </div>
+
+            <section className="bg-amber-50 p-8 rounded-2xl border border-amber-200/60 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-100 rounded-bl-full -z-0 opacity-50 block md:hidden"></div>
+                <div className="relative z-10">
+                    <SectionHeading title="מגבלות ואזהרות" />
+                    <ul className="text-amber-900 leading-relaxed text-sm md:text-base space-y-3">
+                        <li className="flex items-start gap-3">
+                            <span className="text-amber-600 mt-1 shrink-0">■</span>
+                            <span><strong>זהו מודל תרחישים, לא תחזית.</strong> הוא נועד להמחשה ולדיון ציבורי, ולא לשמש בסיס לקבלת החלטות רגולטוריות או עסקיות.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <span className="text-amber-600 mt-1 shrink-0">■</span>
+                            <span>ההנחות על מספר החבילות, התפלגות הערכים ושיעור ההחלפה בין קנייה מקומית לקנייה מחו&quot;ל הן הערכות בלבד.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <span className="text-amber-600 mt-1 shrink-0">■</span>
+                            <span>המודל מניח שכל החיסכון במע&quot;מ עובר לצרכנים, ואינו מתחשב בשינויים אפשריים במחיר שהספקים בחו&quot;ל (או המוכרים המקומיים) גובים בפועל לאורך זמן.</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                            <span className="text-amber-600 mt-1 shrink-0">■</span>
+                            <span>אין בממצאים משום ייעוץ מס, ייעוץ משפטי או המלצה כלכלית כלשהי.</span>
+                        </li>
+                    </ul>
                 </div>
             </section>
 
-            <section>
-                <h2 className="text-2xl font-semibold mb-4 text-slate-800 border-b pb-2">
-                    מגבלות ואזהרות
-                </h2>
-                <ul className="list-disc pr-6 text-gray-700 mb-4 text-sm md:text-base space-y-3 leading-relaxed">
-                    <li>
-                        <strong className="text-red-600">זהו מודל תרחישים, לא תחזית.</strong> הוא נועד להמחשה ולדיון ציבורי, ולא לשמש בסיס לקבלת החלטות רגולטוריות או עסקיות.
-                    </li>
-                    <li>
-                        ההנחות על מספר החבילות, התפלגות הערכים ושיעור ההחלפה בין קנייה מקומית לקנייה מחו&quot;ל הן הערכות בלבד, שנועדו לשקף תמונה סבירה ולא נתונים רשמיים.
-                    </li>
-                    <li>
-                        המודל מניח שכל החיסכון במע&quot;מ עובר לצרכנים, ואינו מתחשב בשינויים אפשריים במחיר שהספקים בחו&quot;ל גובים בפועל.
-                    </li>
-                    <li>
-                        לא נלקחו בחשבון השפעות דינמיות כמו שינוי בהרגלי הקנייה, התאמות מחירים מצד קמעונאים בישראל, או שינויים בתקציב המדינה בעקבות אובדן הכנסות ממסים.
-                    </li>
-                    <li>
-                        אין בממצאים משום ייעוץ מס, ייעוץ משפטי או המלצה כלכלית כלשהי.
-                    </li>
-                </ul>
-            </section>
-
-            <section className="bg-blue-50 p-6 rounded-lg border border-blue-100">
-                <h2 className="text-2xl font-semibold mb-4 text-blue-900 border-b border-blue-200 pb-2">
+            <section className="bg-gradient-to-l from-blue-600 to-blue-800 p-8 md:p-10 rounded-2xl border border-blue-700 shadow-md text-white text-center">
+                <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6 text-white text-center">
                     למה בחרנו להציג את הנתונים כך?
                 </h2>
-                <div className="text-blue-900 leading-relaxed space-y-3">
+                <div className="leading-relaxed space-y-4 max-w-3xl mx-auto text-blue-50 text-sm md:text-base">
                     <p>
-                        מדיניות מס כמו תקרת הפטור ממע&quot;מ על יבוא אישי משפיעה בו‑זמנית על שלושה צדדים: הצרכנים, עסקים בישראל והכנסות המדינה. לעיתים הדיון הציבורי מתמקד רק בצד אחד – למשל ביוקר המחיה – ומתעלם מהאחרים.
+                        מדיניות מס כמו תקרת הפטור ממע&quot;מ משפיעה בו‑זמנית על שלושה צדדים: הצרכנים, עסקים בישראל והכנסות המדינה. הדיון הציבורי נוטה להתמקד רק באחד מהם בכל פעם (למשל, רק ביוקר המחיה או רק בגירעון).
                     </p>
                     <p>
-                        הפרויקט הזה מנסה להציג על אותו מסך את שלושת האינטרסים: כמה הציבור מרוויח, כמה המדינה מפסידה וכמה פעילות כלכלית עלולה לזוז מעסקים מקומיים לחו&quot;ל. גם אם המודל מבוסס על הנחות, עצם השקיפות מסייעת להבין טוב יותר את גודל הוויתורים.
-                    </p>
-                    <p>
-                        כל המספרים באתר ניתנים להתאמה בקוד, כך שמקבלי החלטות, עיתונאים ואזרחים סקרנים יכולים לשנות את ההנחות, להריץ את המודל מחדש ולהגיע למסקנות שלהם.
+                        הדשבורד מחייב אותנו לראות את כולם על אותו מסך. במקום שאלה חד-מימדית של "האם זה טוב?", המודל מאלץ לשאול שאלות כמותיות: כמה אנחנו מוכנים שהמדינה תפסיד ממסים כדי שהצרכן יחסוך שקל אחד? החשיבה ה-BI-ית מבקשת שקיפות לגבי הטרייד-אוף, ללא שיפוט מוסרי, כך שכל אזרח יוכל לשנות את ההנחות ולהגיע למסקנה משלו.
                     </p>
                 </div>
             </section>
