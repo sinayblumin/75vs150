@@ -275,7 +275,7 @@
   {
     "_id": 22,
     "semel_yevuan": 1,
-    "shem_yevuan": "קרסו מוטו��ס בע\"מ",
+    "shem_yevuan": "קרסו מוטורס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 928,
     "tozeret_nm": "רנו צרפת",
@@ -340,7 +340,7 @@
   {
     "_id": 27,
     "semel_yevuan": 1,
-    "shem_yevuan": "קרסו מוטורס בע\"מ",
+    "shem_yevuan": "��רסו מוטורס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 928,
     "tozeret_nm": "רנו צרפת",
@@ -522,7 +522,7 @@
   {
     "_id": 41,
     "semel_yevuan": 1,
-    "shem_yevuan": "קרסו מוטורס בע\"מ",
+    "shem_yevuan": "קרס�� מוטורס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 940,
     "tozeret_nm": "רנו ספרד",
@@ -743,7 +743,7 @@
   {
     "_id": 58,
     "semel_yevuan": 1,
-    "shem_yevuan": "קרסו מוטורס בע\"מ",
+    "shem_yevuan": "קרסו מוט��רס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 928,
     "tozeret_nm": "רנו צרפת",
@@ -863,7 +863,7 @@
     "shem_yevuan": "קרסו מוטורס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 928,
-    "tozeret_nm": "רנו צרפת",
+    "tozeret_nm": "ר��ו צרפת",
     "degem_cd": 4171,
     "degem_nm": "553F02 R19 RT.A1.8",
     "shnat_yitzur": 1997,
@@ -1011,7 +1011,7 @@
     "degem_nm": "K560K5 LAG NEV 1.8",
     "shnat_yitzur": 1997,
     "mehir": 92990,
-    "kinuy_mishari": "לגונה 8.1 נב��ה TR מש"
+    "kinuy_mishari": "לגונה 8.1 נבדה TR מש"
   },
   {
     "_id": 79,
@@ -1188,7 +1188,7 @@
     "shem_yevuan": "קרסו מוטורס בע\"מ",
     "sug_degem": "P",
     "tozeret_cd": 940,
-    "tozeret_nm": "רנו ספרד",
+    "tozeret_nm": "רנו ספר��",
     "degem_cd": 4460,
     "degem_nm": "B57BB5 CLIO ALIZE3",
     "shnat_yitzur": 1997,
