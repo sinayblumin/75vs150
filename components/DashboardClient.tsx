@@ -53,17 +53,17 @@ function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
 
 function getBehavioralOverrides() {
     // Behavioral showcase mode:
-    // keep total parcels fixed, keep >150 share fixed,
-    // and set equal parcel volume in the two exempt-relevant bands.
-    // We also keep a similar average value in both bands to isolate quantity effect.
-    const equalShare = (1 - assumptions.share_over_150) / 2;
+    // keep parcel quantities/distribution unchanged, and double average basket value.
+    // This creates a clear "same amount, higher ticket size" stress test.
 
     return {
-        share_under_75: equalShare,
-        share_75_to_150: equalShare,
+        share_under_75: assumptions.share_under_75,
+        share_75_to_150: assumptions.share_75_to_150,
         share_over_150: assumptions.share_over_150,
-        avg_value_75_to_150: assumptions.avg_value_under_75,
-        substitution_rate: Math.min(0.6, assumptions.substitution_rate + 0.08),
+        avg_value_under_75: assumptions.avg_value_under_75 * 2,
+        avg_value_75_to_150: assumptions.avg_value_75_to_150 * 2,
+        avg_value_over_150: assumptions.avg_value_over_150 * 2,
+        substitution_rate: assumptions.substitution_rate,
     };
 }
 
@@ -207,14 +207,14 @@ export default function DashboardClient({
                 <div className="rounded-xl bg-slate-800 p-4 text-center text-sm text-slate-200 shadow-inner md:text-base">
                     {activeScenario === 75 ? (
                         <p>
-                            בתרחיש פטור עד 75$, המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
+                            בתרחיש פטור עד 75 דולר, המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
                             והצרכנים חוסכים כ-<strong>{formatMillions(consumerSavings75)}</strong> לעומת מצב ללא פטור ממע״מ.
                         </p>
                     ) : (
                         <p>
-                            בתרחיש פטור עד 150$, גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
+                            בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
                             וחיסכון הצרכנים ממע״מ מגיע לכ-<strong>{formatMillions(consumerSavings150)}</strong> מול מצב ללא פטור
-                            (תוספת של כ-<strong>{formatMillions(consumerSavingsDelta)}</strong> לעומת פטור עד 75$).
+                            (תוספת של כ-<strong>{formatMillions(consumerSavingsDelta)}</strong> לעומת פטור עד 75 דולר).
                         </p>
                     )}
                 </div>
@@ -252,9 +252,8 @@ export default function DashboardClient({
                         </div>
                     </div>
                     <p className="text-center text-xs leading-relaxed text-slate-500">
-                        במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
-                        (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
-                        {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150$ הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75$.` : ""}
+                        במצב "עם שינוי התנהגותי" המודל מניח אותה כמות חבילות כמו במצב הבסיס, אך שווי ממוצע גבוה פי 2 בכל רצועות המחיר.
+                        {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150 דולר הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75 דולר.` : ""}
                     </p>
                 </section>
             ) : null}
@@ -269,13 +268,13 @@ export default function DashboardClient({
                         <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(staticVatDelta)}</p>
-                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(staticConsumerDelta)}</p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75 דולר → 150 דולר): {formatSignedMillions(staticConsumerDelta)}</p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
                         </div>
                         <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
-                            <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (כמות שווה בין הרצועות)</h4>
+                            <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (אותה כמות, שווי ממוצע כפול)</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
-                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(behavioralConsumerDelta)}</p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75 דולר → 150 דולר): {formatSignedMillions(behavioralConsumerDelta)}</p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
                         </div>
                     </div>
