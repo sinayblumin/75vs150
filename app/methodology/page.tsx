@@ -22,26 +22,32 @@ export default function MethodologyPage() {
                     <li>
                         <span className="font-semibold text-gray-900">מאגרי המידע הממשלתיים (data.gov.il):</span>
                         &nbsp;מאגר נתונים פתוח של משרדי הממשלה וגופי ציבור, ממנו נמשכו דוגמאות נתונים על יבוא וסחר חוץ לצורך כיול סדרי גודל והפצת ערכים.
+                        {' '}<a href="https://data.gov.il/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">למעבר למאגרים</a>
                     </li>
                     <li>
                         <span className="font-semibold text-gray-900">אתר משרד הכלכלה – &quot;יבוא אישי&quot;:</span>
                         &nbsp;האתר הרשמי שמרכז מידע והנחיות לציבור על דרישות ליבוא מוצרי צריכה לישראל, כולל קישורים לצו יבוא אישי ולמדריך ליבוא אישי.
+                        {' '}<a href="https://apps.economy.gov.il/Apps/PersonalImport/Home/Digital_Order" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לאתר משרד הכלכלה</a>
                     </li>
                     <li>
                         <span className="font-semibold text-gray-900">צו יבוא אישי – מהדורה דיגיטלית:</span>
                         &nbsp;המסמך המשפטי שמגדיר מהו &quot;יבוא אישי&quot;, אילו מוצרים מותר לייבא, באילו כמויות, ואילו רשויות מעורבות.
+                        {' '}<a href="https://www.gov.il/he/departments/legalInfo/personal_import_order" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לקריאת צו יבוא אישי</a>
                     </li>
                     <li>
                         <span className="font-semibold text-gray-900">כל‑זכות – זכותון בנושא יבוא אישי:</span>
                         &nbsp;עמוד הסבר לציבור שמפרט בשפה פשוטה את הכללים לגבי פטור ממסים, מע&quot;מ ועמלות על חבילות מחו&quot;ל, וההבדל בין יבוא אישי ליבוא מסחרי.
+                        {' '}<a href="https://www.kolzchut.org.il/he/%D7%96%D7%9B%D7%95%D7%AA%D7%95%D7%9F_%D7%91%D7%A0%D7%95%D7%A9%D7%90_%D7%99%D7%91%D7%95%D7%90_%D7%90%D7%99%D7%A9%D7%99_(%D7%97%D7%91%D7%99%D7%9C%D7%95%D7%AA_%D7%9E%D7%97%D7%95%22%D7%9C)" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לזכותון כל-זכות</a>
                     </li>
                     <li>
                         <span className="font-semibold text-gray-900">דואר ישראל – תשלום מכס ומסי יבוא:</span>
                         &nbsp;מידע על אופן התשלום, העמלות והטיפול בחבילות החייבות במס, המשמש כבסיס להנחה על עמלות טיפול ממוצעות לחבילה.
+                        {' '}<a href="https://doar.israelpost.co.il/content/tax-payments/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">למידע בדואר ישראל</a>
                     </li>
                     <li>
                         <span className="font-semibold text-gray-900">OECD Economic Survey: Israel 2025:</span>
                         &nbsp;דוח כלכלי של ה‑OECD שממנו נלקחה העובדה שישראל נמצאת בין המדינות בעלות רמת המחירים הגבוהה ביותר ב‑OECD, מה שממחיש את חשיבות התחרות בשוק המקומי.
+                        {' '}<a href="https://www.oecd.org/en/publications/oecd-economic-surveys-israel-2025_d6dd02bc-en/full-report/addressing-the-high-cost-of-living_bfe408a2.html" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">לקריאת דוח OECD</a>
                     </li>
                 </ul>
             </section>
