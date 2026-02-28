@@ -5,16 +5,20 @@ export function ChartCard({
     title,
     description,
     children,
+    caption,
+    chartClassName,
     className
 }: {
     title: string;
     description: string;
     children: ReactNode;
+    caption?: ReactNode;
+    chartClassName?: string;
     className?: string;
 }) {
     return (
-        <div className={cn("bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col h-full", className)}>
-            <div className="mb-6">
+        <div className={cn("bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex h-full flex-col [&_.recharts-responsive-container]:!h-64 sm:[&_.recharts-responsive-container]:!h-72 lg:[&_.recharts-responsive-container]:!h-80", className)}>
+            <div className="mb-5">
                 <h3 className="text-xl font-heading font-semibold text-slate-800 mb-2">
                     {title}
                 </h3>
@@ -22,9 +26,10 @@ export function ChartCard({
                     {description}
                 </p>
             </div>
-            <div className="flex-1 min-h-[300px] w-full mt-auto" dir="ltr">
+            <div className={cn("w-full mt-auto", chartClassName)} dir="ltr">
                 {children}
             </div>
+            {caption ? <div className="mt-3">{caption}</div> : null}
         </div>
     );
 }

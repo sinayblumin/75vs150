@@ -151,7 +151,7 @@ export default function DashboardClient({
             </section>
 
             {/* Charts */}
-            <section className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 pt-4">
+            <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
                 <ChartCard
                     title="התפלגות גביית המע״מ (לפי שווי חבילה)"
                     description="ראו כיצד העלאת הפטור מוחקת את הכנסות המס מטווח המחירים האמצעי (75-150$). החלל שנוצר מייצג את הוויתור על גביית מסים ישירה בתרחיש של העלאת הפטור."
@@ -216,8 +216,8 @@ export default function DashboardClient({
                                         </text>
                                     );
                                 }}
-                                outerRadius={120}
-                                innerRadius={40}
+                                outerRadius="78%"
+                                innerRadius="48%"
                                 dataKey="value"
                                 stroke="none"
                             >
