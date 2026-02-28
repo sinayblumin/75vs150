@@ -11,7 +11,7 @@ export function CategoryImpactCard() {
         <ChartCard
             title="אילו סוגי מוצרים מושפעים יותר?"
             description="חלוקה סינתטית של הטווח 75$-150$ לפי קטגוריות מוצר."
-            chartClassName="h-72 sm:h-80"
+            chartClassName="h-80 sm:h-96"
             caption={
                 <p className="text-center text-xs text-slate-500">
                     החלוקה לפי סוג מוצר היא הנחת עבודה בלבד, שנועדה להמחיש אילו קטגוריות צפויות להיות מושפעות יותר.
@@ -19,17 +19,17 @@ export function CategoryImpactCard() {
             }
         >
             <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
+                <PieChart margin={{ top: 16, right: 56, left: 56, bottom: 16 }}>
                     <Pie
                         data={categories}
                         dataKey="share"
                         nameKey="label"
                         cx="50%"
                         cy="50%"
-                        outerRadius="76%"
-                        innerRadius="46%"
+                        outerRadius="68%"
+                        innerRadius="44%"
                         stroke="none"
-                        label={({ percent, name }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                        label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                         labelLine={false}
                     >
                         {categories.map((entry, index) => (
@@ -42,6 +42,18 @@ export function CategoryImpactCard() {
                     />
                 </PieChart>
             </ResponsiveContainer>
+            <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+                {categories.map((entry, index) => (
+                    <div key={entry.id} className="flex items-center gap-2">
+                        <span
+                            className="inline-block h-2.5 w-2.5 rounded-full"
+                            style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                        />
+                        <span>{entry.label}</span>
+                        <span className="text-slate-500">({Math.round(entry.share * 100)}%)</span>
+                    </div>
+                ))}
+            </div>
         </ChartCard>
     );
 }
