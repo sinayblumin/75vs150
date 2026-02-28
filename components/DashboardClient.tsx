@@ -51,17 +51,18 @@ function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
     };
 }
 
-function getBehavioral150Overrides() {
+function getBehavioralOverrides() {
     // Behavioral showcase mode:
     // keep total parcels fixed, keep >150 share fixed,
     // and set equal parcel volume in the two exempt-relevant bands.
+    // We also keep a similar average value in both bands to isolate quantity effect.
     const equalShare = (1 - assumptions.share_over_150) / 2;
 
     return {
         share_under_75: equalShare,
         share_75_to_150: equalShare,
         share_over_150: assumptions.share_over_150,
-        avg_value_75_to_150: assumptions.avg_value_75_to_150 * 1.1,
+        avg_value_75_to_150: assumptions.avg_value_under_75,
         substitution_rate: Math.min(0.6, assumptions.substitution_rate + 0.08),
     };
 }
@@ -85,14 +86,25 @@ export default function DashboardClient({
     };
 
     // Base scenario values (computed once from model results).
-    const totals75 = getScenarioTotals(compareData.baseline);
+    const baseline75Static = compareData.baseline;
     const proposed150Static = compareData.proposed;
-    const proposed150Behavioral = calculateScenario(150, getBehavioral150Overrides());
+    const behavioralOverrides = getBehavioralOverrides();
+    const baseline75Behavioral = calculateScenario(75, behavioralOverrides);
+    const proposed150Behavioral = calculateScenario(150, behavioralOverrides);
+    const noExemptionStatic = calculateScenario(0);
+    const noExemptionBehavioral = calculateScenario(0, behavioralOverrides);
+
+    const activeBaseline75 = behaviorMode === "behavioral" ? baseline75Behavioral : baseline75Static;
     const activeProposed150 = behaviorMode === "behavioral" ? proposed150Behavioral : proposed150Static;
+    const activeNoExemption = behaviorMode === "behavioral" ? noExemptionBehavioral : noExemptionStatic;
+
+    const totals75 = getScenarioTotals(activeBaseline75);
     const totals150 = getScenarioTotals(activeProposed150);
+    const totals75Static = getScenarioTotals(baseline75Static);
+    const totals75Behavioral = getScenarioTotals(baseline75Behavioral);
     const totals150Static = getScenarioTotals(proposed150Static);
     const totals150Behavioral = getScenarioTotals(proposed150Behavioral);
-    const totalsNoExemption = getScenarioTotals(calculateScenario(0));
+    const totalsNoExemption = getScenarioTotals(activeNoExemption);
 
     // KPI logic for selected scenario.
     const vatCollectedIls = activeScenario === 75 ? totals75.totalVat : totals150.totalVat;
@@ -116,13 +128,13 @@ export default function DashboardClient({
     const stateDeltaIls = state150Ils - state75Ils;
     const businessDeltaIls = business150Ils - business75Ils;
 
-    const staticVatDelta = totals150Static.totalVat - totals75.totalVat;
-    const behavioralVatDelta = totals150Behavioral.totalVat - totals75.totalVat;
-    const staticConsumerDelta = totals75.totalVat - totals150Static.totalVat;
-    const behavioralConsumerDelta = totals75.totalVat - totals150Behavioral.totalVat;
-    const staticBusinessDelta = totals150Static.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue;
+    const staticVatDelta = totals150Static.totalVat - totals75Static.totalVat;
+    const behavioralVatDelta = totals150Behavioral.totalVat - totals75Behavioral.totalVat;
+    const staticConsumerDelta = totals75Static.totalVat - totals150Static.totalVat;
+    const behavioralConsumerDelta = totals75Behavioral.totalVat - totals150Behavioral.totalVat;
+    const staticBusinessDelta = totals150Static.totalLocalBusinessRevenue - totals75Static.totalLocalBusinessRevenue;
     const behavioralBusinessDelta =
-        totals150Behavioral.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue;
+        totals150Behavioral.totalLocalBusinessRevenue - totals75Behavioral.totalLocalBusinessRevenue;
 
     return (
         <div className="space-y-10 animate-in fade-in duration-500">
@@ -188,8 +200,8 @@ export default function DashboardClient({
                     </button>
                 </div>
                 <p className="text-xs text-slate-500">
-                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה בין רצועת עד 75$ לרצועת 75$-150$
-                    (תוך שמירה על אותו סך חבילות שנתי), לצד עלייה קלה בשווי הממוצע ברצועת 75$-150$.
+                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
+                    (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
                 </p>
             </section>
 
