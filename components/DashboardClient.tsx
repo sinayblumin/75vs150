@@ -5,6 +5,7 @@ import { KpiCard } from "./KpiCard";
 import { SectionHeading } from "./SectionHeading";
 import { ScenarioToggle } from "./ScenarioToggle";
 import { StakeholderImpact } from "./StakeholderImpact";
+import { StakeholderComparisonTable } from "./StakeholderComparisonTable";
 import { SensitivityChart } from "./SensitivityChart";
 import { CategoryImpactCard } from "./CategoryImpactCard";
 
@@ -43,7 +44,16 @@ export default function DashboardClient({
 
     const formatMillions = (val: number) => `₪${(val / 1_000_000).toFixed(1)}M`;
 
-    const vatLossIls = compareData.baseline.totals.totalVatIls - compareData.proposed.totals.totalVatIls;
+    const consumer75Ils = 0;
+    const consumer150Ils = compareData.totals.consumerSavingsIls;
+    const state75Ils = compareData.baseline.totals.totalVatIls;
+    const state150Ils = compareData.proposed.totals.totalVatIls;
+    const business75Ils = compareData.baseline.totals.lostDomesticRevenueIls;
+    const business150Ils = compareData.proposed.totals.lostDomesticRevenueIls;
+
+    const consumerDeltaIls = consumer150Ils - consumer75Ils;
+    const stateDeltaIls = state150Ils - state75Ils;
+    const businessDeltaIls = business150Ils - business75Ils;
 
     return (
         <div className="space-y-12 animate-in fade-in duration-500">
@@ -118,15 +128,19 @@ export default function DashboardClient({
             </section>
 
             <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
-                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-sm text-slate-600 leading-relaxed">
-                    הפירוק המפורט לפי רצועות מחיר הוסר במכוון כדי לשמור על מסר נקי וברור.
-                    ההשוואה המרכזית בדשבורד מתמקדת כעת בסך ההשפעה על בעלי העניין: צרכנים, מדינה ועסקים מקומיים.
-                </div>
-
                 <StakeholderImpact
-                    consumerSavingsIls={compareData.totals.consumerSavingsIls}
-                    vatLossIls={vatLossIls}
-                    shiftedRevenueIls={compareData.proposed.totals.lostDomesticRevenueIls}
+                    consumerDeltaIls={consumerDeltaIls}
+                    stateDeltaIls={stateDeltaIls}
+                    localBusinessDeltaIls={businessDeltaIls}
+                />
+
+                <StakeholderComparisonTable
+                    consumer75Ils={consumer75Ils}
+                    consumer150Ils={consumer150Ils}
+                    state75Ils={state75Ils}
+                    state150Ils={state150Ils}
+                    business75Ils={business75Ils}
+                    business150Ils={business150Ils}
                 />
             </section>
 
