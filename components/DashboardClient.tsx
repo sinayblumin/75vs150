@@ -76,6 +76,8 @@ export default function DashboardClient({
 }) {
     const [activeScenario, setActiveScenario] = useState<75 | 150>(75);
     const [behaviorMode, setBehaviorMode] = useState<BehaviorMode>("static");
+    const isBehavioralRelevant = activeScenario === 150;
+    const effectiveBehaviorMode: BehaviorMode = isBehavioralRelevant ? behaviorMode : "static";
 
     const formatMillions = (val: number) => `₪${(val / 1_000_000).toFixed(1)}M`;
     const formatSignedMillions = (val: number) => {
@@ -94,9 +96,9 @@ export default function DashboardClient({
     const noExemptionStatic = calculateScenario(0);
     const noExemptionBehavioral = calculateScenario(0, behavioralOverrides);
 
-    const activeBaseline75 = behaviorMode === "behavioral" ? baseline75Behavioral : baseline75Static;
-    const activeProposed150 = behaviorMode === "behavioral" ? proposed150Behavioral : proposed150Static;
-    const activeNoExemption = behaviorMode === "behavioral" ? noExemptionBehavioral : noExemptionStatic;
+    const activeBaseline75 = effectiveBehaviorMode === "behavioral" ? baseline75Behavioral : baseline75Static;
+    const activeProposed150 = effectiveBehaviorMode === "behavioral" ? proposed150Behavioral : proposed150Static;
+    const activeNoExemption = effectiveBehaviorMode === "behavioral" ? noExemptionBehavioral : noExemptionStatic;
 
     const totals75 = getScenarioTotals(activeBaseline75);
     const totals150 = getScenarioTotals(activeProposed150);
@@ -221,60 +223,64 @@ export default function DashboardClient({
                 </p>
             </section>
 
-            <section className="mx-auto max-w-3xl space-y-3 text-center">
-                <div className="flex justify-center">
-                    <div className="inline-flex w-full flex-wrap justify-center gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm sm:w-auto">
-                        <button
-                            type="button"
-                            onClick={() => setBehaviorMode("static")}
-                            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                                behaviorMode === "static"
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                            }`}
-                        >
-                            ללא שינוי התנהגותי
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setBehaviorMode("behavioral")}
-                            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                                behaviorMode === "behavioral"
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                            }`}
-                        >
-                            עם שינוי התנהגותי
-                        </button>
+            {isBehavioralRelevant ? (
+                <section className="mx-auto max-w-3xl space-y-3 text-center">
+                    <div className="flex justify-center">
+                        <div className="inline-flex w-full flex-wrap justify-center gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm sm:w-auto">
+                            <button
+                                type="button"
+                                onClick={() => setBehaviorMode("static")}
+                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                                    behaviorMode === "static"
+                                        ? "bg-blue-600 text-white"
+                                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                }`}
+                            >
+                                ללא שינוי התנהגותי
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setBehaviorMode("behavioral")}
+                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                                    behaviorMode === "behavioral"
+                                        ? "bg-blue-600 text-white"
+                                        : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                                }`}
+                            >
+                                עם שינוי התנהגותי
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <p className="text-center text-xs leading-relaxed text-slate-500">
-                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
-                    (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
-                    {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150$ הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75$.` : ""}
-                </p>
-            </section>
+                    <p className="text-center text-xs leading-relaxed text-slate-500">
+                        במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
+                        (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
+                        {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150$ הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75$.` : ""}
+                    </p>
+                </section>
+            ) : null}
 
-            <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
-                <SectionHeading
-                    title="השוואת הנחות: בלי שינוי התנהגותי מול עם שינוי התנהגותי"
-                    subtitle="השפעת העלאת הפטור מ-75$ ל-150$ תחת שתי הנחות שונות."
-                />
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                    <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
-                        <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
-                        <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(staticVatDelta)}</p>
-                        <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(staticConsumerDelta)}</p>
-                        <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
+            {isBehavioralRelevant ? (
+                <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
+                    <SectionHeading
+                        title="השוואת הנחות: בלי שינוי התנהגותי מול עם שינוי התנהגותי"
+                        subtitle="השפעת העלאת הפטור מ-75$ ל-150$ תחת שתי הנחות שונות."
+                    />
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                            <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
+                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(staticVatDelta)}</p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(staticConsumerDelta)}</p>
+                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
+                        </div>
+                        <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                            <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (כמות שווה בין הרצועות)</h4>
+                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(behavioralConsumerDelta)}</p>
+                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
+                        </div>
                     </div>
-                    <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
-                        <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (כמות שווה בין הרצועות)</h4>
-                        <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
-                        <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(behavioralConsumerDelta)}</p>
-                        <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
-                    </div>
-                </div>
-            </section>
+                </section>
+            ) : null}
 
             <section className="grid grid-cols-1 items-stretch gap-6 pt-2 lg:grid-cols-2 lg:gap-8">
                 <StakeholderImpact

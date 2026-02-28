@@ -42,14 +42,14 @@ export function CategoryImpactCard() {
                     />
                 </PieChart>
             </ResponsiveContainer>
-            <div className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-slate-600 sm:grid-cols-2">
+            <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-2 text-xs text-slate-600 lg:grid-cols-4">
                 {categories.map((entry, index) => (
-                    <div key={entry.id} className="flex items-center gap-2">
+                    <div key={entry.id} className="flex min-w-0 items-center justify-center gap-2">
                         <span
                             className="inline-block h-2.5 w-2.5 rounded-full"
                             style={{ backgroundColor: COLORS[index % COLORS.length] }}
                         />
-                        <span>{entry.label}</span>
+                        <span className="leading-none whitespace-nowrap">{entry.label}</span>
                         <span className="text-slate-500">({Math.round(entry.share * 100)}%)</span>
                     </div>
                 ))}

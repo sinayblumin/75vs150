@@ -6,10 +6,10 @@ type ScenarioToggleProps = {
 export function ScenarioToggle({ activeScenario, onScenarioChange }: ScenarioToggleProps) {
     return (
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-6">
-            <p className="mb-4 text-center text-sm font-medium text-slate-800 sm:text-base md:text-right">
-                בחרו תרחיש להשוואה:
-            </p>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex flex-col items-center gap-3 md:flex-row md:items-center md:justify-between md:gap-4">
+                <p className="text-center text-sm font-medium text-slate-800 sm:text-base md:text-right">
+                    בחרו תרחיש להשוואה:
+                </p>
                 <div className="inline-flex w-full max-w-2xl flex-col gap-1 overflow-hidden rounded-xl bg-slate-200/60 p-1 shadow-inner sm:w-auto sm:flex-row sm:gap-0">
                     <button
                         onClick={() => onScenarioChange(75)}
