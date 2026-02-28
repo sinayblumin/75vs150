@@ -48,8 +48,9 @@ export default function DashboardClient({
     const consumer150Ils = compareData.totals.consumerSavingsIls;
     const state75Ils = compareData.baseline.totals.totalVatIls;
     const state150Ils = compareData.proposed.totals.totalVatIls;
-    const business75Ils = compareData.baseline.totals.lostDomesticRevenueIls;
-    const business150Ils = compareData.proposed.totals.lostDomesticRevenueIls;
+    // Business impact is a loss, so we represent it as signed negative values in comparison views.
+    const business75Ils = -compareData.baseline.totals.lostDomesticRevenueIls;
+    const business150Ils = -compareData.proposed.totals.lostDomesticRevenueIls;
 
     const consumerDeltaIls = consumer150Ils - consumer75Ils;
     const stateDeltaIls = state150Ils - state75Ils;

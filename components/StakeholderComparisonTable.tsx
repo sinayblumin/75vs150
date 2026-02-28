@@ -13,16 +13,35 @@ function formatMillions(value: number) {
     return `${(value / 1_000_000).toFixed(1)}M ₪`;
 }
 
-function DeltaCell({ value }: { value: number }) {
-    const isPositive = value >= 0;
+type DeltaMeta = {
+    delta: number;
+    isPositive: boolean;
+    isNegative: boolean;
+};
+
+function buildDelta(value75: number, value150: number): DeltaMeta {
+    const delta = value150 - value75;
+    return {
+        delta,
+        isPositive: delta > 0,
+        isNegative: delta < 0,
+    };
+}
+
+function DeltaCell({ delta, isPositive, isNegative }: DeltaMeta) {
     const badgeClass = isPositive
         ? "bg-green-50 text-green-700 border-green-200"
-        : "bg-red-50 text-red-700 border-red-200";
+        : isNegative
+            ? "bg-red-50 text-red-700 border-red-200"
+            : "bg-slate-50 text-slate-600 border-slate-200";
+
+    const sign = isPositive ? "+" : isNegative ? "-" : "";
+    const absValue = Math.abs(delta);
 
     return (
         <span className={`inline-flex rounded-lg border px-2 py-1 text-xs font-semibold ${badgeClass}`}>
-            {isPositive ? "+" : ""}
-            {formatMillions(value)}
+            {sign}
+            {formatMillions(absValue)}
         </span>
     );
 }
@@ -40,21 +59,21 @@ export function StakeholderComparisonTable({
             stakeholder: "צרכנים",
             s75: consumer75Ils,
             s150: consumer150Ils,
-            delta: consumer150Ils - consumer75Ils,
         },
         {
             stakeholder: "מדינה",
             s75: state75Ils,
             s150: state150Ils,
-            delta: state150Ils - state75Ils,
         },
         {
             stakeholder: "עסקים מקומיים",
             s75: business75Ils,
             s150: business150Ils,
-            delta: business150Ils - business75Ils,
         },
-    ];
+    ].map((row) => ({
+        ...row,
+        ...buildDelta(row.s75, row.s150),
+    }));
 
     return (
         <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
@@ -76,7 +95,7 @@ export function StakeholderComparisonTable({
                                 <td className="px-4 py-3 text-slate-700 font-mono">{formatMillions(row.s75)}</td>
                                 <td className="px-4 py-3 text-slate-700 font-mono">{formatMillions(row.s150)}</td>
                                 <td className="px-4 py-3">
-                                    <DeltaCell value={row.delta} />
+                                    <DeltaCell delta={row.delta} isPositive={row.isPositive} isNegative={row.isNegative} />
                                 </td>
                             </tr>
                         ))}
