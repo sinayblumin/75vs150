@@ -137,35 +137,35 @@ export default function DashboardClient({
         totals150Behavioral.totalLocalBusinessRevenue - totals75Behavioral.totalLocalBusinessRevenue;
 
     return (
-        <div className="space-y-10 animate-in fade-in duration-500">
-            <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 p-8 shadow-sm lg:p-10">
+        <div className="animate-in fade-in duration-500 space-y-8 md:space-y-10">
+            <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 p-5 shadow-sm sm:p-7 lg:p-10">
                 <div className="pointer-events-none absolute -left-16 -top-16 h-44 w-44 rounded-full bg-blue-100/60 blur-2xl" />
                 <div className="pointer-events-none absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-emerald-100/60 blur-2xl" />
-                <div className="relative">
+                <div className="relative mx-auto max-w-5xl text-center lg:text-right">
                     <span className="mb-4 inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600">
                         דשבורד תרחישים | יבוא אישי ומע״מ
                     </span>
-                <h1 className="text-3xl md:text-4xl lg:text-4xl font-heading font-bold mb-6 text-slate-900 leading-tight">
-                    האם העלאת פטור המע"מ על יבוא אישי מ-75$ ל-150$ טובה לציבור הישראלי?
-                </h1>
-                <div className="text-slate-600 space-y-4 max-w-4xl text-lg leading-relaxed">
-                    <p>
-                        האתר מציג מודל נתונים שקוף שבוחן מה יקרה אם תקרת הפטור ממע"מ על חבילות מחו"ל תעלה ל-150 דולר.
-                    </p>
-                    <p>
-                        המטרה היא להראות בצורה כמותית את הוויתורים: כמה הציבור חוסך, כמה המדינה מפסידה במסים,
-                        ומה עשוי להיות האפקט על עסקים מקומיים.
-                    </p>
-                </div>
+                    <h1 className="mb-4 text-2xl font-heading font-bold leading-tight text-slate-900 sm:text-3xl lg:text-4xl">
+                        האם העלאת פטור המע"מ על יבוא אישי מ-75$ ל-150$ טובה לציבור הישראלי?
+                    </h1>
+                    <div className="mx-auto max-w-4xl space-y-3 text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0">
+                        <p>
+                            האתר מציג מודל נתונים שקוף שבוחן מה יקרה אם תקרת הפטור ממע"מ על חבילות מחו"ל תעלה ל-150 דולר.
+                        </p>
+                        <p>
+                            המטרה היא להראות בצורה כמותית את הוויתורים: כמה הציבור חוסך, כמה המדינה מפסידה במסים,
+                            ומה עשוי להיות האפקט על עסקים מקומיים.
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            <section className="rounded-2xl border border-blue-100 bg-blue-50/70 p-6">
+            <section className="rounded-2xl border border-blue-100 bg-blue-50/70 p-5 sm:p-6">
                 <h3 className="font-bold text-blue-900 mb-3">איך לקרוא את הדשבורד?</h3>
-                <ul className="grid grid-cols-1 gap-2 text-sm text-blue-800 md:grid-cols-3 md:text-base">
-                    <li>1. בחרו למעלה את התרחיש - פטור עד 75$ או פטור עד 150$.</li>
-                    <li>2. הסתכלו על הקלפים כדי לראות מי מרוויח ומי מפסיד בכל תרחיש.</li>
-                    <li>3. גללו למטה כדי להבין את ההנחות, הרגישות שלהן ואת מקורות הנתונים.</li>
+                <ul className="grid grid-cols-1 gap-3 text-sm text-blue-800 md:grid-cols-3 md:text-base">
+                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">1. בחרו למעלה את התרחיש - פטור עד 75$ או פטור עד 150$.</li>
+                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">2. הסתכלו על הקלפים כדי לראות מי מרוויח ומי מפסיד בכל תרחיש.</li>
+                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">3. גללו למטה כדי להבין את ההנחות, הרגישות שלהן ואת מקורות הנתונים.</li>
                 </ul>
             </section>
 
@@ -175,38 +175,10 @@ export default function DashboardClient({
                     subtitle="בחרו תקרת פטור וראו כיצד משתנים גביית המע״מ, החיסכון לצרכנים והחשיפה של עסקים מקומיים."
                 />
                 <ScenarioToggle activeScenario={activeScenario} onScenarioChange={setActiveScenario} />
-                <div className="inline-flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
-                    <button
-                        type="button"
-                        onClick={() => setBehaviorMode("static")}
-                        className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                            behaviorMode === "static"
-                                ? "bg-blue-600 text-white"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                        }`}
-                    >
-                        ללא שינוי התנהגותי
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => setBehaviorMode("behavioral")}
-                        className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                            behaviorMode === "behavioral"
-                                ? "bg-blue-600 text-white"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                        }`}
-                    >
-                        עם שינוי התנהגותי
-                    </button>
-                </div>
-                <p className="text-xs text-slate-500">
-                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
-                    (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
-                </p>
             </section>
 
             <section className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
                     <KpiCard
                         title='מע"מ שנגבה ע"י המדינה'
                         value={formatMillions(vatCollectedIls)}
@@ -228,7 +200,7 @@ export default function DashboardClient({
                     />
                 </div>
 
-                <div className="bg-slate-800 text-slate-200 p-4 rounded-xl text-center text-sm md:text-base shadow-inner">
+                <div className="rounded-xl bg-slate-800 p-4 text-center text-sm text-slate-200 shadow-inner md:text-base">
                     {activeScenario === 75 ? (
                         <p>
                             בתרחיש הנוכחי (פטור עד 75$), המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
@@ -241,12 +213,45 @@ export default function DashboardClient({
                         </p>
                     )}
                 </div>
-                <p className="text-xs text-slate-500 text-center">
+                <p className="text-center text-xs text-slate-500">
                     הבהרה: בגרסת המודל הנוכחית, חיסכון הצרכנים מחושב כרכיב מע״מ בלבד וביחס לתרחיש ללא פטור ממע״מ.
                 </p>
             </section>
 
-            <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
+            <section className="mx-auto max-w-3xl space-y-3 text-center">
+                <div className="flex justify-center">
+                    <div className="inline-flex w-full flex-wrap justify-center gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm sm:w-auto">
+                        <button
+                            type="button"
+                            onClick={() => setBehaviorMode("static")}
+                            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                                behaviorMode === "static"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                            }`}
+                        >
+                            ללא שינוי התנהגותי
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => setBehaviorMode("behavioral")}
+                            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                                behaviorMode === "behavioral"
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                            }`}
+                        >
+                            עם שינוי התנהגותי
+                        </button>
+                    </div>
+                </div>
+                <p className="text-center text-xs leading-relaxed text-slate-500">
+                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
+                    (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
+                </p>
+            </section>
+
+            <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
                 <SectionHeading
                     title="השוואת הנחות: בלי שינוי התנהגותי מול עם שינוי התנהגותי"
                     subtitle="השפעת העלאת הפטור מ-75$ ל-150$ תחת שתי הנחות שונות."
@@ -267,7 +272,7 @@ export default function DashboardClient({
                 </div>
             </section>
 
-            <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
+            <section className="grid grid-cols-1 items-stretch gap-6 pt-2 lg:grid-cols-2 lg:gap-8">
                 <StakeholderImpact
                     consumerDeltaIls={consumerDeltaIls}
                     stateDeltaIls={stateDeltaIls}
@@ -286,14 +291,14 @@ export default function DashboardClient({
 
             <section className="space-y-6">
                 <SectionHeading title="רגישות להנחות המודל" subtitle="בדיקת השפעת שינוי שיעור התחליפיות על המחזור שעובר מעסקים בישראל לקניות מחו״ל." />
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
                     <SensitivityChart />
                     <CategoryImpactCard />
                 </div>
             </section>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-                <section className="bg-slate-50 border border-slate-200 p-8 rounded-2xl">
+            <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+                <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
                     <h3 className="text-2xl font-heading font-bold mb-4 text-slate-800">מה אפשר ללמוד מכאן?</h3>
                     <p className="text-slate-600 mb-3 leading-relaxed">
                         הממצאים מדגישים את הדילמה: מצד אחד הרחבת הפטור מקלה על חלק מהצרכנים, ומצד שני מצמצמת הכנסות מדינה ומעבירה ביקוש החוצה.
@@ -303,7 +308,7 @@ export default function DashboardClient({
                     </p>
                 </section>
 
-                <section className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 p-8 rounded-2xl flex flex-col justify-center items-center text-center">
+                <section className="flex flex-col items-center justify-center rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 to-indigo-50 p-6 text-center sm:p-8">
                     <h3 className="text-2xl font-heading font-bold mb-3 text-blue-900">מעוניינים לצלול לפרטים?</h3>
                     <p className="text-blue-800 mb-6 leading-relaxed max-w-sm">
                         ראו פירוט מלא של המתודולוגיה, מקורות המידע וההנחות המדויקות שמניעות את המודל.

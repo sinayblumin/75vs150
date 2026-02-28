@@ -17,16 +17,16 @@ export function ChartCard({
     className?: string;
 }) {
     return (
-        <div className={cn("bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex h-full flex-col [&_.recharts-responsive-container]:!h-64 sm:[&_.recharts-responsive-container]:!h-72 lg:[&_.recharts-responsive-container]:!h-80", className)}>
-            <div className="mb-5">
-                <h3 className="text-xl font-heading font-semibold text-slate-800 mb-2">
+        <div className={cn("flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 [&_.recharts-responsive-container]:!h-60 sm:[&_.recharts-responsive-container]:!h-72 lg:[&_.recharts-responsive-container]:!h-80", className)}>
+            <div className="mb-4 sm:mb-5">
+                <h3 className="mb-2 text-lg font-heading font-semibold text-slate-800 sm:text-xl">
                     {title}
                 </h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
+                <p className="text-sm leading-relaxed text-slate-500">
                     {description}
                 </p>
             </div>
-            <div className={cn("w-full mt-auto", chartClassName)} dir="ltr">
+            <div className={cn("mt-auto w-full", chartClassName)} dir="ltr">
                 {children}
             </div>
             {caption ? <div className="mt-3">{caption}</div> : null}

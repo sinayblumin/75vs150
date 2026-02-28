@@ -11,7 +11,7 @@ export function CategoryImpactCard() {
         <ChartCard
             title="אילו סוגי מוצרים מושפעים יותר?"
             description="חלוקה סינתטית של הטווח 75$-150$ לפי קטגוריות מוצר."
-            chartClassName="h-80 sm:h-96"
+            chartClassName="h-72 sm:h-80"
             caption={
                 <p className="text-center text-xs text-slate-500">
                     החלוקה לפי סוג מוצר היא הנחת עבודה בלבד, שנועדה להמחיש אילו קטגוריות צפויות להיות מושפעות יותר.
@@ -19,14 +19,14 @@ export function CategoryImpactCard() {
             }
         >
             <ResponsiveContainer width="100%" height="100%">
-                <PieChart margin={{ top: 16, right: 56, left: 56, bottom: 16 }}>
+                <PieChart margin={{ top: 8, right: 24, left: 24, bottom: 8 }}>
                     <Pie
                         data={categories}
                         dataKey="share"
                         nameKey="label"
                         cx="50%"
                         cy="50%"
-                        outerRadius="68%"
+                        outerRadius="60%"
                         innerRadius="44%"
                         stroke="none"
                         label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
@@ -42,7 +42,7 @@ export function CategoryImpactCard() {
                     />
                 </PieChart>
             </ResponsiveContainer>
-            <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+            <div className="mt-2 grid grid-cols-1 gap-x-4 gap-y-1 text-xs text-slate-600 sm:grid-cols-2">
                 {categories.map((entry, index) => (
                     <div key={entry.id} className="flex items-center gap-2">
                         <span

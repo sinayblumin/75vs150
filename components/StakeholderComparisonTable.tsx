@@ -76,10 +76,10 @@ export function StakeholderComparisonTable({
     }));
 
     return (
-        <section className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-            <h3 className="text-lg md:text-xl font-heading font-semibold text-slate-900 mb-4">השוואת ההשפעה לפי בעלי עניין</h3>
-            <div className="overflow-x-auto border border-slate-200 rounded-xl">
-                <table className="min-w-full text-sm text-right">
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+            <h3 className="mb-4 text-lg font-heading font-semibold text-slate-900 md:text-xl">השוואת ההשפעה לפי בעלי עניין</h3>
+            <div className="overflow-x-auto rounded-xl border border-slate-200">
+                <table className="min-w-[620px] w-full text-right text-xs sm:text-sm">
                     <thead className="bg-slate-50 text-slate-700">
                         <tr>
                             <th className="px-4 py-3 font-semibold">בעל עניין</th>

@@ -5,15 +5,15 @@ type ScenarioToggleProps = {
 
 export function ScenarioToggle({ activeScenario, onScenarioChange }: ScenarioToggleProps) {
     return (
-        <div className="bg-slate-50 p-6 border border-slate-200 rounded-2xl">
-            <p className="text-slate-800 mb-4 font-medium text-center md:text-right">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-6">
+            <p className="mb-4 text-center text-sm font-medium text-slate-800 sm:text-base md:text-right">
                 בחרו תרחיש להשוואה:
             </p>
             <div className="flex justify-center md:justify-start">
-                <div className="inline-flex bg-slate-200/60 rounded-xl p-1 shadow-inner overflow-hidden flex-col sm:flex-row gap-1 sm:gap-0">
+                <div className="inline-flex w-full max-w-2xl flex-col gap-1 overflow-hidden rounded-xl bg-slate-200/60 p-1 shadow-inner sm:w-auto sm:flex-row sm:gap-0">
                     <button
                         onClick={() => onScenarioChange(75)}
-                        className={`px-6 py-3 md:px-8 md:py-4 rounded-lg font-bold transition-all duration-300 text-sm md:text-base outline-none ring-0 border-0 ${activeScenario === 75
+                        className={`rounded-lg border-0 px-4 py-3 text-sm font-bold outline-none ring-0 transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${activeScenario === 75
                                 ? 'bg-white shadow-sm text-blue-600 ring-2 ring-blue-500/20'
                                 : 'text-slate-500 hover:text-slate-800 hover:bg-white/50'
                             }`}
@@ -23,7 +23,7 @@ export function ScenarioToggle({ activeScenario, onScenarioChange }: ScenarioTog
                     </button>
                     <button
                         onClick={() => onScenarioChange(150)}
-                        className={`px-6 py-3 md:px-8 md:py-4 rounded-lg font-bold transition-all duration-300 text-sm md:text-base outline-none ring-0 border-0 flex items-center justify-center gap-2 ${activeScenario === 150
+                        className={`flex items-center justify-center gap-2 rounded-lg border-0 px-4 py-3 text-sm font-bold outline-none ring-0 transition-all duration-300 sm:px-8 sm:py-4 sm:text-base ${activeScenario === 150
                                 ? 'bg-white shadow-sm text-blue-600 ring-2 ring-blue-500/20'
                                 : 'text-slate-500 hover:text-slate-800 hover:bg-white/50'
                             }`}

@@ -15,13 +15,13 @@ export function KpiCard({
     isPositive?: boolean;
 }) {
     return (
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 text-center relative overflow-hidden flex flex-col items-center justify-center transition-all hover:shadow-md">
-            <div className="flex items-center justify-center gap-2 mb-3">
-                <h3 className="text-slate-600 font-medium text-sm md:text-base">{title}</h3>
+        <div className="relative flex min-h-[154px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-white px-4 py-5 text-center shadow-sm transition-all hover:shadow-md sm:min-h-[172px] sm:px-6 sm:py-6">
+            <div className="mb-3 flex items-center justify-center gap-2">
+                <h3 className="text-sm font-medium text-slate-600 sm:text-base">{title}</h3>
                 <TooltipProvider delayDuration={300}>
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <button className="text-slate-400 hover:text-slate-600 focus:outline-none transition-colors">
+                            <button className="text-slate-400 transition-colors hover:text-slate-600 focus:outline-none">
                                 <HelpCircle className="w-4 h-4" />
                                 <span className="sr-only">מידע נוסף</span>
                             </button>
@@ -33,7 +33,7 @@ export function KpiCard({
                 </TooltipProvider>
             </div>
 
-            <div className={`text-3xl md:text-4xl font-semibold ${valueColorClass} transition-colors duration-300`}>
+            <div className={`text-3xl font-semibold tracking-tight sm:text-4xl ${valueColorClass} transition-colors duration-300`}>
                 {value}
             </div>
 
