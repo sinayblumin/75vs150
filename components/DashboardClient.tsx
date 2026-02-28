@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 import { KpiCard } from "./KpiCard";
 import { SectionHeading } from "./SectionHeading";
-import { ChartCard } from "./ChartCard";
 import { ScenarioToggle } from "./ScenarioToggle";
 import { StakeholderImpact } from "./StakeholderImpact";
 import { SensitivityChart } from "./SensitivityChart";
@@ -33,25 +31,6 @@ export type CompareResult = {
     };
 };
 
-type VatDeltaBand = {
-    name: string;
-    deltaVat: number;
-};
-
-function buildVatDeltaByBand(compareData: CompareResult): VatDeltaBand[] {
-    const labels = ["עד 75 $", "75–150 $", "150 $ ומעלה"];
-
-    return labels.map((name, index) => {
-        const vatIn75Scenario = compareData.baseline.bands[index]?.vatCollectedIls ?? 0;
-        const vatIn150Scenario = compareData.proposed.bands[index]?.vatCollectedIls ?? 0;
-
-        return {
-            name,
-            deltaVat: vatIn150Scenario - vatIn75Scenario,
-        };
-    });
-}
-
 export default function DashboardClient({
     compareData,
     oecdContext: _oecdContext,
@@ -63,16 +42,13 @@ export default function DashboardClient({
     const currentScenario = activeScenario === 75 ? compareData.baseline : compareData.proposed;
 
     const formatMillions = (val: number) => `₪${(val / 1_000_000).toFixed(1)}M`;
-    const formatILS = (val: number) => `₪${val.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
-
-    const vatDeltaByBand = buildVatDeltaByBand(compareData);
 
     const vatLossIls = compareData.baseline.totals.totalVatIls - compareData.proposed.totals.totalVatIls;
 
     return (
         <div className="space-y-12 animate-in fade-in duration-500">
             <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:p-10">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-black mb-6 text-slate-900 leading-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-4xl font-heading font-bold mb-6 text-slate-900 leading-tight">
                     האם העלאת פטור המע"מ על יבוא אישי מ-75$ ל-150$ טובה לציבור הישראלי?
                 </h1>
                 <div className="text-slate-600 space-y-4 max-w-4xl text-lg leading-relaxed">
@@ -142,47 +118,10 @@ export default function DashboardClient({
             </section>
 
             <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
-                <ChartCard
-                    title='התפלגות גביית המע"מ (לפי שווי חבילה)'
-                    description="הגרף מציג באילו רצועות מחיר העלאת תקרת הפטור ל-150$ משנה בפועל את גביית המע״מ."
-                    caption={<p className="text-center text-xs text-slate-400">ערכים שליליים מסמנים ירידה בגבייה.</p>}
-                >
-                    <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={vatDeltaByBand} margin={{ top: 20, right: 10, left: 10, bottom: 20 }}>
-                            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                            <ReferenceLine y={0} stroke="#94a3b8" strokeWidth={1.5} />
-                            <XAxis
-                                dataKey="name"
-                                tick={{ fill: "#64748b", fontSize: 12, fontWeight: 500 }}
-                                axisLine={false}
-                                tickLine={false}
-                                dy={10}
-                            />
-                            <YAxis
-                                tickFormatter={(val) => `${(val / 1_000_000).toFixed(0)}M`}
-                                tick={{ fill: "#64748b", fontSize: 12 }}
-                                axisLine={false}
-                                tickLine={false}
-                                label={{ value: 'שינוי בגביית מע״מ (₪)', angle: -90, position: "insideLeft", fill: "#64748b", dx: -4 }}
-                            />
-                            <Tooltip
-                                formatter={(value: number) => [formatILS(value), "שינוי בגביית מע״מ"]}
-                                labelFormatter={(label) => `רצועת שווי: ${label}`}
-                                contentStyle={{ textAlign: "right", direction: "rtl", borderRadius: "12px", border: "1px solid #e2e8f0" }}
-                            />
-                            <Legend
-                                wrapperStyle={{ paddingTop: "20px" }}
-                                iconType="circle"
-                                payload={[{ value: "150$ פחות 75$", type: "circle", color: "#ef4444" }]}
-                            />
-                            <Bar dataKey="deltaVat" name="שינוי נטו" maxBarSize={70}>
-                                {vatDeltaByBand.map((entry) => (
-                                    <Cell key={entry.name} fill={entry.deltaVat < 0 ? "#ef4444" : "#10b981"} />
-                                ))}
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
-                </ChartCard>
+                <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-sm text-slate-600 leading-relaxed">
+                    הפירוק המפורט לפי רצועות מחיר הוסר במכוון כדי לשמור על מסר נקי וברור.
+                    ההשוואה המרכזית בדשבורד מתמקדת כעת בסך ההשפעה על בעלי העניין: צרכנים, מדינה ועסקים מקומיים.
+                </div>
 
                 <StakeholderImpact
                     consumerSavingsIls={compareData.totals.consumerSavingsIls}

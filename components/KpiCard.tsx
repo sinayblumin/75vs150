@@ -33,7 +33,7 @@ export function KpiCard({
                 </TooltipProvider>
             </div>
 
-            <div className={`text-4xl md:text-5xl font-black ${valueColorClass} transition-colors duration-300`}>
+            <div className={`text-3xl md:text-4xl font-semibold ${valueColorClass} transition-colors duration-300`}>
                 {value}
             </div>
 
