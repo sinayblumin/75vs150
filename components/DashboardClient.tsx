@@ -159,6 +159,7 @@ export default function DashboardClient({
                         <p>
                             המטרה היא להראות בצורה כמותית את הוויתורים: כמה הציבור חוסך, כמה המדינה מפסידה במסים,
                             ומה עשוי להיות האפקט על עסקים מקומיים.
+                            כמו כן, האתר מציע אפשרות לבחון את השפעת שינוי התנהגותי על הנתונים במקרה בו צרכנים מכפילים את רכישותיהם בטווח המחירים 75$-150$.
                         </p>
                     </div>
                 </div>
@@ -230,22 +231,20 @@ export default function DashboardClient({
                             <button
                                 type="button"
                                 onClick={() => setBehaviorMode("static")}
-                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                                    behaviorMode === "static"
+                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${behaviorMode === "static"
                                         ? "bg-blue-600 text-white"
                                         : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                                }`}
+                                    }`}
                             >
                                 ללא שינוי התנהגותי
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setBehaviorMode("behavioral")}
-                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
-                                    behaviorMode === "behavioral"
+                                className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${behaviorMode === "behavioral"
                                         ? "bg-blue-600 text-white"
                                         : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                                }`}
+                                    }`}
                             >
                                 עם שינוי התנהגותי
                             </button>
