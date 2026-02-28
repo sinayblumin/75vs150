@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { calculateScenario } from "@/lib/scenarioModel";
+import assumptions from "@/data/assumptions.json";
 import { KpiCard } from "./KpiCard";
 import { SectionHeading } from "./SectionHeading";
 import { ScenarioToggle } from "./ScenarioToggle";
@@ -38,6 +39,8 @@ type ScenarioTotals = {
     totalLocalBusinessRevenue: number;
 };
 
+type BehaviorMode = "static" | "behavioral";
+
 function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
     const totalVat = scenario.bands.reduce((sum, band) => sum + band.vatCollectedIls, 0);
 
@@ -45,6 +48,23 @@ function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
         totalVat,
         // In this model we proxy local-business impact as revenue retained in Israel (negative when shifted abroad).
         totalLocalBusinessRevenue: -scenario.totals.lostDomesticRevenueIls,
+    };
+}
+
+function getBehavioral150Overrides() {
+    const shareShift = 0.04;
+    const nextShareUnder75 = Math.max(0, assumptions.share_under_75 - shareShift);
+    const nextShare75To150 = Math.min(
+        1 - assumptions.share_over_150,
+        assumptions.share_75_to_150 + shareShift
+    );
+
+    return {
+        share_under_75: nextShareUnder75,
+        share_75_to_150: nextShare75To150,
+        share_over_150: assumptions.share_over_150,
+        avg_value_75_to_150: assumptions.avg_value_75_to_150 * 1.1,
+        substitution_rate: Math.min(0.6, assumptions.substitution_rate + 0.08),
     };
 }
 
@@ -56,12 +76,24 @@ export default function DashboardClient({
     oecdContext: unknown;
 }) {
     const [activeScenario, setActiveScenario] = useState<75 | 150>(75);
+    const [behaviorMode, setBehaviorMode] = useState<BehaviorMode>("static");
 
     const formatMillions = (val: number) => `₪${(val / 1_000_000).toFixed(1)}M`;
+    const formatSignedMillions = (val: number) => {
+        const abs = formatMillions(Math.abs(val));
+        if (val > 0) return `+${abs}`;
+        if (val < 0) return `-${abs}`;
+        return abs;
+    };
 
     // Base scenario values (computed once from model results).
     const totals75 = getScenarioTotals(compareData.baseline);
-    const totals150 = getScenarioTotals(compareData.proposed);
+    const proposed150Static = compareData.proposed;
+    const proposed150Behavioral = calculateScenario(150, getBehavioral150Overrides());
+    const activeProposed150 = behaviorMode === "behavioral" ? proposed150Behavioral : proposed150Static;
+    const totals150 = getScenarioTotals(activeProposed150);
+    const totals150Static = getScenarioTotals(proposed150Static);
+    const totals150Behavioral = getScenarioTotals(proposed150Behavioral);
     const totalsNoExemption = getScenarioTotals(calculateScenario(0));
 
     // KPI logic for selected scenario.
@@ -85,6 +117,14 @@ export default function DashboardClient({
     const consumerDeltaIls = consumer150Ils - consumer75Ils;
     const stateDeltaIls = state150Ils - state75Ils;
     const businessDeltaIls = business150Ils - business75Ils;
+
+    const staticVatDelta = totals150Static.totalVat - totals75.totalVat;
+    const behavioralVatDelta = totals150Behavioral.totalVat - totals75.totalVat;
+    const staticConsumerDelta = totals75.totalVat - totals150Static.totalVat;
+    const behavioralConsumerDelta = totals75.totalVat - totals150Behavioral.totalVat;
+    const staticBusinessDelta = totals150Static.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue;
+    const behavioralBusinessDelta =
+        totals150Behavioral.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue;
 
     return (
         <div className="space-y-12 animate-in fade-in duration-500">
@@ -118,6 +158,33 @@ export default function DashboardClient({
                     subtitle="בחרו תקרת פטור וראו כיצד משתנים גביית המע״מ, החיסכון לצרכנים והחשיפה של עסקים מקומיים."
                 />
                 <ScenarioToggle activeScenario={activeScenario} onScenarioChange={setActiveScenario} />
+                <div className="inline-flex gap-2 rounded-xl border border-slate-200 bg-white p-2">
+                    <button
+                        type="button"
+                        onClick={() => setBehaviorMode("static")}
+                        className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                            behaviorMode === "static"
+                                ? "bg-blue-600 text-white"
+                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        }`}
+                    >
+                        ללא שינוי התנהגותי
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => setBehaviorMode("behavioral")}
+                        className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                            behaviorMode === "behavioral"
+                                ? "bg-blue-600 text-white"
+                                : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                        }`}
+                    >
+                        עם שינוי התנהגותי
+                    </button>
+                </div>
+                <p className="text-xs text-slate-500">
+                    במצב "עם שינוי התנהגותי" המודל מניח מעבר חלקי של קניות מרצועת עד 75$ לרצועת 75$-150$ ועלייה קלה בשווי הממוצע.
+                </p>
             </section>
 
             <section className="space-y-4">
@@ -159,6 +226,27 @@ export default function DashboardClient({
                 <p className="text-xs text-slate-500 text-center">
                     הבהרה: בגרסת המודל הנוכחית, חיסכון הצרכנים מחושב כרכיב מע״מ בלבד וביחס לתרחיש ללא פטור ממע״מ.
                 </p>
+            </section>
+
+            <section className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6">
+                <SectionHeading
+                    title="השוואת הנחות: בלי שינוי התנהגותי מול עם שינוי התנהגותי"
+                    subtitle="השפעת העלאת הפטור מ-75$ ל-150$ תחת שתי הנחות שונות."
+                />
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
+                        <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
+                        <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(staticVatDelta)}</p>
+                        <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(staticConsumerDelta)}</p>
+                        <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
+                    </div>
+                    <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                        <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי</h4>
+                        <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
+                        <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(behavioralConsumerDelta)}</p>
+                        <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
+                    </div>
+                </div>
             </section>
 
             <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
