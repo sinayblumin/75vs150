@@ -278,6 +278,15 @@ export default function MethodologyPage() {
                     </li>
                 </ul>
             </section>
+
+            <section className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <SectionHeading title="איך אפשר להשתמש במודל הזה?" />
+                <div className="text-slate-700 leading-relaxed text-sm md:text-base space-y-3">
+                    <p>משרד ממשלתי יכול להזין הנחות אחרות לגבי מספר החבילות והתפלגות הערכים, כדי לבחון תרחישים חלופיים.</p>
+                    <p>ארגוני צרכנים יכולים להשתמש במודל כדי להדגיש את ההשפעה היחסית על קבוצות שונות של משקי בית.</p>
+                    <p>עיתונאים וכלכלנים יכולים לשנות הנחות ולראות במהירות איך זה משנה את גודל הוויתורים בין הצרכנים, המדינה והעסקים.</p>
+                </div>
+            </section>
         </div>
     );
 }
