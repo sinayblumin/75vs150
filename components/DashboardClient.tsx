@@ -52,16 +52,14 @@ function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
 }
 
 function getBehavioral150Overrides() {
-    const shareShift = 0.04;
-    const nextShareUnder75 = Math.max(0, assumptions.share_under_75 - shareShift);
-    const nextShare75To150 = Math.min(
-        1 - assumptions.share_over_150,
-        assumptions.share_75_to_150 + shareShift
-    );
+    // Behavioral showcase mode:
+    // keep total parcels fixed, keep >150 share fixed,
+    // and set equal parcel volume in the two exempt-relevant bands.
+    const equalShare = (1 - assumptions.share_over_150) / 2;
 
     return {
-        share_under_75: nextShareUnder75,
-        share_75_to_150: nextShare75To150,
+        share_under_75: equalShare,
+        share_75_to_150: equalShare,
         share_over_150: assumptions.share_over_150,
         avg_value_75_to_150: assumptions.avg_value_75_to_150 * 1.1,
         substitution_rate: Math.min(0.6, assumptions.substitution_rate + 0.08),
@@ -127,8 +125,14 @@ export default function DashboardClient({
         totals150Behavioral.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue;
 
     return (
-        <div className="space-y-12 animate-in fade-in duration-500">
-            <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:p-10">
+        <div className="space-y-10 animate-in fade-in duration-500">
+            <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-white via-slate-50 to-blue-50 p-8 shadow-sm lg:p-10">
+                <div className="pointer-events-none absolute -left-16 -top-16 h-44 w-44 rounded-full bg-blue-100/60 blur-2xl" />
+                <div className="pointer-events-none absolute -bottom-16 -right-16 h-44 w-44 rounded-full bg-emerald-100/60 blur-2xl" />
+                <div className="relative">
+                    <span className="mb-4 inline-flex items-center rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-xs font-medium text-slate-600">
+                        דשבורד תרחישים | יבוא אישי ומע״מ
+                    </span>
                 <h1 className="text-3xl md:text-4xl lg:text-4xl font-heading font-bold mb-6 text-slate-900 leading-tight">
                     האם העלאת פטור המע"מ על יבוא אישי מ-75$ ל-150$ טובה לציבור הישראלי?
                 </h1>
@@ -141,11 +145,12 @@ export default function DashboardClient({
                         ומה עשוי להיות האפקט על עסקים מקומיים.
                     </p>
                 </div>
+                </div>
             </section>
 
-            <section className="bg-blue-50/50 p-6 rounded-xl border border-blue-100/60">
+            <section className="rounded-2xl border border-blue-100 bg-blue-50/70 p-6">
                 <h3 className="font-bold text-blue-900 mb-3">איך לקרוא את הדשבורד?</h3>
-                <ul className="space-y-2 text-blue-800 text-sm md:text-base">
+                <ul className="grid grid-cols-1 gap-2 text-sm text-blue-800 md:grid-cols-3 md:text-base">
                     <li>1. בחרו למעלה את התרחיש - פטור עד 75$ או פטור עד 150$.</li>
                     <li>2. הסתכלו על הקלפים כדי לראות מי מרוויח ומי מפסיד בכל תרחיש.</li>
                     <li>3. גללו למטה כדי להבין את ההנחות, הרגישות שלהן ואת מקורות הנתונים.</li>
@@ -158,7 +163,7 @@ export default function DashboardClient({
                     subtitle="בחרו תקרת פטור וראו כיצד משתנים גביית המע״מ, החיסכון לצרכנים והחשיפה של עסקים מקומיים."
                 />
                 <ScenarioToggle activeScenario={activeScenario} onScenarioChange={setActiveScenario} />
-                <div className="inline-flex gap-2 rounded-xl border border-slate-200 bg-white p-2">
+                <div className="inline-flex flex-wrap gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
                     <button
                         type="button"
                         onClick={() => setBehaviorMode("static")}
@@ -183,7 +188,8 @@ export default function DashboardClient({
                     </button>
                 </div>
                 <p className="text-xs text-slate-500">
-                    במצב "עם שינוי התנהגותי" המודל מניח מעבר חלקי של קניות מרצועת עד 75$ לרצועת 75$-150$ ועלייה קלה בשווי הממוצע.
+                    במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה בין רצועת עד 75$ לרצועת 75$-150$
+                    (תוך שמירה על אותו סך חבילות שנתי), לצד עלייה קלה בשווי הממוצע ברצועת 75$-150$.
                 </p>
             </section>
 
@@ -241,7 +247,7 @@ export default function DashboardClient({
                         <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
                     </div>
                     <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
-                        <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי</h4>
+                        <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (כמות שווה בין הרצועות)</h4>
                         <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
                         <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75$→150$): {formatSignedMillions(behavioralConsumerDelta)}</p>
                         <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
