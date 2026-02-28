@@ -112,13 +112,15 @@ export default function DashboardClient({
     const consumerSavings75 = totalsNoExemption.totalVat - totals75.totalVat;
     const consumerSavings150 = totalsNoExemption.totalVat - totals150.totalVat;
     const consumerSavingsDelta = totals75.totalVat - totals150.totalVat; // extra savings from 75$ to 150$
+    const consumerSavingsRatio = consumerSavings75 > 0 ? consumerSavings150 / consumerSavings75 : 0;
     const consumerSavingsIls = activeScenario === 75 ? consumerSavings75 : consumerSavings150;
     const businessDelta = totals150.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue; // expected negative
     const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
 
-    // Stakeholder comparison (150$ vs 75$).
-    const consumer75Ils = 0;
-    const consumer150Ils = consumerSavingsDelta;
+    // Stakeholder table values (same KPI definitions for consistency):
+    // consumer rows are savings vs "no exemption" under each scenario.
+    const consumer75Ils = consumerSavings75;
+    const consumer150Ils = consumerSavings150;
     const state75Ils = totals75.totalVat;
     const state150Ils = totals150.totalVat;
     const business75Ils = totals75.totalLocalBusinessRevenue;
@@ -203,13 +205,14 @@ export default function DashboardClient({
                 <div className="rounded-xl bg-slate-800 p-4 text-center text-sm text-slate-200 shadow-inner md:text-base">
                     {activeScenario === 75 ? (
                         <p>
-                            בתרחיש הנוכחי (פטור עד 75$), המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
-                            והצרכנים חוסכים כ-<strong>{formatMillions(consumerSavings75)}</strong> לעומת מצב ללא פטור.
+                            בתרחיש פטור עד 75$, המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
+                            והצרכנים חוסכים כ-<strong>{formatMillions(consumerSavings75)}</strong> לעומת מצב ללא פטור ממע״מ.
                         </p>
                     ) : (
                         <p>
-                            בתרחיש המוצע (פטור עד 150$), גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
-                            וחיסכון הצרכנים ממע״מ מגיע לכ-<strong>{formatMillions(consumerSavings150)}</strong> (תוספת של כ-<strong>{formatMillions(consumerSavingsDelta)}</strong> מול פטור עד 75$).
+                            בתרחיש פטור עד 150$, גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
+                            וחיסכון הצרכנים ממע״מ מגיע לכ-<strong>{formatMillions(consumerSavings150)}</strong> מול מצב ללא פטור
+                            (תוספת של כ-<strong>{formatMillions(consumerSavingsDelta)}</strong> לעומת פטור עד 75$).
                         </p>
                     )}
                 </div>
@@ -248,6 +251,7 @@ export default function DashboardClient({
                 <p className="text-center text-xs leading-relaxed text-slate-500">
                     במצב "עם שינוי התנהגותי" המודל מניח כמות חבילות זהה ושווי ממוצע דומה בין רצועת עד 75$ לרצועת 75$-150$
                     (תוך שמירה על אותו סך חבילות שנתי), כדי להמחיש אפקט כמותי בצורה נקייה.
+                    {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150$ הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75$.` : ""}
                 </p>
             </section>
 
