@@ -31,12 +31,25 @@ export default function RootLayout({
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
                             </span>
                             <h1 className="text-xl md:text-2xl font-heading font-black tracking-tight text-slate-800">
-                                מודל יבוא אישי
+                                <a href="/" className="hover:text-blue-600 transition-colors">
+                                    העלאת פטור המע"מ: 75$ מול 150$
+                                </a>
                             </h1>
                         </div>
-                        <nav className="flex space-x-6 space-x-reverse overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+                        <nav className="flex items-center gap-4 md:gap-6 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
                             <a href="/" className="text-slate-600 hover:text-blue-600 font-semibold text-sm md:text-base whitespace-nowrap transition-colors decoration-2 underline-offset-4 hover:underline">ראשי</a>
                             <a href="/methodology" className="text-slate-600 hover:text-blue-600 font-semibold text-sm md:text-base whitespace-nowrap transition-colors decoration-2 underline-offset-4 hover:underline">מתודולוגיה ומקורות נתונים</a>
+                            <a
+                                href="https://www.linkedin.com/in/sinayblumin/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn"
+                                className="text-slate-600 hover:text-blue-600 transition-colors"
+                            >
+                                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.61 0 4.27 2.38 4.27 5.48v6.26zM5.34 7.43a2.07 2.07 0 110-4.14 2.07 2.07 0 010 4.14zM7.12 20.45H3.56V9h3.56v11.45z" />
+                                </svg>
+                            </a>
                         </nav>
                     </div>
                 </header>
@@ -45,7 +58,17 @@ export default function RootLayout({
                 </main>
                 <footer className="mt-auto py-8 text-center text-xs md:text-sm text-slate-400 border-t border-slate-200/60 bg-white/50">
                     <div className="max-w-6xl mx-auto px-6">
-                        <p>נבנה כפרויקט נתונים על ידי אנליסט BI. כל הזכויות שמורות.</p>
+                        <p>
+                            פרויקט נתונים בקוד פתוח - נבנה ע"י{" "}
+                            <a
+                                href="https://sinayblumin.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="font-semibold text-slate-500 hover:text-blue-600 transition-colors"
+                            >
+                                סיני בלומין
+                            </a>
+                        </p>
                     </div>
                 </footer>
                 <SpeedInsights />
