@@ -40,17 +40,29 @@ export default function DashboardClient({
     oecdContext: unknown;
 }) {
     const [activeScenario, setActiveScenario] = useState<75 | 150>(75);
-    const currentScenario = activeScenario === 75 ? compareData.baseline : compareData.proposed;
 
     const formatMillions = (val: number) => `₪${(val / 1_000_000).toFixed(1)}M`;
 
+    // Base scenario values (computed once from model results).
+    const totalVat75 = compareData.baseline.totals.totalVatIls;
+    const totalVat150 = compareData.proposed.totals.totalVatIls;
+    const localBusinessRev75 = 0;
+    const localBusinessRev150 = -compareData.proposed.totals.lostDomesticRevenueIls;
+
+    // KPI logic for selected scenario.
+    const vatCollectedIls = activeScenario === 75 ? totalVat75 : totalVat150;
+    const consumerSavingsDelta = totalVat75 - totalVat150;
+    const consumerSavingsIls = activeScenario === 75 ? 0 : consumerSavingsDelta;
+    const businessDelta = localBusinessRev150 - localBusinessRev75; // negative in 150$
+    const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
+
+    // Stakeholder comparison (150$ vs 75$).
     const consumer75Ils = 0;
-    const consumer150Ils = compareData.totals.consumerSavingsIls;
-    const state75Ils = compareData.baseline.totals.totalVatIls;
-    const state150Ils = compareData.proposed.totals.totalVatIls;
-    // Business impact is a loss, so we represent it as signed negative values in comparison views.
-    const business75Ils = -compareData.baseline.totals.lostDomesticRevenueIls;
-    const business150Ils = -compareData.proposed.totals.lostDomesticRevenueIls;
+    const consumer150Ils = consumerSavingsDelta;
+    const state75Ils = totalVat75;
+    const state150Ils = totalVat150;
+    const business75Ils = localBusinessRev75;
+    const business150Ils = localBusinessRev150;
 
     const consumerDeltaIls = consumer150Ils - consumer75Ils;
     const stateDeltaIls = state150Ils - state75Ils;
@@ -94,20 +106,20 @@ export default function DashboardClient({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
                     <KpiCard
                         title='מע"מ שנגבה ע"י המדינה'
-                        value={formatMillions(currentScenario.totals.totalVatIls)}
+                        value={formatMillions(vatCollectedIls)}
                         valueColorClass="text-blue-600"
                         tooltipText='סך הכנסות המדינה ממע"מ על יבוא אישי לפי התרחיש שנבחר.'
                     />
                     <KpiCard
                         title="חיסכון שנתי לצרכנים"
-                        value={activeScenario === 150 ? formatMillions(compareData.totals.consumerSavingsIls) : "₪0M"}
+                        value={formatMillions(consumerSavingsIls)}
                         valueColorClass={activeScenario === 150 ? "text-green-500" : "text-slate-300"}
                         tooltipText='החיסכון לצרכנים מאי-תשלום מע"מ על טווח המחיר 75$-150$.'
                         isPositive={activeScenario === 150}
                     />
                     <KpiCard
                         title="אובדן הכנסה לעסקים מקומיים"
-                        value={formatMillions(currentScenario.totals.lostDomesticRevenueIls)}
+                        value={businessLossIls === 0 ? formatMillions(0) : `-${formatMillions(Math.abs(businessLossIls))}`}
                         valueColorClass="text-red-500"
                         tooltipText='הערכת המחזור שעובר מקנייה מקומית לקנייה מחו"ל לפי הנחת התחליפיות.'
                     />
@@ -116,13 +128,13 @@ export default function DashboardClient({
                 <div className="bg-slate-800 text-slate-200 p-4 rounded-xl text-center text-sm md:text-base shadow-inner">
                     {activeScenario === 75 ? (
                         <p>
-                            בתרחיש הנוכחי (פטור עד 75$), המדינה גובה כ-<strong>{formatMillions(compareData.baseline.totals.totalVatIls)}</strong>,
+                            בתרחיש הנוכחי (פטור עד 75$), המדינה גובה כ-<strong>{formatMillions(totalVat75)}</strong>,
                             והצרכנים אינם חוסכים בטווח 75$-150$.
                         </p>
                     ) : (
                         <p>
-                            בתרחיש המוצע (פטור עד 150$), גביית המע"מ יורדת לכ-<strong>{formatMillions(compareData.proposed.totals.totalVatIls)}</strong>,
-                            והחיסכון לצרכנים עולה לכ-<strong>{formatMillions(compareData.totals.consumerSavingsIls)}</strong>.
+                            בתרחיש המוצע (פטור עד 150$), גביית המע"מ יורדת לכ-<strong>{formatMillions(totalVat150)}</strong>,
+                            והחיסכון לצרכנים עולה לכ-<strong>{formatMillions(consumerSavingsDelta)}</strong>.
                         </p>
                     )}
                 </div>
