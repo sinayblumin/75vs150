@@ -307,11 +307,11 @@ export default function DashboardClient({
 
             <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
                 <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
-                    <h3 className="text-2xl font-heading font-bold mb-4 text-slate-800">מה אפשר ללמוד מכאן?</h3>
+                    <h3 className="text-2xl font-heading font-bold mb-4 text-slate-800">מסקנות</h3>
                     <p className="text-slate-600 mb-3 leading-relaxed">
                         הממצאים מדגישים את הדילמה: מצד אחד הרחבת הפטור מקלה על חלק מהצרכנים, ומצד שני מצמצמת הכנסות מדינה ומעבירה ביקוש החוצה.
                     </p>
-                    <p className="text-slate-600 leading-relaxed font-medium">
+                    <p className="text-slate-600 mb-3 leading-relaxed">
                         הכלי מתעלם מההכנסות מע"מ למדינה ממכירות של עסקים מקומיים במטרה לשמור על הנתונים כמה שפחות תיאורטיים, בהינתן נתונים מדויקים יותר התמונה הייתה רק מחזקת את הפסד הכנסות המדינה הכוללים.
                     </p>
                     <p className="text-slate-600 leading-relaxed font-medium">
