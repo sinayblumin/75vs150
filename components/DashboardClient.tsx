@@ -34,17 +34,14 @@ export type CompareResult = {
 
 type ScenarioTotals = {
     totalVat: number;
-    totalConsumerPayments: number;
     totalLocalBusinessRevenue: number;
 };
 
 function getScenarioTotals(scenario: ScenarioResult): ScenarioTotals {
     const totalVat = scenario.bands.reduce((sum, band) => sum + band.vatCollectedIls, 0);
-    const totalPreTaxSpending = scenario.bands.reduce((sum, band) => sum + band.totalDeclaredValueIls, 0);
 
     return {
         totalVat,
-        totalConsumerPayments: totalPreTaxSpending + totalVat,
         // In this model we proxy local-business impact as revenue retained in Israel (negative when shifted abroad).
         totalLocalBusinessRevenue: -scenario.totals.lostDomesticRevenueIls,
     };
@@ -67,7 +64,8 @@ export default function DashboardClient({
 
     // KPI logic for selected scenario.
     const vatCollectedIls = activeScenario === 75 ? totals75.totalVat : totals150.totalVat;
-    const consumerSavingsDelta = totals75.totalConsumerPayments - totals150.totalConsumerPayments;
+    // Consumer savings are modeled as VAT-only savings proxy in this version.
+    const consumerSavingsDelta = totals75.totalVat - totals150.totalVat;
     const consumerSavingsIls = activeScenario === 75 ? 0 : consumerSavingsDelta;
     const businessDelta = totals150.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue; // expected negative
     const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
@@ -127,10 +125,10 @@ export default function DashboardClient({
                         tooltipText='סך הכנסות המדינה ממע"מ על יבוא אישי לפי התרחיש שנבחר.'
                     />
                     <KpiCard
-                        title="חיסכון שנתי לצרכנים"
+                        title="חיסכון שנתי לצרכנים ממע״מ"
                         value={formatMillions(consumerSavingsIls)}
                         valueColorClass={activeScenario === 150 ? "text-green-500" : "text-slate-300"}
-                        tooltipText='החיסכון לצרכנים מאי-תשלום מע"מ על טווח המחיר 75$-150$.'
+                        tooltipText='זהו אומדן חיסכון ממע״מ בלבד: ההפרש בגביית המע״מ בין תרחיש 75$ לתרחיש 150$.'
                         isPositive={activeScenario === 150}
                     />
                     <KpiCard
@@ -150,10 +148,13 @@ export default function DashboardClient({
                     ) : (
                         <p>
                             בתרחיש המוצע (פטור עד 150$), גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
-                            והחיסכון לצרכנים עולה לכ-<strong>{formatMillions(consumerSavingsDelta)}</strong>.
+                            וחיסכון הצרכנים ממע״מ עולה לכ-<strong>{formatMillions(consumerSavingsDelta)}</strong>.
                         </p>
                     )}
                 </div>
+                <p className="text-xs text-slate-500 text-center">
+                    הבהרה: בגרסת המודל הנוכחית, חיסכון הצרכנים מחושב כרכיב מע״מ בלבד ולכן עשוי להיות זהה לאובדן גביית המע״מ למדינה.
+                </p>
             </section>
 
             <section className="grid grid-cols-1 items-stretch gap-6 pt-4 lg:grid-cols-2 lg:gap-8">
