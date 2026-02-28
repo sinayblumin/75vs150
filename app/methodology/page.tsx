@@ -239,7 +239,7 @@ export default function MethodologyPage() {
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
-                        <span>הנחות ההתפלגות, השווי ושיעור ההחלפה הן אומדנים פשטניים.</span>
+                        <span>הנחות ההתפלגות, השווי ושיעור ההחלפה הם אומדנים פשטניים.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
@@ -248,6 +248,36 @@ export default function MethodologyPage() {
                 </ul>
             </section>
 
+            <section className="bg-blue-50/60 p-8 rounded-2xl border border-blue-100 shadow-sm">
+                <h2 className="text-xl md:text-2xl font-heading font-bold text-slate-900 mb-3">לקריאה נוספת ולהעמקה</h2>
+                <p className="text-slate-600 text-sm md:text-base mb-4 leading-relaxed">
+                    למי שרוצה להעמיק בהיבטים המשפטיים והכלכליים של הנושא, הנה כמה מקורות רשמיים נוספים.
+                </p>
+                <ul className="space-y-3 text-sm md:text-base">
+                    <li>
+                        <a
+                            href="https://fs.knesset.gov.il/globaldocs/MMM/1f31f6ca-80f7-ef11-815e-005056aac6c3/2_1f31f6ca-80f7-ef11-815e-005056aac6c3_11_21125.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
+                        >
+                            מרכז המחקר והמידע של הכנסת: "תיאור וניתוח העלאת תקרת הפטור ממיסים ביבוא אישי" (PDF)
+                            <ExternalLink className="w-4 h-4" />
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.gov.il/he/service/customs-tax-calculation-import-by-israelis"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 text-blue-700 hover:text-blue-900 font-medium"
+                        >
+                            רשות המסים: מיסוי יבוא מוצרים לישראל
+                            <ExternalLink className="w-4 h-4" />
+                        </a>
+                    </li>
+                </ul>
+            </section>
         </div>
     );
 }

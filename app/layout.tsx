@@ -32,7 +32,9 @@ export default function RootLayout({
                             </span>
                             <h1 className="text-xl md:text-2xl font-heading font-black tracking-tight text-slate-800">
                                 <a href="/" className="hover:text-blue-600 transition-colors">
-                                    העלאת פטור המע"מ: 75$ מול 150$
+                                    העלאת פטור המע"מ:
+                                    <br />
+                                    75$ מול 150$
                                 </a>
                             </h1>
                         </div>
