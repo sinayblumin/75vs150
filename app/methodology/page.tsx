@@ -2,12 +2,21 @@
 import { SectionHeading } from '@/components/SectionHeading';
 import { HelpCircle, ExternalLink, Database, FileText, Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { calculateScenario } from '@/lib/scenarioModel';
 
 export const metadata = {
     title: 'מתודולוגיה ומקורות - יבוא אישי',
 };
 
 export default function MethodologyPage() {
+    const scenarioNoExemption = calculateScenario(0);
+    const scenario75 = calculateScenario(75);
+    const scenario150 = calculateScenario(150);
+
+    const vatExemptionAt75 = scenarioNoExemption.totals.totalVatIls - scenario75.totals.totalVatIls;
+    const incrementalVatLossAt150 = scenario75.totals.totalVatIls - scenario150.totals.totalVatIls;
+    const formatMillions = (value: number) => `₪${(value / 1_000_000).toFixed(1)}M`;
+
     return (
         <div className="space-y-12 animate-in fade-in duration-500">
             <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
@@ -24,10 +33,10 @@ export default function MethodologyPage() {
                     <SectionHeading title="מבנה המודל" />
                     <div className="text-slate-600 leading-relaxed text-sm space-y-4">
                         <p>
-                            המודל משווה בין שני תרחישים: פטור עד 75 דולר מול פטור עד 150 דולר, על בסיס הנחות שקופות ומכוילות לסדרי הגודל הרשמיים.
+                            המודל משווה בין שני תרחישים: פטור עד 75 דולר מול פטור עד 150 דולר, ומכויל לסדרי הגודל שמופיעים במסמך ממ״מ הכנסת (2025) על היקף חבילות ושווי יבוא אישי.
                         </p>
                         <p>
-                            ה-KPI כוללים: גביית מע״מ בפועל, חיסכון צרכנים ממע״מ ביחס למצב ללא פטור, ואובדן מחזור לעסקים מקומיים. במצב ״עם שינוי התנהגותי״ נשמרת אותה כמות חבילות, אך השווי הממוצע מוכפל (פי 2).
+                            ה-KPI כוללים: גביית מע״מ בפועל, חיסכון צרכנים ממע״מ ביחס למצב ללא פטור, ואובדן מחזור לעסקים מקומיים. זהו מודל מע״מ מפושט: הוא לא כולל מס קנייה/מכס לכל מוצר ולא מחשב בנפרד עלויות שילוח וביטוח בכל עסקה.
                         </p>
                         <div className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
                             <strong>תחליפיות (Substitution):</strong> אחוז מהקניות בחו״ל (בטווח 75–150 דולר) שמחליפות קנייה מקומית, ומשמש להערכת אובדן ההכנסה לעסקים.
@@ -38,7 +47,7 @@ export default function MethodologyPage() {
                 <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2 overflow-x-auto">
                     <SectionHeading
                         title="ההנחות המרכזיות"
-                        subtitle="הערכים שלמטה הם הערכה תיאורטית לצורך חישוב כללי. בהינתן נתונים טובים יותר, המודל יעודכן בהתאם."
+                        subtitle="הערכים שלמטה מכוילים ללוח 3 במסמך הכנסת (2024) עם התאמה מתונה ל-2025, כדי לשמור על סדרי גודל ריאליים ופשוטים להצגה."
                     />
                     <TooltipProvider>
                         <div className="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
@@ -99,7 +108,28 @@ export default function MethodologyPage() {
                 </section>
             </div>
 
-<section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <section className="bg-blue-50/60 p-8 md:p-10 rounded-2xl shadow-sm border border-blue-100">
+                <SectionHeading title="כיול למסמך הכנסת (2025) ומה נשאר מחוץ למודל" />
+                <div className="space-y-3 text-sm md:text-base text-slate-700 leading-relaxed">
+                    <p>
+                        אחרי הכיול, היקף הפטור ממע״מ בתרחיש עד 75 דולר נאמד במודל בכ-<strong>{formatMillions(vatExemptionAt75)}</strong>,
+                        קרוב לאומדן הסדר-גודל במסמך הכנסת (כ-850 מיליון ש״ח לשנת 2025).
+                    </p>
+                    <p>
+                        ההפרש בין תרחיש 75 לתרחיש 150 במודל (רכיב מע״מ בלבד) הוא כ-<strong>{formatMillions(incrementalVatLossAt150)}</strong>.
+                        במסמך הכנסת מופיע אומדן של כ-1 מיליארד ש״ח ל<strong>כלל המסים</strong> בצו החדש, ולכן טבעי שהמספר במודל נמוך יותר.
+                    </p>
+                    <p>
+                        ביקורת מתודולוגית: המסמך הרשמי מציג התפלגות לפי עד 75$, 75–500$ ומעל 500$, ואילו המודל לצורכי פשטות משתמש ברצועות עד 75$, 75–150$ ומעל 150$.
+                        לכן קיימת הנחת המרה פנימית, שמייצרת אומדן השוואתי ולא שחזור חשבונאי מדויק של גביית מס אמת.
+                    </p>
+                    <p>
+                        בנוסף, במסמך הכנסת עצמו יש שילוב בין מקורות מנהליים שונים (רשות המסים, מבקר המדינה ותחזיות תקציב), ולכן חלק מהמספרים בין לוחות שונים אינם חופפים אחד-לאחד.
+                    </p>
+                </div>
+            </section>
+
+            <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
                 <SectionHeading title="מקורות הנתונים" />
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700">
                     <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
@@ -259,6 +289,10 @@ export default function MethodologyPage() {
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
                         <span>הנחות ההתפלגות, השווי ושיעור ההחלפה הם אומדנים פשטניים.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="text-amber-600 mt-1 shrink-0">■</span>
+                        <span>האומדן של ״כמיליארד ש״ח״ במסמך הכנסת מתייחס לכלל המסים, בעוד שבדשבורד מחושב רכיב מע״מ בלבד.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>

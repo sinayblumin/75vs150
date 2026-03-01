@@ -1,10 +1,10 @@
 {
-    "annual_parcels_total": 58000000,
-    "share_under_75": 0.9,
-    "share_75_to_150": 0.07,
-    "share_over_150": 0.03,
-    "avg_value_under_75": 41,
-    "avg_value_75_to_150": 105,
-    "avg_value_over_150": 245,
+    "annual_parcels_total": 64000000,
+    "share_under_75": 0.878,
+    "share_75_to_150": 0.09,
+    "share_over_150": 0.032,
+    "avg_value_under_75": 22.5,
+    "avg_value_75_to_150": 112,
+    "avg_value_over_150": 360,
     "substitution_rate": 0.22
 }
