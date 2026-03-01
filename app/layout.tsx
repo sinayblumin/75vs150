@@ -11,17 +11,20 @@ import '@fontsource/rubik/900.css';
 import 'fontsource-alef/400.css';
 import 'fontsource-alef/700.css';
 
+const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL
+    ?? (process.env.VERCEL_ENV === 'production'
+        ? 'https://75vs150.vercel.app'
+        : (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'));
+
 export const metadata: Metadata = {
-    metadataBase: new URL(
-        process.env.NEXT_PUBLIC_SITE_URL
-            ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-    ),
+    metadataBase: new URL(siteUrl),
     title: 'העלאת פטור המע"מ: 75$ מול 150$',
     description: 'דשבורד נתונים בעברית להשוואת תרחישי פטור מע״מ ביבוא אישי והשפעתם על צרכנים, מדינה ועסקים מקומיים.',
     openGraph: {
         type: 'website',
         locale: 'he_IL',
-        url: '/',
+        url: siteUrl,
         siteName: '75vs150',
         title: 'העלאת פטור המע"מ: 75$ מול 150$',
         description: 'השוואת השפעת תרחישי פטור המע״מ (75$ מול 150$) על חיסכון לצרכנים, גביית מע״מ ואובדן הכנסה לעסקים.',
