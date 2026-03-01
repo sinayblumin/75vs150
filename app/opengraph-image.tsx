@@ -181,16 +181,17 @@ export default async function OpenGraphImage() {
 
                     <div
                         style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        alignItems: "stretch",
-                        width: "27%",
-                        borderRadius: "18px",
-                        border: "1px solid rgba(148,163,184,0.26)",
-                        background: "rgba(15,23,42,0.42)",
-                        padding: "18px 16px",
-                    }}
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "flex-start",
+                            alignItems: "stretch",
+                            gap: "12px",
+                            width: "27%",
+                            borderRadius: "18px",
+                            border: "1px solid rgba(148,163,184,0.26)",
+                            background: "rgba(15,23,42,0.42)",
+                            padding: "16px 14px",
+                        }}
                     >
                         <div
                             style={{
@@ -202,6 +203,18 @@ export default async function OpenGraphImage() {
                             }}
                         >
                             {rtlSafe("בעלי עניין")}
+                        </div>
+                        <div
+                            style={{
+                                direction: "rtl",
+                                textAlign: "right",
+                                color: "#94a3b8",
+                                fontSize: "14px",
+                                lineHeight: 1.25,
+                                fontWeight: 400,
+                            }}
+                        >
+                            {rtlSafe("השפעה משוערת לפי תרחיש")}
                         </div>
                         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                             <div
@@ -216,7 +229,7 @@ export default async function OpenGraphImage() {
                                     border: "1px solid rgba(110,231,183,0.32)",
                                 }}
                             >
-                                <span style={{ color: "#dcfce7", fontSize: "19px", fontWeight: 700 }}>{rtlSafe("צרכנים")}</span>
+                                <span style={{ color: "#dcfce7", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("צרכנים")}</span>
                                 <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#22c55e" }} />
                             </div>
                             <div
@@ -231,7 +244,7 @@ export default async function OpenGraphImage() {
                                     border: "1px solid rgba(147,197,253,0.32)",
                                 }}
                             >
-                                <span style={{ color: "#dbeafe", fontSize: "19px", fontWeight: 700 }}>{rtlSafe("מדינה")}</span>
+                                <span style={{ color: "#dbeafe", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("מדינה")}</span>
                                 <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#3b82f6" }} />
                             </div>
                             <div
@@ -246,8 +259,22 @@ export default async function OpenGraphImage() {
                                     border: "1px solid rgba(253,164,175,0.32)",
                                 }}
                             >
-                                <span style={{ color: "#ffe4e6", fontSize: "19px", fontWeight: 700 }}>{rtlSafe("עסקים מקומיים")}</span>
+                                <span style={{ color: "#ffe4e6", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("עסקים מקומיים")}</span>
                                 <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#fb7185" }} />
+                            </div>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "2px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#22c55e" }} />
+                                <div style={{ height: "6px", width: "72%", borderRadius: "999px", background: "rgba(34,197,94,0.65)" }} />
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#3b82f6" }} />
+                                <div style={{ height: "6px", width: "54%", borderRadius: "999px", background: "rgba(59,130,246,0.65)" }} />
+                            </div>
+                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#fb7185" }} />
+                                <div style={{ height: "6px", width: "63%", borderRadius: "999px", background: "rgba(251,113,133,0.65)" }} />
                             </div>
                         </div>
                     </div>
