@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { calculateScenario } from "@/lib/scenarioModel";
@@ -212,7 +212,7 @@ export default function DashboardClient({
                         tooltipText='הערכת המחזור שעובר מקנייה מקומית לקנייה מחו"ל לפי הנחת התחליפיות.'
                     />
                     <KpiCard
-                        title='אובדן מע"מ עקיף מהשוק המקומי'
+                        title='אובדן מע"מ עקיף'
                         value={indirectVatLossIls === 0 ? formatMillions(0) : formatSignedMillions(indirectVatLossIls)}
                         valueColorClass="text-rose-700"
                         tooltipText='אומדן ההפסד במע״מ עקב ירידה במחזור של עסקים מקומיים, המחושב כ-18% מאובדן המחזור המוערך.'
@@ -230,7 +230,7 @@ export default function DashboardClient({
                             בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לרמה של <strong><Amount value={totals150.totalVat} /></strong>,
                             וחיסכון הצרכנים ממע״מ מגיע ל-<strong><Amount value={consumerSavings150} /></strong> מול מצב ללא פטור
                             (תוספת של <strong><Amount value={consumerSavingsDelta} /></strong> לעומת פטור עד 75 דולר).
-                            אומדן אובדן המע״מ העקיף מהשוק המקומי נאמד בכ-<strong><Amount value={indirectVatLossIls} signed /></strong>.
+                            אומדן אובדן המע״מ העקיף נאמד בכ-<strong><Amount value={indirectVatLossIls} signed /></strong>.
                         </p>
                     )}
                 </div>
@@ -269,7 +269,7 @@ export default function DashboardClient({
                     <p className="text-center text-xs leading-relaxed text-slate-500">
                         במצב "עם שינוי התנהגותי" המודל מניח אותה כמות חבילות כמו במצב הבסיס, אך שווי ממוצע גבוה פי 2 בכל רצועות המחיר.
                         {behaviorMode === "behavioral"
-                            ? ` בהנחה זו, החיסכון מול מצב "ללא שינוי התנהגותי" גדל בערך פי ${behavioralVsStatic75Ratio.toFixed(1)} בתרחיש 75 דולר ובערך פי ${behavioralVsStatic150Ratio.toFixed(1)} בתרחיש 150 דולר; היחס בין תרחיש 150 לתרחיש 75 נשאר בערך פי ${consumerSavingsRatio.toFixed(1)}.`
+                            ? ` בפועל, החיסכון לצרכנים כמעט מוכפל לעומת מצב ללא שינוי התנהגותי (בערך פי ${behavioralVsStatic75Ratio.toFixed(1)} בתרחיש 75 דולר ופי ${behavioralVsStatic150Ratio.toFixed(1)} בתרחיש 150 דולר). תרחיש 150 דולר עדיין נותן חיסכון גבוה יותר מתרחיש 75 דולר, בערך פי ${consumerSavingsRatio.toFixed(1)}.`
                             : ""}
                     </p>
                 </section>
@@ -285,14 +285,14 @@ export default function DashboardClient({
                         <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={staticVatDelta} signed /></p>
-                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף מהשוק המקומי: <Amount value={staticIndirectVatLossDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף: <Amount value={staticIndirectVatLossDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={staticConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={staticBusinessDelta} signed /></p>
                         </div>
                         <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
                             <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (אותה כמות, שווי ממוצע כפול)</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={behavioralVatDelta} signed /></p>
-                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף מהשוק המקומי: <Amount value={behavioralIndirectVatLossDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף: <Amount value={behavioralIndirectVatLossDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={behavioralConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={behavioralBusinessDelta} signed /></p>
                         </div>
@@ -361,3 +361,4 @@ export default function DashboardClient({
         </div>
     );
 }
+

@@ -37,7 +37,7 @@ export default function MethodologyPage() {
                         </p>
                         <p>
                             ה-KPI כוללים: גביית מע״מ בפועל, חיסכון צרכנים ממע״מ ביחס למצב ללא פטור, אובדן מחזור לעסקים מקומיים, וכן
-                            ״אובדן מע״מ עקיף מהשוק המקומי״ שמחושב כהפסד מע״מ משוער על המחזור המקומי שנגרע ועבר לקניות מחו״ל.
+                            ״אובדן מע״מ עקיף״ שמחושב כהפסד מע״מ משוער על המחזור המקומי שנגרע ועבר לקניות מחו״ל.
                             זהו מודל מע״מ מפושט: הוא לא כולל מס קנייה/מכס לכל מוצר ולא מחשב בנפרד עלויות שילוח וביטוח בכל עסקה.
                         </p>
                         <div className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
@@ -212,7 +212,7 @@ export default function MethodologyPage() {
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
-                        <span>במדד ״אובדן מע״מ עקיף מהשוק המקומי״, רכיב המע״מ מחושב כהערכה פשוטה לפי שיעור המע״מ התקני.</span>
+                        <span>במדד ״אובדן מע״מ עקיף״, רכיב המע״מ מחושב כהערכה פשוטה לפי שיעור המע״מ התקני.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
@@ -224,5 +224,6 @@ export default function MethodologyPage() {
         </div>
     );
 }
+
 
 
