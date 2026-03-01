@@ -28,35 +28,35 @@ export default async function OpenGraphImage() {
                     width: "100%",
                     height: "100%",
                     display: "flex",
-                    direction: "rtl",
+                    direction: "ltr",
                     position: "relative",
                     overflow: "hidden",
-                    background: "linear-gradient(135deg, #0f172a 0%, #172554 55%, #0f766e 100%)",
+                    background: "linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0f766e 100%)",
                     color: "#f8fafc",
-                    padding: "54px 62px",
+                    padding: "48px 56px",
                     fontFamily: "Alef",
                 }}
             >
                 <div
                     style={{
                         position: "absolute",
-                        top: "-110px",
-                        left: "-70px",
-                        width: "320px",
-                        height: "320px",
+                        top: "-90px",
+                        left: "-90px",
+                        width: "260px",
+                        height: "260px",
                         borderRadius: "999px",
-                        background: "rgba(56, 189, 248, 0.16)",
+                        background: "rgba(59, 130, 246, 0.24)",
                     }}
                 />
                 <div
                     style={{
                         position: "absolute",
-                        bottom: "-110px",
-                        right: "-80px",
-                        width: "300px",
-                        height: "300px",
+                        bottom: "-100px",
+                        right: "-70px",
+                        width: "280px",
+                        height: "280px",
                         borderRadius: "999px",
-                        background: "rgba(34, 197, 94, 0.17)",
+                        background: "rgba(16, 185, 129, 0.22)",
                     }}
                 />
 
@@ -75,7 +75,7 @@ export default async function OpenGraphImage() {
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: "16px",
+                            gap: "14px",
                         }}
                     >
                         <div
@@ -85,42 +85,44 @@ export default async function OpenGraphImage() {
                                 alignSelf: "flex-start",
                                 border: "1px solid rgba(148,163,184,0.35)",
                                 borderRadius: "999px",
-                                padding: "8px 15px",
+                                padding: "7px 14px",
                                 background: "rgba(15,23,42,0.5)",
-                                color: "#cbd5e1",
-                                fontSize: "23px",
+                                color: "#e2e8f0",
+                                fontSize: "22px",
                                 fontWeight: 400,
                             }}
                         >
-                            דשבורד נתונים ציבורי
+                            Public Data Dashboard
                         </div>
 
                         <div
                             style={{
-                                fontSize: "66px",
-                                lineHeight: 1.1,
+                                direction: "rtl",
+                                textAlign: "right",
+                                fontSize: "60px",
+                                lineHeight: 1.12,
                                 fontWeight: 700,
                                 maxWidth: "980px",
                             }}
                         >
-                            העלאת פטור המע״מ ביבוא אישי
+                            פטור מע״מ ביבוא אישי
                         </div>
 
                         <div
                             style={{
                                 display: "flex",
                                 alignItems: "center",
-                                alignSelf: "flex-start",
+                                justifyContent: "flex-end",
                                 direction: "ltr",
                                 gap: "14px",
-                                marginTop: "4px",
+                                width: "100%",
                             }}
                         >
                             <div
                                 style={{
                                     borderRadius: "14px",
                                     padding: "8px 16px",
-                                    fontSize: "44px",
+                                    fontSize: "42px",
                                     fontWeight: 700,
                                     background: "rgba(59,130,246,0.2)",
                                     border: "1px solid rgba(147,197,253,0.35)",
@@ -136,7 +138,7 @@ export default async function OpenGraphImage() {
                                 style={{
                                     borderRadius: "14px",
                                     padding: "8px 16px",
-                                    fontSize: "44px",
+                                    fontSize: "42px",
                                     fontWeight: 700,
                                     background: "rgba(16,185,129,0.2)",
                                     border: "1px solid rgba(110,231,183,0.35)",
@@ -149,16 +151,17 @@ export default async function OpenGraphImage() {
 
                         <div
                             style={{
+                                direction: "rtl",
+                                textAlign: "right",
                                 color: "#dbeafe",
-                                fontSize: "30px",
+                                fontSize: "28px",
                                 maxWidth: "980px",
-                                lineHeight: 1.3,
+                                lineHeight: 1.28,
                                 fontWeight: 400,
-                                marginTop: "4px",
+                                marginTop: "2px",
                             }}
                         >
-                            השוואת ההשפעה על חיסכון לצרכנים, גביית מע״מ למדינה
-                            והכנסות עסקים מקומיים
+                            השוואת ההשפעה על צרכנים, המדינה ועסקים מקומיים
                         </div>
                     </div>
 
@@ -172,81 +175,81 @@ export default async function OpenGraphImage() {
                     >
                         <div
                             style={{
-                                display: "flex",
-                                alignItems: "flex-end",
-                                gap: "12px",
-                                height: "112px",
-                                minWidth: "240px",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    width: "36px",
-                                    height: "56px",
-                                    borderRadius: "9px 9px 0 0",
-                                    background: "#3b82f6",
-                                }}
-                            />
-                            <div
-                                style={{
-                                    width: "36px",
-                                    height: "84px",
-                                    borderRadius: "9px 9px 0 0",
-                                    background: "#22c55e",
-                                }}
-                            />
-                            <div
-                                style={{
-                                    width: "36px",
-                                    height: "66px",
-                                    borderRadius: "9px 9px 0 0",
-                                    background: "#fb7185",
-                                }}
-                            />
-                        </div>
-
+                            display: "flex",
+                            alignItems: "flex-end",
+                            gap: "10px",
+                            height: "96px",
+                            minWidth: "210px",
+                        }}
+                    >
                         <div
                             style={{
-                                display: "flex",
-                                gap: "10px",
-                                flexWrap: "wrap",
-                                justifyContent: "flex-end",
-                                maxWidth: "760px",
+                                width: "30px",
+                                height: "46px",
+                                borderRadius: "8px 8px 0 0",
+                                background: "#3b82f6",
                             }}
-                        >
-                            <div
-                                style={{
-                                    borderRadius: "999px",
-                                    padding: "7px 13px",
-                                    fontSize: "22px",
-                                    border: "1px solid rgba(34,197,94,0.55)",
-                                    background: "rgba(34,197,94,0.18)",
-                                    color: "#dcfce7",
-                                }}
+                        />
+                        <div
+                            style={{
+                                width: "30px",
+                                height: "72px",
+                                borderRadius: "8px 8px 0 0",
+                                background: "#22c55e",
+                            }}
+                        />
+                        <div
+                            style={{
+                                width: "30px",
+                                height: "58px",
+                                borderRadius: "8px 8px 0 0",
+                                background: "#fb7185",
+                            }}
+                        />
+                    </div>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "8px",
+                            flexWrap: "wrap",
+                            justifyContent: "flex-end",
+                            maxWidth: "760px",
+                        }}
+                    >
+                        <div
+                            style={{
+                                borderRadius: "999px",
+                                padding: "6px 12px",
+                                fontSize: "20px",
+                                border: "1px solid rgba(34,197,94,0.55)",
+                                background: "rgba(34,197,94,0.18)",
+                                color: "#dcfce7",
+                            }}
                             >
                                 צרכנים
                             </div>
-                            <div
-                                style={{
-                                    borderRadius: "999px",
-                                    padding: "7px 13px",
-                                    fontSize: "22px",
-                                    border: "1px solid rgba(96,165,250,0.55)",
-                                    background: "rgba(96,165,250,0.18)",
-                                    color: "#dbeafe",
-                                }}
+                        <div
+                            style={{
+                                borderRadius: "999px",
+                                padding: "6px 12px",
+                                fontSize: "20px",
+                                border: "1px solid rgba(96,165,250,0.55)",
+                                background: "rgba(96,165,250,0.18)",
+                                color: "#dbeafe",
+                            }}
                             >
                                 מדינה
                             </div>
-                            <div
-                                style={{
-                                    borderRadius: "999px",
-                                    padding: "7px 13px",
-                                    fontSize: "22px",
-                                    border: "1px solid rgba(251,113,133,0.55)",
-                                    background: "rgba(251,113,133,0.18)",
-                                    color: "#ffe4e6",
-                                }}
+                        <div
+                            style={{
+                                borderRadius: "999px",
+                                padding: "6px 12px",
+                                fontSize: "20px",
+                                border: "1px solid rgba(251,113,133,0.55)",
+                                background: "rgba(251,113,133,0.18)",
+                                color: "#ffe4e6",
+                            }}
                             >
                                 עסקים מקומיים
                             </div>
