@@ -33,8 +33,6 @@ businessLoss(150) = - declaredValue(75-150 band) * substitutionRate
 businessLoss(75) = 0
 
 estimatedDomesticVatLoss = abs(businessLoss) * vatRate
-
-netStateVatActual = vatCollectedFromImport - estimatedDomesticVatLoss
 ```
 
 ## KPI שמוצגים בדף הראשי
@@ -48,8 +46,8 @@ netStateVatActual = vatCollectedFromImport - estimatedDomesticVatLoss
 3. אובדן הכנסה לעסקים מקומיים  
 אומדן מחזור שעובר מקניות מקומיות לקניות מחו"ל (לפי הנחת תחליפיות).
 
-4. סך מע"מ נטו למדינה  
-גביית מע"מ מיבוא אישי בניכוי אומדן מע"מ עקיף שאובד מהסטת מחזור מהשוק המקומי.
+4. אובדן מע"מ עקיף מהשוק המקומי  
+אומדן ההפסד במע"מ עקב ירידה במחזור העסקים המקומיים (18% מאובדן המחזור המוערך).
 
 ## מצב "עם שינוי התנהגותי"
 

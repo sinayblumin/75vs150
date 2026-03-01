@@ -38,11 +38,14 @@ function DeltaCell({ delta, isPositive, isNegative }: DeltaMeta) {
 
     const sign = isPositive ? "+" : isNegative ? "-" : "";
     const absValue = Math.abs(delta);
+    const formattedDelta = `${sign}${formatMillions(absValue)}`;
 
     return (
-        <span dir="ltr" className={`inline-flex rounded-md border px-1.5 py-1 text-[11px] font-semibold sm:rounded-lg sm:px-2 sm:text-xs ${badgeClass}`}>
-            {sign}
-            {formatMillions(absValue)}
+        <span
+            dir="ltr"
+            className={`inline-flex items-center whitespace-nowrap rounded-md border px-1 py-0.5 text-[10px] font-semibold tabular-nums sm:rounded-lg sm:px-2 sm:py-1 sm:text-xs ${badgeClass}`}
+        >
+            {formattedDelta}
         </span>
     );
 }
@@ -86,7 +89,7 @@ export function StakeholderComparisonTable({
                             <th className="px-2 py-3 font-semibold sm:px-4">בעל עניין</th>
                             <th className="px-2 py-3 font-semibold sm:px-4">תרחיש 75$</th>
                             <th className="px-2 py-3 font-semibold sm:px-4">תרחיש 150$</th>
-                            <th className="px-2 py-3 font-semibold sm:px-4">שינוי נטו</th>
+                            <th className="w-[96px] px-2 py-3 font-semibold sm:w-[120px] sm:px-4">שינוי נטו</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200 bg-white">
@@ -95,7 +98,7 @@ export function StakeholderComparisonTable({
                                 <td className="px-2 py-3 font-medium text-slate-900 sm:px-4">{row.stakeholder}</td>
                                 <td dir="ltr" className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s75)}</td>
                                 <td dir="ltr" className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s150)}</td>
-                                <td className="px-2 py-3 sm:px-4">
+                                <td className="whitespace-nowrap px-2 py-3 sm:px-4">
                                     <DeltaCell delta={row.delta} isPositive={row.isPositive} isNegative={row.isNegative} />
                                 </td>
                             </tr>

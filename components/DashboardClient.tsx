@@ -124,7 +124,7 @@ export default function DashboardClient({
     const businessDelta = totals150.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue; // expected negative
     const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
     const estimatedDomesticVatLossIls = Math.max(0, -businessLossIls) * taxRules.vat_rate;
-    const netStateVatActualIls = vatCollectedIls - estimatedDomesticVatLossIls;
+    const indirectVatLossIls = activeScenario === 75 ? 0 : -estimatedDomesticVatLossIls;
 
     // Stakeholder table values (same KPI definitions for consistency):
     // consumer rows are savings vs "no exemption" under each scenario.
@@ -146,8 +146,8 @@ export default function DashboardClient({
     const staticBusinessDelta = totals150Static.totalLocalBusinessRevenue - totals75Static.totalLocalBusinessRevenue;
     const behavioralBusinessDelta =
         totals150Behavioral.totalLocalBusinessRevenue - totals75Behavioral.totalLocalBusinessRevenue;
-    const staticNetStateVatDelta = staticVatDelta + (staticBusinessDelta * taxRules.vat_rate);
-    const behavioralNetStateVatDelta = behavioralVatDelta + (behavioralBusinessDelta * taxRules.vat_rate);
+    const staticIndirectVatLossDelta = staticBusinessDelta * taxRules.vat_rate;
+    const behavioralIndirectVatLossDelta = behavioralBusinessDelta * taxRules.vat_rate;
 
     return (
         <div className="animate-in fade-in duration-500 space-y-8 md:space-y-10">
@@ -204,10 +204,10 @@ export default function DashboardClient({
                         tooltipText='הערכת המחזור שעובר מקנייה מקומית לקנייה מחו"ל לפי הנחת התחליפיות.'
                     />
                     <KpiCard
-                        title='סך מע"מ נטו למדינה'
-                        value={formatMillions(netStateVatActualIls)}
+                        title='אובדן מע"מ עקיף מהשוק המקומי'
+                        value={indirectVatLossIls === 0 ? formatMillions(0) : formatSignedMillions(indirectVatLossIls)}
                         valueColorClass="text-rose-700"
-                        tooltipText='גביית מע״מ מיבוא אישי בניכוי אומדן מע״מ עקיף שאובד מהסטת מחזור מקניות מקומיות לקניות מחו״ל.'
+                        tooltipText='אומדן ההפסד במע״מ עקב ירידה במחזור של עסקים מקומיים, המחושב כ-18% מאובדן המחזור המוערך.'
                     />
                 </div>
 
@@ -222,7 +222,7 @@ export default function DashboardClient({
                             בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לרמה של <strong><Amount value={totals150.totalVat} /></strong>,
                             וחיסכון הצרכנים ממע״מ מגיע ל-<strong><Amount value={consumerSavings150} /></strong> מול מצב ללא פטור
                             (תוספת של <strong><Amount value={consumerSavingsDelta} /></strong> לעומת פטור עד 75 דולר).
-                            סך המע״מ נטו למדינה (בניכוי אומדן אובדן מע״מ ממחזור מקומי), נאמד בכ-<strong><Amount value={netStateVatActualIls} /></strong>.
+                            אומדן אובדן המע״מ העקיף מהשוק המקומי נאמד בכ-<strong><Amount value={indirectVatLossIls} signed /></strong>.
                         </p>
                     )}
                 </div>
@@ -275,14 +275,14 @@ export default function DashboardClient({
                         <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={staticVatDelta} signed /></p>
-                            <p className="text-sm text-slate-700">שינוי בסך מע״מ נטו למדינה: <Amount value={staticNetStateVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף מהשוק המקומי: <Amount value={staticIndirectVatLossDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={staticConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={staticBusinessDelta} signed /></p>
                         </div>
                         <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
                             <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (אותה כמות, שווי ממוצע כפול)</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={behavioralVatDelta} signed /></p>
-                            <p className="text-sm text-slate-700">שינוי בסך מע״מ נטו למדינה: <Amount value={behavioralNetStateVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי באובדן מע״מ עקיף מהשוק המקומי: <Amount value={behavioralIndirectVatLossDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={behavioralConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={behavioralBusinessDelta} signed /></p>
                         </div>
@@ -327,12 +327,11 @@ export default function DashboardClient({
                         אך במקביל מקטינה את גביית המע״מ הישירה ומגבירה סיכון להסטת רכישות מחוץ לשוק המקומי.
                     </p>
                     <p className="text-slate-600 mb-3 leading-relaxed">
-                        בניגוד לגרסאות קודמות, הדשבורד מציג גם מדד של "השפעת מע״מ נטו למדינה",
-                        שמוסיף אומדן למע״מ עקיף שאובד כשמחזור עובר מעסקים מקומיים לקניות בחו״ל.
+                        הדשבורד מאפשר הסתכלות תיאורטית על השפעת שינוי הפטור על השוק המקומי, גם אם חל שינוי התנהגותי עקב העלאת תקרת הפטור.
                     </p>
                     <p className="text-slate-600 leading-relaxed font-medium">
-                        בהתאם לכיול מול מסמך הכנסת, התמונה הכוללת נשארת ברורה:
-                        לצד הקלה לצרכן קיימת עלות פיסקלית ופגיעה אפשרית בעסקים מקומיים, והאיזון ביניהן הוא הכרעת מדיניות.
+                        האתר עושה שימוש במודל מכויל מול <a href="https://fs.knesset.gov.il/globaldocs/MMM/51fb27d8-dddf-f011-a866-005056aa9911/2_51fb27d8-dddf-f011-a866-005056aa9911_11_21353.pdf">מסמך הניתוח של מאיר אזנקוט</a>, והתמונה הכוללת ברורה:
+                        לצד הקלה לצרכן קיימת עלות פיסקלית ופגיעה אפשרית בעסקים מקומיים, ובעיקר בהכנסות מע"מ למדינה.
                     </p>
                 </section>
 
