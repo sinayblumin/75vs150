@@ -123,9 +123,8 @@ export default function DashboardClient({
     const consumerSavingsIls = activeScenario === 75 ? consumerSavings75 : consumerSavings150;
     const businessDelta = totals150.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue; // expected negative
     const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
-    const domesticVatDeltaFromBusinessIls = businessDelta * taxRules.vat_rate;
-    const netStateVatDeltaIls = (totals150.totalVat - totals75.totalVat) + domesticVatDeltaFromBusinessIls;
-    const netStateVatImpactIls = activeScenario === 75 ? 0 : netStateVatDeltaIls;
+    const estimatedDomesticVatLossIls = Math.max(0, -businessLossIls) * taxRules.vat_rate;
+    const netStateVatActualIls = vatCollectedIls - estimatedDomesticVatLossIls;
 
     // Stakeholder table values (same KPI definitions for consistency):
     // consumer rows are savings vs "no exemption" under each scenario.
@@ -203,11 +202,10 @@ export default function DashboardClient({
                         tooltipText='הערכת המחזור שעובר מקנייה מקומית לקנייה מחו"ל לפי הנחת התחליפיות.'
                     />
                     <KpiCard
-                        title='השפעת מע"מ נטו למדינה'
-                        value={activeScenario === 75 ? formatMillions(0) : formatSignedMillions(netStateVatImpactIls)}
-                        valueColorClass={netStateVatImpactIls < 0 ? "text-red-500" : netStateVatImpactIls > 0 ? "text-green-500" : "text-slate-500"}
-                        tooltipText='שינוי נטו בהכנסות מע״מ למדינה: שינוי במע״מ מיבוא אישי בתוספת אומדן מע״מ עקיף שאובד מירידה במחזור העסקים המקומיים.'
-                        isPositive={netStateVatImpactIls > 0}
+                        title='סך מע"מ נטו למדינה'
+                        value={formatMillions(netStateVatActualIls)}
+                        valueColorClass="text-indigo-600"
+                        tooltipText='גביית מע״מ מיבוא אישי בניכוי אומדן מע״מ עקיף שאובד מהסטת מחזור מקניות מקומיות לקניות מחו״ל.'
                     />
                 </div>
 
@@ -222,7 +220,7 @@ export default function DashboardClient({
                             בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לרמה של <strong><Amount value={totals150.totalVat} /></strong>,
                             וחיסכון הצרכנים ממע״מ מגיע ל-<strong><Amount value={consumerSavings150} /></strong> מול מצב ללא פטור
                             (תוספת של <strong><Amount value={consumerSavingsDelta} /></strong> לעומת פטור עד 75 דולר).
-                            השפעת המע״מ נטו למדינה, כולל אובדן מע״מ עקיף מעסקים מקומיים, נאמדת בכ-<strong><Amount value={netStateVatImpactIls} signed /></strong>.
+                            סך המע״מ נטו למדינה (בניכוי אומדן אובדן מע״מ ממחזור מקומי), נאמד בכ-<strong><Amount value={netStateVatActualIls} /></strong>.
                         </p>
                     )}
                 </div>
