@@ -85,7 +85,7 @@ export default async function OpenGraphImage() {
                             style={{
                                 display: "flex",
                                 alignItems: "center",
-                                width: "fit-content",
+                                alignSelf: "flex-start",
                                 border: "1px solid rgba(148,163,184,0.35)",
                                 borderRadius: "999px",
                                 padding: "8px 16px",
