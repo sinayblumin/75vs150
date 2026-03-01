@@ -87,6 +87,11 @@ export default function DashboardClient({
         if (val < 0) return `-${abs}`;
         return abs;
     };
+    const Amount = ({ value, signed = false }: { value: number; signed?: boolean }) => (
+        <span dir="ltr" className="inline-block">
+            {signed ? formatSignedMillions(value) : formatMillions(value)}
+        </span>
+    );
 
     // Base scenario values (computed once from model results).
     const baseline75Static = compareData.baseline;
@@ -200,14 +205,14 @@ export default function DashboardClient({
                 <div className="rounded-xl bg-slate-800 p-4 text-center text-sm text-slate-200 shadow-inner md:text-base">
                     {activeScenario === 75 ? (
                         <p>
-                            בתרחיש פטור עד 75 דולר, המדינה גובה כ-<strong>{formatMillions(totals75.totalVat)}</strong>,
-                            והצרכנים חוסכים כ-<strong>{formatMillions(consumerSavings75)}</strong> לעומת מצב ללא פטור ממע״מ.
+                            בתרחיש פטור עד 75 דולר, המדינה גובה בערך <strong><Amount value={totals75.totalVat} /></strong>,
+                            והצרכנים חוסכים בערך <strong><Amount value={consumerSavings75} /></strong> לעומת מצב ללא פטור ממע״מ.
                         </p>
                     ) : (
                         <p>
-                            בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לכ-<strong>{formatMillions(totals150.totalVat)}</strong>,
-                            וחיסכון הצרכנים ממע״מ מגיע לכ-<strong>{formatMillions(consumerSavings150)}</strong> מול מצב ללא פטור
-                            (תוספת של כ-<strong>{formatMillions(consumerSavingsDelta)}</strong> לעומת פטור עד 75 דולר).
+                            בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לרמה של <strong><Amount value={totals150.totalVat} /></strong>,
+                            וחיסכון הצרכנים ממע״מ מגיע ל-<strong><Amount value={consumerSavings150} /></strong> מול מצב ללא פטור
+                            (תוספת של <strong><Amount value={consumerSavingsDelta} /></strong> לעומת פטור עד 75 דולר).
                         </p>
                     )}
                 </div>
@@ -258,15 +263,15 @@ export default function DashboardClient({
                     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                         <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
-                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(staticVatDelta)}</p>
-                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75 דולר → 150 דולר): {formatSignedMillions(staticConsumerDelta)}</p>
-                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(staticBusinessDelta)}</p>
+                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={staticVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={staticConsumerDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={staticBusinessDelta} signed /></p>
                         </div>
                         <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
                             <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (אותה כמות, שווי ממוצע כפול)</h4>
-                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: {formatSignedMillions(behavioralVatDelta)}</p>
-                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (75 דולר → 150 דולר): {formatSignedMillions(behavioralConsumerDelta)}</p>
-                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: {formatSignedMillions(behavioralBusinessDelta)}</p>
+                            <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={behavioralVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={behavioralConsumerDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={behavioralBusinessDelta} signed /></p>
                         </div>
                     </div>
                 </section>

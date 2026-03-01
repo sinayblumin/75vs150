@@ -10,7 +10,8 @@ type StakeholderComparisonTableProps = {
 };
 
 function formatMillions(value: number) {
-    return `₪${(value / 1_000_000).toFixed(1)}M`;
+    const sign = value < 0 ? "-" : "";
+    return `${sign}₪${(Math.abs(value) / 1_000_000).toFixed(1)}M`;
 }
 
 type DeltaMeta = {
@@ -39,7 +40,7 @@ function DeltaCell({ delta, isPositive, isNegative }: DeltaMeta) {
     const absValue = Math.abs(delta);
 
     return (
-        <span className={`inline-flex rounded-md border px-1.5 py-1 text-[11px] font-semibold sm:rounded-lg sm:px-2 sm:text-xs ${badgeClass}`}>
+        <span dir="ltr" className={`inline-flex rounded-md border px-1.5 py-1 text-[11px] font-semibold sm:rounded-lg sm:px-2 sm:text-xs ${badgeClass}`}>
             {sign}
             {formatMillions(absValue)}
         </span>
@@ -92,8 +93,8 @@ export function StakeholderComparisonTable({
                         {rows.map((row) => (
                             <tr key={row.stakeholder} className="hover:bg-slate-50/80">
                                 <td className="px-2 py-3 font-medium text-slate-900 sm:px-4">{row.stakeholder}</td>
-                                <td className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s75)}</td>
-                                <td className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s150)}</td>
+                                <td dir="ltr" className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s75)}</td>
+                                <td dir="ltr" className="px-2 py-3 text-slate-700 font-mono break-words sm:px-4">{formatMillions(row.s150)}</td>
                                 <td className="px-2 py-3 sm:px-4">
                                     <DeltaCell delta={row.delta} isPositive={row.isPositive} isNegative={row.isNegative} />
                                 </td>
