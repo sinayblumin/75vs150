@@ -112,6 +112,8 @@ export default function DashboardClient({
     const totals150Static = getScenarioTotals(proposed150Static);
     const totals150Behavioral = getScenarioTotals(proposed150Behavioral);
     const totalsNoExemption = getScenarioTotals(activeNoExemption);
+    const totalsNoExemptionStatic = getScenarioTotals(noExemptionStatic);
+    const totalsNoExemptionBehavioral = getScenarioTotals(noExemptionBehavioral);
 
     // KPI logic for selected scenario.
     const vatCollectedIls = activeScenario === 75 ? totals75.totalVat : totals150.totalVat;
@@ -148,6 +150,12 @@ export default function DashboardClient({
         totals150Behavioral.totalLocalBusinessRevenue - totals75Behavioral.totalLocalBusinessRevenue;
     const staticIndirectVatLossDelta = staticBusinessDelta * taxRules.vat_rate;
     const behavioralIndirectVatLossDelta = behavioralBusinessDelta * taxRules.vat_rate;
+    const consumerSavings75StaticAbs = totalsNoExemptionStatic.totalVat - totals75Static.totalVat;
+    const consumerSavings75BehavioralAbs = totalsNoExemptionBehavioral.totalVat - totals75Behavioral.totalVat;
+    const consumerSavings150StaticAbs = totalsNoExemptionStatic.totalVat - totals150Static.totalVat;
+    const consumerSavings150BehavioralAbs = totalsNoExemptionBehavioral.totalVat - totals150Behavioral.totalVat;
+    const behavioralVsStatic75Ratio = consumerSavings75StaticAbs > 0 ? consumerSavings75BehavioralAbs / consumerSavings75StaticAbs : 0;
+    const behavioralVsStatic150Ratio = consumerSavings150StaticAbs > 0 ? consumerSavings150BehavioralAbs / consumerSavings150StaticAbs : 0;
 
     return (
         <div className="animate-in fade-in duration-500 space-y-8 md:space-y-10">
@@ -260,7 +268,9 @@ export default function DashboardClient({
                     </div>
                     <p className="text-center text-xs leading-relaxed text-slate-500">
                         במצב "עם שינוי התנהגותי" המודל מניח אותה כמות חבילות כמו במצב הבסיס, אך שווי ממוצע גבוה פי 2 בכל רצועות המחיר.
-                        {behaviorMode === "behavioral" ? ` בהנחה זו, החיסכון בתרחיש 150 דולר הוא בערך פי ${consumerSavingsRatio.toFixed(1)} מהחיסכון בתרחיש 75 דולר.` : ""}
+                        {behaviorMode === "behavioral"
+                            ? ` בהנחה זו, החיסכון מול מצב "ללא שינוי התנהגותי" גדל בערך פי ${behavioralVsStatic75Ratio.toFixed(1)} בתרחיש 75 דולר ובערך פי ${behavioralVsStatic150Ratio.toFixed(1)} בתרחיש 150 דולר; היחס בין תרחיש 150 לתרחיש 75 נשאר בערך פי ${consumerSavingsRatio.toFixed(1)}.`
+                            : ""}
                     </p>
                 </section>
             ) : null}
