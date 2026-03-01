@@ -12,8 +12,34 @@ import 'fontsource-alef/400.css';
 import 'fontsource-alef/700.css';
 
 export const metadata: Metadata = {
-    title: 'יבוא אישי - מודל 75$ לעומת 150$',
-    description: 'השוואת הפטור ממע״מ על יבוא אישי, מבוסס על נתוני מאפייני יבוא והנחות גלויות.',
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL
+            ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+    ),
+    title: 'העלאת פטור המע"מ: 75$ מול 150$',
+    description: 'דשבורד נתונים בעברית להשוואת תרחישי פטור מע״מ ביבוא אישי והשפעתם על צרכנים, מדינה ועסקים מקומיים.',
+    openGraph: {
+        type: 'website',
+        locale: 'he_IL',
+        url: '/',
+        siteName: '75vs150',
+        title: 'העלאת פטור המע"מ: 75$ מול 150$',
+        description: 'השוואת השפעת תרחישי פטור המע״מ (75$ מול 150$) על חיסכון לצרכנים, גביית מע״מ ואובדן הכנסה לעסקים.',
+        images: [
+            {
+                url: '/opengraph-image',
+                width: 1200,
+                height: 630,
+                alt: 'דשבורד השוואת פטור מע״מ ביבוא אישי - 75$ מול 150$',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'העלאת פטור המע"מ: 75$ מול 150$',
+        description: 'דשבורד השוואת תרחישים לפטור מע״מ ביבוא אישי.',
+        images: ['/twitter-image'],
+    },
 };
 
 export default function RootLayout({
