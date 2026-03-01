@@ -166,15 +166,6 @@ export default function DashboardClient({
                 </div>
             </section>
 
-            <section className="rounded-2xl border border-blue-100 bg-blue-50/70 p-5 sm:p-6">
-                <h3 className="font-bold text-blue-900 mb-3">איך לקרוא את הדשבורד?</h3>
-                <ul className="grid grid-cols-1 gap-3 text-sm text-blue-800 md:grid-cols-3 md:text-base">
-                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">1. בחרו למעלה את התרחיש - פטור עד 75$ או פטור עד 150$.</li>
-                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">2. הסתכלו על הקלפים כדי לראות מי מרוויח ומי מפסיד בכל תרחיש.</li>
-                    <li className="rounded-xl border border-blue-100 bg-white/70 p-3">3. גללו למטה כדי להבין את ההנחות, הרגישות שלהן ואת מקורות הנתונים.</li>
-                </ul>
-            </section>
-
             <section className="space-y-6">
                 <SectionHeading
                     title="תמונת מצב בשני תרחישים"
