@@ -31,35 +31,32 @@ export default async function OpenGraphImage() {
                     direction: "rtl",
                     position: "relative",
                     overflow: "hidden",
-                    background:
-                        "radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), transparent 42%), radial-gradient(circle at 88% 82%, rgba(16, 185, 129, 0.2), transparent 40%), linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
+                    background: "linear-gradient(135deg, #0f172a 0%, #172554 55%, #0f766e 100%)",
                     color: "#f8fafc",
-                    padding: "56px 64px",
+                    padding: "54px 62px",
                     fontFamily: "Alef",
                 }}
             >
                 <div
                     style={{
                         position: "absolute",
-                        top: "-90px",
-                        left: "-120px",
-                        width: "380px",
-                        height: "380px",
+                        top: "-110px",
+                        left: "-70px",
+                        width: "320px",
+                        height: "320px",
                         borderRadius: "999px",
-                        background: "rgba(59,130,246,0.25)",
-                        filter: "blur(56px)",
+                        background: "rgba(56, 189, 248, 0.16)",
                     }}
                 />
                 <div
                     style={{
                         position: "absolute",
-                        bottom: "-120px",
-                        right: "-90px",
-                        width: "360px",
-                        height: "360px",
+                        bottom: "-110px",
+                        right: "-80px",
+                        width: "300px",
+                        height: "300px",
                         borderRadius: "999px",
-                        background: "rgba(16,185,129,0.2)",
-                        filter: "blur(56px)",
+                        background: "rgba(34, 197, 94, 0.17)",
                     }}
                 />
 
@@ -88,10 +85,10 @@ export default async function OpenGraphImage() {
                                 alignSelf: "flex-start",
                                 border: "1px solid rgba(148,163,184,0.35)",
                                 borderRadius: "999px",
-                                padding: "8px 16px",
-                                background: "rgba(15,23,42,0.45)",
+                                padding: "8px 15px",
+                                background: "rgba(15,23,42,0.5)",
                                 color: "#cbd5e1",
-                                fontSize: "24px",
+                                fontSize: "23px",
                                 fontWeight: 400,
                             }}
                         >
@@ -100,23 +97,64 @@ export default async function OpenGraphImage() {
 
                         <div
                             style={{
-                                fontSize: "68px",
-                                lineHeight: 1.15,
+                                fontSize: "66px",
+                                lineHeight: 1.1,
                                 fontWeight: 700,
-                                maxWidth: "1000px",
-                                letterSpacing: "-0.5px",
+                                maxWidth: "980px",
                             }}
                         >
-                            העלאת פטור המע״מ: 75$ מול 150$
+                            העלאת פטור המע״מ ביבוא אישי
                         </div>
 
                         <div
                             style={{
-                                color: "#cbd5e1",
-                                fontSize: "31px",
-                                maxWidth: "1000px",
-                                lineHeight: 1.35,
+                                display: "flex",
+                                alignItems: "center",
+                                alignSelf: "flex-start",
+                                direction: "ltr",
+                                gap: "14px",
+                                marginTop: "4px",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    borderRadius: "14px",
+                                    padding: "8px 16px",
+                                    fontSize: "44px",
+                                    fontWeight: 700,
+                                    background: "rgba(59,130,246,0.2)",
+                                    border: "1px solid rgba(147,197,253,0.35)",
+                                    color: "#eff6ff",
+                                }}
+                            >
+                                75$
+                            </div>
+                            <div style={{ fontSize: "34px", color: "#bfdbfe", fontWeight: 700 }}>
+                                →
+                            </div>
+                            <div
+                                style={{
+                                    borderRadius: "14px",
+                                    padding: "8px 16px",
+                                    fontSize: "44px",
+                                    fontWeight: 700,
+                                    background: "rgba(16,185,129,0.2)",
+                                    border: "1px solid rgba(110,231,183,0.35)",
+                                    color: "#ecfdf5",
+                                }}
+                            >
+                                150$
+                            </div>
+                        </div>
+
+                        <div
+                            style={{
+                                color: "#dbeafe",
+                                fontSize: "30px",
+                                maxWidth: "980px",
+                                lineHeight: 1.3,
                                 fontWeight: 400,
+                                marginTop: "4px",
                             }}
                         >
                             השוואת ההשפעה על חיסכון לצרכנים, גביית מע״מ למדינה
@@ -136,32 +174,32 @@ export default async function OpenGraphImage() {
                             style={{
                                 display: "flex",
                                 alignItems: "flex-end",
-                                gap: "14px",
-                                height: "122px",
+                                gap: "12px",
+                                height: "112px",
                                 minWidth: "240px",
                             }}
                         >
                             <div
                                 style={{
-                                    width: "42px",
-                                    height: "62px",
-                                    borderRadius: "10px 10px 0 0",
-                                    background: "#60a5fa",
+                                    width: "36px",
+                                    height: "56px",
+                                    borderRadius: "9px 9px 0 0",
+                                    background: "#3b82f6",
                                 }}
                             />
                             <div
                                 style={{
-                                    width: "42px",
-                                    height: "96px",
-                                    borderRadius: "10px 10px 0 0",
+                                    width: "36px",
+                                    height: "84px",
+                                    borderRadius: "9px 9px 0 0",
                                     background: "#22c55e",
                                 }}
                             />
                             <div
                                 style={{
-                                    width: "42px",
-                                    height: "74px",
-                                    borderRadius: "10px 10px 0 0",
+                                    width: "36px",
+                                    height: "66px",
+                                    borderRadius: "9px 9px 0 0",
                                     background: "#fb7185",
                                 }}
                             />
@@ -170,7 +208,7 @@ export default async function OpenGraphImage() {
                         <div
                             style={{
                                 display: "flex",
-                                gap: "12px",
+                                gap: "10px",
                                 flexWrap: "wrap",
                                 justifyContent: "flex-end",
                                 maxWidth: "760px",
@@ -179,11 +217,11 @@ export default async function OpenGraphImage() {
                             <div
                                 style={{
                                     borderRadius: "999px",
-                                    padding: "8px 14px",
-                                    fontSize: "23px",
+                                    padding: "7px 13px",
+                                    fontSize: "22px",
                                     border: "1px solid rgba(34,197,94,0.55)",
-                                    background: "rgba(34,197,94,0.16)",
-                                    color: "#bbf7d0",
+                                    background: "rgba(34,197,94,0.18)",
+                                    color: "#dcfce7",
                                 }}
                             >
                                 צרכנים
@@ -191,11 +229,11 @@ export default async function OpenGraphImage() {
                             <div
                                 style={{
                                     borderRadius: "999px",
-                                    padding: "8px 14px",
-                                    fontSize: "23px",
+                                    padding: "7px 13px",
+                                    fontSize: "22px",
                                     border: "1px solid rgba(96,165,250,0.55)",
-                                    background: "rgba(96,165,250,0.16)",
-                                    color: "#bfdbfe",
+                                    background: "rgba(96,165,250,0.18)",
+                                    color: "#dbeafe",
                                 }}
                             >
                                 מדינה
@@ -203,11 +241,11 @@ export default async function OpenGraphImage() {
                             <div
                                 style={{
                                     borderRadius: "999px",
-                                    padding: "8px 14px",
-                                    fontSize: "23px",
+                                    padding: "7px 13px",
+                                    fontSize: "22px",
                                     border: "1px solid rgba(251,113,133,0.55)",
-                                    background: "rgba(251,113,133,0.16)",
-                                    color: "#fecdd3",
+                                    background: "rgba(251,113,133,0.18)",
+                                    color: "#ffe4e6",
                                 }}
                             >
                                 עסקים מקומיים

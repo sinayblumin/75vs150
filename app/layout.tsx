@@ -20,14 +20,21 @@ const siteUrl =
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),
     title: 'העלאת פטור המע"מ: 75$ מול 150$',
-    description: 'דשבורד נתונים בעברית להשוואת תרחישי פטור מע״מ ביבוא אישי והשפעתם על צרכנים, מדינה ועסקים מקומיים.',
+    description: 'דשבורד נתונים בעברית שמציג בצורה פשוטה את ההשפעה של העלאת פטור המע״מ ביבוא אישי מ-75$ ל-150$: חיסכון לצרכנים, שינוי בגביית המדינה ואובדן הכנסה לעסקים מקומיים.',
+    applicationName: '75vs150',
+    authors: [{ name: 'סיני בלומין', url: 'https://sinayblumin.com' }],
+    creator: 'סיני בלומין',
+    publisher: 'סיני בלומין',
     openGraph: {
-        type: 'website',
+        type: 'article',
         locale: 'he_IL',
         url: siteUrl,
         siteName: '75vs150',
         title: 'העלאת פטור המע"מ: 75$ מול 150$',
-        description: 'השוואת השפעת תרחישי פטור המע״מ (75$ מול 150$) על חיסכון לצרכנים, גביית מע״מ ואובדן הכנסה לעסקים.',
+        description: 'ניתוח בהיר של העלאת פטור המע״מ ביבוא אישי מ-75$ ל-150$, כולל אומדני חיסכון לצרכנים, שינוי בגביית המדינה וההשפעה על עסקים מקומיים.',
+        publishedTime: '2026-03-01T00:00:00.000Z',
+        modifiedTime: '2026-03-01T00:00:00.000Z',
+        authors: ['https://sinayblumin.com'],
         images: [
             {
                 url: '/opengraph-image',
@@ -40,7 +47,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'העלאת פטור המע"מ: 75$ מול 150$',
-        description: 'דשבורד השוואת תרחישים לפטור מע״מ ביבוא אישי.',
+        description: 'דשבורד בעברית להשוואת ההשפעה של פטור מע״מ ביבוא אישי: 75$ מול 150$, עם חיסכון לצרכנים, גביית מע״מ והשפעה על עסקים.',
         images: ['/twitter-image'],
     },
 };
