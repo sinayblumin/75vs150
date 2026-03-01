@@ -22,9 +22,10 @@ async function loadFont(fileName: string) {
 }
 
 export default async function OpenGraphImage() {
-    const [rubikRegular, rubikBold] = await Promise.all([
+    const [rubikRegular, rubikBold, rubikBlack] = await Promise.all([
         loadFont("rubik-hebrew-400-normal.woff"),
         loadFont("rubik-hebrew-700-normal.woff"),
+        loadFont("rubik-hebrew-900-normal.woff"),
     ]);
 
     return new ImageResponse(
@@ -37,9 +38,9 @@ export default async function OpenGraphImage() {
                     direction: "ltr",
                     position: "relative",
                     overflow: "hidden",
-                    background: "linear-gradient(135deg, #0b1220 0%, #132a53 52%, #0f5f66 100%)",
+                    background: "linear-gradient(135deg, #0a1222 0%, #13294b 62%, #155e75 100%)",
                     color: "#f8fafc",
-                    padding: "52px 58px",
+                    padding: "38px 42px",
                     fontFamily: "RubikHebrew",
                 }}
             >
@@ -48,29 +49,29 @@ export default async function OpenGraphImage() {
                         position: "absolute",
                         top: "-120px",
                         left: "-120px",
-                        width: "330px",
-                        height: "330px",
+                        width: "280px",
+                        height: "280px",
                         borderRadius: "999px",
-                        background: "rgba(56, 189, 248, 0.16)",
+                        background: "rgba(59, 130, 246, 0.22)",
                     }}
                 />
                 <div
                     style={{
                         position: "absolute",
-                        bottom: "-125px",
-                        right: "-95px",
-                        width: "350px",
-                        height: "350px",
+                        bottom: "-130px",
+                        right: "-100px",
+                        width: "300px",
+                        height: "300px",
                         borderRadius: "999px",
-                        background: "rgba(52, 211, 153, 0.16)",
+                        background: "rgba(16, 185, 129, 0.20)",
                     }}
                 />
                 <div
                     style={{
                         position: "absolute",
-                        inset: "16px",
+                        inset: "10px",
                         borderRadius: "24px",
-                        border: "1px solid rgba(148,163,184,0.20)",
+                        border: "1px solid rgba(148,163,184,0.28)",
                     }}
                 />
 
@@ -79,103 +80,93 @@ export default async function OpenGraphImage() {
                         position: "relative",
                         zIndex: 1,
                         display: "flex",
+                        flexDirection: "row-reverse",
                         justifyContent: "space-between",
                         alignItems: "stretch",
                         width: "100%",
                         height: "100%",
-                        gap: "24px",
+                        gap: "18px",
                     }}
                 >
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: "16px",
-                            width: "71%",
+                            justifyContent: "space-between",
+                            width: "73%",
+                            padding: "10px 2px 8px 0",
                         }}
                     >
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                alignSelf: "flex-start",
-                                border: "1px solid rgba(148,163,184,0.30)",
-                                borderRadius: "999px",
-                                padding: "8px 15px",
-                                background: "rgba(15,23,42,0.52)",
-                                color: "#cbd5e1",
-                                fontSize: "20px",
-                                fontWeight: 400,
-                            }}
-                        >
-                            75vs150 Data Brief
-                        </div>
-
-                        <div
-                            style={{
-                                direction: "rtl",
-                                textAlign: "right",
-                                fontSize: "66px",
-                                lineHeight: 1.05,
-                                fontWeight: 700,
-                                letterSpacing: "-0.5px",
-                            }}
-                        >
-                            {rtlSafe("פטור מע״מ ביבוא אישי")}
-                        </div>
-
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "flex-end",
-                                direction: "ltr",
-                                gap: "12px",
-                                width: "100%",
-                            }}
-                        >
+                        <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
                             <div
                                 style={{
-                                    borderRadius: "12px",
-                                    padding: "8px 14px",
-                                    fontSize: "38px",
-                                    fontWeight: 700,
-                                    background: "rgba(37,99,235,0.24)",
-                                    border: "1px solid rgba(147,197,253,0.42)",
-                                    color: "#eff6ff",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    alignSelf: "flex-end",
+                                    border: "1px solid rgba(148,163,184,0.34)",
+                                    borderRadius: "999px",
+                                    padding: "8px 13px",
+                                    background: "rgba(15,23,42,0.58)",
+                                    color: "#cbd5e1",
+                                    fontSize: "18px",
+                                    fontWeight: 400,
                                 }}
                             >
-                                75$
+                                {rtlSafe("דשבורד נתונים לציבור")}
                             </div>
-                            <div style={{ fontSize: "30px", color: "#bfdbfe", fontWeight: 700 }}>
-                                →
+
+                            <div
+                                style={{
+                                    direction: "rtl",
+                                    textAlign: "right",
+                                    fontSize: "88px",
+                                    lineHeight: 0.96,
+                                    fontWeight: 900,
+                                    letterSpacing: "-0.8px",
+                                }}
+                            >
+                                {rtlSafe("העלאת פטור מע״מ")}
                             </div>
                             <div
                                 style={{
-                                    borderRadius: "12px",
-                                    padding: "8px 14px",
-                                    fontSize: "38px",
+                                    direction: "rtl",
+                                    textAlign: "right",
+                                    color: "#e2e8f0",
+                                    fontSize: "46px",
+                                    lineHeight: 1.02,
                                     fontWeight: 700,
-                                    background: "rgba(5,150,105,0.24)",
-                                    border: "1px solid rgba(110,231,183,0.40)",
-                                    color: "#ecfdf5",
+                                    letterSpacing: "-0.4px",
                                 }}
                             >
-                                150$
+                                {rtlSafe("75$ מול 150$")}
+                            </div>
+                            <div
+                                style={{
+                                    direction: "rtl",
+                                    textAlign: "right",
+                                    color: "#cbd5e1",
+                                    fontSize: "30px",
+                                    lineHeight: 1.2,
+                                    fontWeight: 400,
+                                }}
+                            >
+                                {rtlSafe("השפעה על צרכנים, מדינה ועסקים מקומיים")}
                             </div>
                         </div>
 
-                        <div
-                            style={{
-                                direction: "rtl",
-                                textAlign: "right",
-                                color: "#d1e5ff",
-                                fontSize: "29px",
-                                lineHeight: 1.25,
-                                fontWeight: 400,
-                            }}
-                        >
-                            {rtlSafe("השוואת ההשפעה על צרכנים, המדינה ועסקים מקומיים")}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", alignItems: "center" }}>
+                                <span style={{ width: "12px", height: "12px", borderRadius: "999px", background: "#22c55e" }} />
+                                <div style={{ width: "186px", height: "10px", borderRadius: "999px", background: "rgba(34,197,94,0.76)" }} />
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", alignItems: "center" }}>
+                                <span style={{ width: "12px", height: "12px", borderRadius: "999px", background: "#3b82f6" }} />
+                                <div style={{ width: "138px", height: "10px", borderRadius: "999px", background: "rgba(59,130,246,0.76)" }} />
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px", alignItems: "center" }}>
+                                <span style={{ width: "12px", height: "12px", borderRadius: "999px", background: "#fb7185" }} />
+                                <div style={{ width: "160px", height: "10px", borderRadius: "999px", background: "rgba(251,113,133,0.76)" }} />
+                            </div>
                         </div>
                     </div>
 
@@ -183,39 +174,41 @@ export default async function OpenGraphImage() {
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            justifyContent: "flex-start",
+                            justifyContent: "space-between",
                             alignItems: "stretch",
-                            gap: "12px",
-                            width: "27%",
-                            borderRadius: "18px",
-                            border: "1px solid rgba(148,163,184,0.26)",
-                            background: "rgba(15,23,42,0.42)",
-                            padding: "16px 14px",
+                            width: "24%",
+                            borderRadius: "20px",
+                            border: "1px solid rgba(148,163,184,0.32)",
+                            background: "rgba(15,23,42,0.62)",
+                            padding: "16px 13px",
                         }}
                     >
-                        <div
-                            style={{
-                                direction: "rtl",
-                                textAlign: "right",
-                                color: "#e2e8f0",
-                                fontSize: "22px",
-                                fontWeight: 700,
-                            }}
-                        >
-                            {rtlSafe("בעלי עניין")}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                            <div
+                                style={{
+                                    direction: "rtl",
+                                    textAlign: "right",
+                                    color: "#e2e8f0",
+                                    fontSize: "23px",
+                                    fontWeight: 700,
+                                }}
+                            >
+                                {rtlSafe("בעלי עניין")}
+                            </div>
+                            <div
+                                style={{
+                                    direction: "rtl",
+                                    textAlign: "right",
+                                    color: "#94a3b8",
+                                    fontSize: "14px",
+                                    lineHeight: 1.3,
+                                    fontWeight: 400,
+                                }}
+                            >
+                                {rtlSafe("חלוקה לפי קבוצות מושפעות")}
+                            </div>
                         </div>
-                        <div
-                            style={{
-                                direction: "rtl",
-                                textAlign: "right",
-                                color: "#94a3b8",
-                                fontSize: "14px",
-                                lineHeight: 1.25,
-                                fontWeight: 400,
-                            }}
-                        >
-                            {rtlSafe("השפעה משוערת לפי תרחיש")}
-                        </div>
+
                         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                             <div
                                 style={{
@@ -230,7 +223,7 @@ export default async function OpenGraphImage() {
                                 }}
                             >
                                 <span style={{ color: "#dcfce7", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("צרכנים")}</span>
-                                <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#22c55e" }} />
+                                <span style={{ width: "9px", height: "9px", borderRadius: "999px", background: "#22c55e" }} />
                             </div>
                             <div
                                 style={{
@@ -245,7 +238,7 @@ export default async function OpenGraphImage() {
                                 }}
                             >
                                 <span style={{ color: "#dbeafe", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("מדינה")}</span>
-                                <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#3b82f6" }} />
+                                <span style={{ width: "9px", height: "9px", borderRadius: "999px", background: "#3b82f6" }} />
                             </div>
                             <div
                                 style={{
@@ -260,22 +253,22 @@ export default async function OpenGraphImage() {
                                 }}
                             >
                                 <span style={{ color: "#ffe4e6", fontSize: "18px", fontWeight: 700 }}>{rtlSafe("עסקים מקומיים")}</span>
-                                <span style={{ width: "10px", height: "10px", borderRadius: "999px", background: "#fb7185" }} />
+                                <span style={{ width: "9px", height: "9px", borderRadius: "999px", background: "#fb7185" }} />
                             </div>
                         </div>
-                        <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "2px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#22c55e" }} />
-                                <div style={{ height: "6px", width: "72%", borderRadius: "999px", background: "rgba(34,197,94,0.65)" }} />
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#3b82f6" }} />
-                                <div style={{ height: "6px", width: "54%", borderRadius: "999px", background: "rgba(59,130,246,0.65)" }} />
-                            </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                                <span style={{ width: "6px", height: "6px", borderRadius: "999px", background: "#fb7185" }} />
-                                <div style={{ height: "6px", width: "63%", borderRadius: "999px", background: "rgba(251,113,133,0.65)" }} />
-                            </div>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "flex-end",
+                                gap: "8px",
+                                height: "70px",
+                                paddingTop: "4px",
+                            }}
+                        >
+                            <div style={{ width: "18px", height: "58px", borderRadius: "6px 6px 0 0", background: "#22c55e" }} />
+                            <div style={{ width: "18px", height: "46px", borderRadius: "6px 6px 0 0", background: "#3b82f6" }} />
+                            <div style={{ width: "18px", height: "52px", borderRadius: "6px 6px 0 0", background: "#fb7185" }} />
                         </div>
                     </div>
                 </div>
@@ -295,6 +288,12 @@ export default async function OpenGraphImage() {
                     data: rubikBold,
                     style: "normal",
                     weight: 700,
+                },
+                {
+                    name: "RubikHebrew",
+                    data: rubikBlack,
+                    style: "normal",
+                    weight: 900,
                 },
             ],
         }
