@@ -4,8 +4,8 @@ import { join } from "node:path";
 
 export const runtime = "nodejs";
 export const size = {
-    width: 1200,
-    height: 630,
+    width: 2400,
+    height: 1260,
 };
 export const contentType = "image/png";
 
@@ -34,11 +34,21 @@ export default async function OpenGraphImage() {
                     width: "100%",
                     height: "100%",
                     display: "flex",
-                    position: "relative",
-                    overflow: "hidden",
-                    background: "linear-gradient(135deg, #0b1220 0%, #163263 58%, #0f766e 100%)",
-                    color: "#f8fafc",
-                    fontFamily: "RubikHebrew",
+                    background: "#0b1220",
+                }}
+            >
+                <div
+                    style={{
+                        width: "1200px",
+                        height: "630px",
+                        transform: "scale(2)",
+                        transformOrigin: "top left",
+                        display: "flex",
+                        position: "relative",
+                        overflow: "hidden",
+                        background: "linear-gradient(135deg, #0b1220 0%, #163263 58%, #0f766e 100%)",
+                        color: "#f8fafc",
+                        fontFamily: "RubikHebrew",
                     padding: "48px",
                 }}
             >
@@ -194,6 +204,7 @@ export default async function OpenGraphImage() {
                         <div style={{ width: "18px", height: "54px", borderRadius: "6px 6px 0 0", background: "#fb7185" }} />
                     </div>
                 </div>
+            </div>
             </div>
         ),
         {
