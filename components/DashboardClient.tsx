@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { calculateScenario } from "@/lib/scenarioModel";
 import assumptions from "@/data/assumptions.json";
+import taxRules from "@/data/tax_rules.json";
 import { KpiCard } from "./KpiCard";
 import { SectionHeading } from "./SectionHeading";
 import { ScenarioToggle } from "./ScenarioToggle";
@@ -70,10 +71,8 @@ function getBehavioralOverrides() {
 
 export default function DashboardClient({
     compareData,
-    oecdContext: _oecdContext,
 }: {
     compareData: CompareResult;
-    oecdContext: unknown;
 }) {
     const [activeScenario, setActiveScenario] = useState<75 | 150>(75);
     const [behaviorMode, setBehaviorMode] = useState<BehaviorMode>("static");
@@ -124,6 +123,9 @@ export default function DashboardClient({
     const consumerSavingsIls = activeScenario === 75 ? consumerSavings75 : consumerSavings150;
     const businessDelta = totals150.totalLocalBusinessRevenue - totals75.totalLocalBusinessRevenue; // expected negative
     const businessLossIls = activeScenario === 75 ? 0 : businessDelta;
+    const domesticVatDeltaFromBusinessIls = businessDelta * taxRules.vat_rate;
+    const netStateVatDeltaIls = (totals150.totalVat - totals75.totalVat) + domesticVatDeltaFromBusinessIls;
+    const netStateVatImpactIls = activeScenario === 75 ? 0 : netStateVatDeltaIls;
 
     // Stakeholder table values (same KPI definitions for consistency):
     // consumer rows are savings vs "no exemption" under each scenario.
@@ -180,7 +182,7 @@ export default function DashboardClient({
             </section>
 
             <section className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:gap-6">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 lg:gap-6">
                     <KpiCard
                         title='מע"מ שנגבה ע"י המדינה'
                         value={formatMillions(vatCollectedIls)}
@@ -200,6 +202,13 @@ export default function DashboardClient({
                         valueColorClass="text-red-500"
                         tooltipText='הערכת המחזור שעובר מקנייה מקומית לקנייה מחו"ל לפי הנחת התחליפיות.'
                     />
+                    <KpiCard
+                        title='השפעת מע"מ נטו למדינה'
+                        value={activeScenario === 75 ? formatMillions(0) : formatSignedMillions(netStateVatImpactIls)}
+                        valueColorClass={netStateVatImpactIls < 0 ? "text-red-500" : netStateVatImpactIls > 0 ? "text-green-500" : "text-slate-500"}
+                        tooltipText='שינוי נטו בהכנסות מע״מ למדינה: שינוי במע״מ מיבוא אישי בתוספת אומדן מע״מ עקיף שאובד מירידה במחזור העסקים המקומיים.'
+                        isPositive={netStateVatImpactIls > 0}
+                    />
                 </div>
 
                 <div className="rounded-xl bg-slate-800 p-4 text-center text-sm text-slate-200 shadow-inner md:text-base">
@@ -213,6 +222,7 @@ export default function DashboardClient({
                             בתרחיש פטור עד 150 דולר, גביית המע"מ יורדת לרמה של <strong><Amount value={totals150.totalVat} /></strong>,
                             וחיסכון הצרכנים ממע״מ מגיע ל-<strong><Amount value={consumerSavings150} /></strong> מול מצב ללא פטור
                             (תוספת של <strong><Amount value={consumerSavingsDelta} /></strong> לעומת פטור עד 75 דולר).
+                            השפעת המע״מ נטו למדינה, כולל אובדן מע״מ עקיף מעסקים מקומיים, נאמדת בכ-<strong><Amount value={netStateVatImpactIls} signed /></strong>.
                         </p>
                     )}
                 </div>
@@ -311,13 +321,16 @@ export default function DashboardClient({
                 <section className="rounded-2xl border border-slate-200 bg-slate-50 p-6 sm:p-8">
                     <h3 className="text-2xl font-heading font-bold mb-4 text-slate-800">מסקנות</h3>
                     <p className="text-slate-600 mb-3 leading-relaxed">
-                        הממצאים מדגישים את הדילמה: מצד אחד הרחבת הפטור מקלה על חלק מהצרכנים, ומצד שני מצמצמת הכנסות מדינה ומעבירה ביקוש החוצה.
+                        הממצאים מדגישים את הדילמה: הרחבת הפטור ל-150 דולר מגדילה את החיסכון לצרכנים,
+                        אך במקביל מקטינה את גביית המע״מ הישירה ומגבירה סיכון להסטת רכישות מחוץ לשוק המקומי.
                     </p>
                     <p className="text-slate-600 mb-3 leading-relaxed">
-                        הכלי מתעלם מההכנסות מע"מ למדינה ממכירות של עסקים מקומיים במטרה לשמור על הנתונים כמה שפחות תיאורטיים, בהינתן נתונים מדויקים יותר התמונה הייתה רק מחזקת את הפסד הכנסות המדינה הכוללים.
+                        בניגוד לגרסאות קודמות, הדשבורד מציג גם מדד של "השפעת מע״מ נטו למדינה",
+                        שמוסיף אומדן למע״מ עקיף שאובד כשמחזור עובר מעסקים מקומיים לקניות בחו״ל.
                     </p>
                     <p className="text-slate-600 leading-relaxed font-medium">
-                        הטרייד אוף ברור - פטור ממע"מ ביבוא אישי טוב לצרכן, אבל פוגע משמעותית בהכנסות המדינה.
+                        בהתאם לכיול מול מסמך הכנסת, התמונה הכוללת נשארת ברורה:
+                        לצד הקלה לצרכן קיימת עלות פיסקלית ופגיעה אפשרית בעסקים מקומיים, והאיזון ביניהן הוא הכרעת מדיניות.
                     </p>
                 </section>
 

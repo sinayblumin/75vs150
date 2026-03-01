@@ -22,9 +22,9 @@ export default function MethodologyPage() {
             <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
                 <SectionHeading title="מתודולוגיה ומקורות נתונים" />
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-4xl">
-                    המודל באתר מבוסס על שילוב בין נתונים פתוחים, מקורות ממשלתיים רשמיים על יבוא אישי,
-                    דוח ה-OECD ומסמך המחקר של הכנסת בנושא העלאת תקרת הפטור. המטרה היא להציג השוואת
-                    תרחישים שקופה, עם הנחות מפורשות ופישוטים ידועים מראש.
+                    המודל באתר מבוסס על שלושה מקורות ששימשו בפועל: מסמך המחקר של הכנסת לכיול היקפים,
+                    כללי רשות המסים להבנת מנגנון המע״מ, ונתוני הלמ״ס להצגת הקשר מאקרו של יוקר המחיה.
+                    המטרה היא להציג השוואת תרחישים שקופה, עם הנחות מפורשות ופישוטים ידועים מראש.
                 </p>
             </section>
 
@@ -36,7 +36,9 @@ export default function MethodologyPage() {
                             המודל משווה בין שני תרחישים: פטור עד 75 דולר מול פטור עד 150 דולר, ומכויל לסדרי הגודל שמופיעים במסמך ממ״מ הכנסת (2025) על היקף חבילות ושווי יבוא אישי.
                         </p>
                         <p>
-                            ה-KPI כוללים: גביית מע״מ בפועל, חיסכון צרכנים ממע״מ ביחס למצב ללא פטור, ואובדן מחזור לעסקים מקומיים. זהו מודל מע״מ מפושט: הוא לא כולל מס קנייה/מכס לכל מוצר ולא מחשב בנפרד עלויות שילוח וביטוח בכל עסקה.
+                            ה-KPI כוללים: גביית מע״מ בפועל, חיסכון צרכנים ממע״מ ביחס למצב ללא פטור, אובדן מחזור לעסקים מקומיים, וכן
+                            ״השפעת מע״מ נטו למדינה״ שמחברת בין שינוי מע״מ היבוא לבין אומדן מע״מ עקיף שאובד ממכירות מקומיות שהוסטו לחו״ל.
+                            זהו מודל מע״מ מפושט: הוא לא כולל מס קנייה/מכס לכל מוצר ולא מחשב בנפרד עלויות שילוח וביטוח בכל עסקה.
                         </p>
                         <div className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
                             <strong>תחליפיות (Substitution):</strong> אחוז מהקניות בחו״ל (בטווח 75–150 דולר) שמחליפות קנייה מקומית, ומשמש להערכת אובדן ההכנסה לעסקים.
@@ -109,22 +111,20 @@ export default function MethodologyPage() {
             </div>
 
             <section className="bg-blue-50/60 p-8 md:p-10 rounded-2xl shadow-sm border border-blue-100">
-                <SectionHeading title="כיול למסמך הכנסת (2025) ומה נשאר מחוץ למודל" />
+                <SectionHeading title="איך לקרוא את הנתונים מול מסמך הכנסת?" />
                 <div className="space-y-3 text-sm md:text-base text-slate-700 leading-relaxed">
                     <p>
-                        אחרי הכיול, היקף הפטור ממע״מ בתרחיש עד 75 דולר נאמד במודל בכ-<strong>{formatMillions(vatExemptionAt75)}</strong>,
-                        קרוב לאומדן הסדר-גודל במסמך הכנסת (כ-850 מיליון ש״ח לשנת 2025).
+                        המספרים בדשבורד נבנו לפי סדרי הגודל שמופיעים במסמך הכנסת. בתרחיש פטור עד 75 דולר,
+                        היקף הפטור ממע״מ נאמד כאן בכ-<strong>{formatMillions(vatExemptionAt75)}</strong>, קרוב לאומדן של כ-850 מיליון ש״ח במסמך.
                     </p>
                     <p>
-                        ההפרש בין תרחיש 75 לתרחיש 150 במודל (רכיב מע״מ בלבד) הוא כ-<strong>{formatMillions(incrementalVatLossAt150)}</strong>.
-                        במסמך הכנסת מופיע אומדן של כ-1 מיליארד ש״ח ל<strong>כלל המסים</strong> בצו החדש, ולכן טבעי שהמספר במודל נמוך יותר.
+                        במעבר מפטור עד 75 דולר לפטור עד 150 דולר, השינוי שמוצג כאן הוא כ-<strong>{formatMillions(incrementalVatLossAt150)}</strong>
+                        ברכיב המע״מ בלבד. במסמך הכנסת מופיע אומדן של כ-1 מיליארד ש״ח, משום שהוא כולל גם מסים נוספים מעבר למע״מ.
                     </p>
                     <p>
-                        ביקורת מתודולוגית: המסמך הרשמי מציג התפלגות לפי עד 75$, 75–500$ ומעל 500$, ואילו המודל לצורכי פשטות משתמש ברצועות עד 75$, 75–150$ ומעל 150$.
-                        לכן קיימת הנחת המרה פנימית, שמייצרת אומדן השוואתי ולא שחזור חשבונאי מדויק של גביית מס אמת.
-                    </p>
-                    <p>
-                        בנוסף, במסמך הכנסת עצמו יש שילוב בין מקורות מנהליים שונים (רשות המסים, מבקר המדינה ותחזיות תקציב), ולכן חלק מהמספרים בין לוחות שונים אינם חופפים אחד-לאחד.
+                        כדי להציג את התמונה בצורה פשוטה וברורה לציבור, הדשבורד מחלק את החבילות לרצועות מחיר
+                        עד 75$, 75–150$ ומעל 150$. במסמך הרשמי החלוקה שונה מעט, ולכן יש כאן אומדן תרחישים נגיש,
+                        ולא תחליף לחישוב מס משפטי מלא.
                     </p>
                 </div>
             </section>
@@ -132,90 +132,6 @@ export default function MethodologyPage() {
             <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
                 <SectionHeading title="מקורות הנתונים" />
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 text-slate-700">
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <Database className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">מאגרי המידע הממשלתיים (data.gov.il)</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                מאגר נתונים פתוח של משרדי הממשלה וגופי ציבור, ממנו נלקחו דוגמאות וסדרי גודל לנתוני סחר ויבוא.
-                            </p>
-                            <a href="https://data.gov.il/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                data.gov.il
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">אתר משרד הכלכלה - "יבוא אישי"</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                פורטל רשמי המרכז הנחיות לציבור על יבוא אישי, תנאים והיבטים תפעוליים.
-                            </p>
-                            <a href="https://apps.economy.gov.il/Apps/PersonalImport/Home/Digital_Order" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                משרד הכלכלה
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">צו יבוא אישי - מהדורה דיגיטלית</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                המסמך המשפטי המגדיר מהו יבוא אישי, הכמויות המותרות וההבחנה מול יבוא מסחרי.
-                            </p>
-                            <a href="https://www.gov.il/he/departments/legalInfo/personal_import_order" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                קריאת הצו
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <Info className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">כל-זכות - זכותון יבוא אישי</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                הסבר ידידותי לציבור על גביית מסים, מע"מ ועלויות נלוות ביבוא אישי.
-                            </p>
-                            <a href="https://www.kolzchut.org.il/he/%D7%96%D7%9B%D7%95%D7%AA%D7%95%D7%9F_%D7%91%D7%A0%D7%95%D7%A9%D7%90_%D7%99%D7%91%D7%95%D7%90_%D7%90%D7%99%D7%A9%D7%99_(%D7%97%D7%91%D7%99%D7%9C%D7%95%D7%AA_%D7%9E%D7%97%D7%95%22%D7%9C)" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                כל-זכות
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">דואר ישראל - משלוחים ומסים</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                מידע תפעולי על תשלום מסים ועמלות טיפול, שימושי להבנת עלויות בפועל.
-                            </p>
-                            <a href="https://doar.israelpost.co.il/content/tax-payments/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                דואר ישראל
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
-                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
-                        <Database className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
-                        <div>
-                            <span className="font-bold text-slate-900 block mb-1">OECD Economic Survey 2025</span>
-                            <p className="text-sm mb-2 leading-relaxed">
-                                מקור הקשר כלכלי רחב על יוקר המחיה בישראל.
-                            </p>
-                            <a href="https://www.oecd.org/en/publications/oecd-economic-surveys-israel-2025_d6dd02bc-en/full-report/addressing-the-high-cost-of-living_bfe408a2.html" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group">
-                                דוח OECD
-                                <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                            </a>
-                        </div>
-                    </li>
-
                     <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
                         <FileText className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
                         <div>
@@ -293,6 +209,10 @@ export default function MethodologyPage() {
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
                         <span>האומדן של ״כמיליארד ש״ח״ במסמך הכנסת מתייחס לכלל המסים, בעוד שבדשבורד מחושב רכיב מע״מ בלבד.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                        <span className="text-amber-600 mt-1 shrink-0">■</span>
+                        <span>במדד ״השפעת מע״מ נטו למדינה״, רכיב המע״מ העקיף על המחזור המקומי מחושב כהערכה פשוטה לפי שיעור המע״מ התקני.</span>
                     </li>
                     <li className="flex items-start gap-3">
                         <span className="text-amber-600 mt-1 shrink-0">■</span>
