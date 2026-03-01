@@ -9,6 +9,12 @@ export const size = {
 };
 export const contentType = "image/png";
 
+// Satori (next/og) still has RTL rendering quirks with Hebrew in some crawlers.
+// We reverse Hebrew strings so the final rendered output appears in correct order.
+function rtlSafe(text: string) {
+    return text.split("").reverse().join("");
+}
+
 async function loadFont(fileName: string) {
     return readFile(
         join(process.cwd(), "node_modules", "fontsource-alef", "files", fileName)
@@ -105,7 +111,7 @@ export default async function OpenGraphImage() {
                                 maxWidth: "980px",
                             }}
                         >
-                            פטור מע״מ ביבוא אישי
+                            {rtlSafe("פטור מע״מ ביבוא אישי")}
                         </div>
 
                         <div
@@ -161,7 +167,7 @@ export default async function OpenGraphImage() {
                                 marginTop: "2px",
                             }}
                         >
-                            השוואת ההשפעה על צרכנים, המדינה ועסקים מקומיים
+                            {rtlSafe("השוואת ההשפעה על צרכנים, המדינה ועסקים מקומיים")}
                         </div>
                     </div>
 
@@ -217,41 +223,41 @@ export default async function OpenGraphImage() {
                             maxWidth: "760px",
                         }}
                     >
-                        <div
-                            style={{
-                                borderRadius: "999px",
-                                padding: "6px 12px",
-                                fontSize: "20px",
+                            <div
+                                style={{
+                                    borderRadius: "999px",
+                                    padding: "6px 12px",
+                                    fontSize: "20px",
                                 border: "1px solid rgba(34,197,94,0.55)",
                                 background: "rgba(34,197,94,0.18)",
-                                color: "#dcfce7",
-                            }}
+                                    color: "#dcfce7",
+                                }}
                             >
-                                צרכנים
+                                {rtlSafe("צרכנים")}
                             </div>
-                        <div
-                            style={{
-                                borderRadius: "999px",
-                                padding: "6px 12px",
-                                fontSize: "20px",
+                            <div
+                                style={{
+                                    borderRadius: "999px",
+                                    padding: "6px 12px",
+                                    fontSize: "20px",
                                 border: "1px solid rgba(96,165,250,0.55)",
                                 background: "rgba(96,165,250,0.18)",
-                                color: "#dbeafe",
-                            }}
+                                    color: "#dbeafe",
+                                }}
                             >
-                                מדינה
+                                {rtlSafe("מדינה")}
                             </div>
-                        <div
-                            style={{
-                                borderRadius: "999px",
-                                padding: "6px 12px",
-                                fontSize: "20px",
+                            <div
+                                style={{
+                                    borderRadius: "999px",
+                                    padding: "6px 12px",
+                                    fontSize: "20px",
                                 border: "1px solid rgba(251,113,133,0.55)",
                                 background: "rgba(251,113,133,0.18)",
-                                color: "#ffe4e6",
-                            }}
+                                    color: "#ffe4e6",
+                                }}
                             >
-                                עסקים מקומיים
+                                {rtlSafe("עסקים מקומיים")}
                             </div>
                         </div>
                     </div>
