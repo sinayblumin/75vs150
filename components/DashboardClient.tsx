@@ -10,6 +10,7 @@ import { StakeholderImpact } from "./StakeholderImpact";
 import { StakeholderComparisonTable } from "./StakeholderComparisonTable";
 import { SensitivityChart } from "./SensitivityChart";
 import { CategoryImpactCard } from "./CategoryImpactCard";
+import { CpiContextChart } from "./CpiContextChart";
 
 export type ScenarioResult = {
     exemptionThresholdUsd: number;
@@ -303,6 +304,10 @@ export default function DashboardClient({
                     <SensitivityChart />
                     <CategoryImpactCard />
                 </div>
+            </section>
+
+            <section className="space-y-6">
+                <CpiContextChart />
             </section>
 
             <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">

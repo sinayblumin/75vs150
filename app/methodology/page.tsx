@@ -135,6 +135,37 @@ export default function MethodologyPage() {
                             </a>
                         </div>
                     </li>
+
+                    <li className="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <Database className="w-6 h-6 text-blue-500 shrink-0 mt-1" />
+                        <div>
+                            <span className="font-bold text-slate-900 block mb-1">הלשכה המרכזית לסטטיסטיקה (הלמ״ס) - מדדי מחירים ו-CPI</span>
+                            <p className="text-sm mb-2 leading-relaxed">
+                                נתוני מדד המחירים לצרכן המוצגים באתר נלקחו מטבלאות המדדים הרשמיות של הלמ״ס,
+                                כפי שהן מופיעות במאגרי הנתונים ובדף המדדים העיקריים (Consumer Price Index).
+                            </p>
+                            <div className="flex flex-col gap-1">
+                                <a
+                                    href="https://www.cbs.gov.il/he/CBSNewBrand/Pages/siteToolsAndDatabases.aspx"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group"
+                                >
+                                    כלי סטטיסטיקה ומאגרי מידע - הלמ״ס
+                                    <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                </a>
+                                <a
+                                    href="https://www.cbs.gov.il/en/Pages/Main%20Price%20Indices.aspx"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 font-medium group"
+                                >
+                                    Main Price Indices - CBS
+                                    <ExternalLink className="w-3 h-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                                </a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </section>
 
@@ -150,6 +181,10 @@ export default function MethodologyPage() {
                         </p>
                         <p>
                             במצב ״עם שינוי התנהגותי״ הכמות נשארת קבועה, אך השווי הממוצע לחבילה מוכפל בכל רצועות המחיר (פי 2).
+                        </p>
+                        <p>
+                            כדי למקם את המודל בהקשר רחב יותר של יוקר המחיה, חוברו לדשבורד גם נתוני CPI של הלמ״ס לשנים האחרונות.
+                            המודל עצמו אינו מחשב השפעה ישירה על מדד המחירים לצרכן, והמדד מוצג כהקשר מאקרו בלבד.
                         </p>
                         <div className="bg-slate-50 p-4 border border-slate-100 text-slate-800 rounded-xl">
                             <strong>תחליפיות (Substitution):</strong> אחוז מהקניות בחו״ל בטווח 75–150 דולר שמחליפות קנייה מקומית, ומשמש להערכת אובדן ההכנסה לעסקים.
