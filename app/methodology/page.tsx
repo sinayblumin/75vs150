@@ -22,7 +22,7 @@ export default function MethodologyPage() {
             <section className="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
                 <SectionHeading title="מתודולוגיה ומקורות נתונים" />
                 <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-4xl">
-                    המודל באתר מבוסס על שלושה מקורות ששימשו בפועל: מסמך המחקר של הכנסת לכיול היקפים,
+                    המודל באתר מבוסס על שלושה מקורות: מסמך המחקר של הכנסת לכיול היקפים,
                     כללי רשות המסים להבנת מנגנון המע״מ, ונתוני הלמ״ס להצגת הקשר מאקרו של יוקר המחיה.
                     המטרה היא להציג השוואת תרחישים שקופה, עם הנחות מפורשות ופישוטים ידועים מראש.
                 </p>
