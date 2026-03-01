@@ -7,9 +7,70 @@ import { cn } from "@/lib/utils"
 
 const TooltipProvider = TooltipPrimitive.Provider
 
-const Tooltip = TooltipPrimitive.Root
+type TouchTooltipState = {
+    isTouchDevice: boolean
+    open: boolean
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-const TooltipTrigger = TooltipPrimitive.Trigger
+const TooltipTouchContext = React.createContext<TouchTooltipState | null>(null)
+
+const Tooltip = ({
+    children,
+    open: openProp,
+    onOpenChange: onOpenChangeProp,
+    ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>) => {
+    const [open, setOpen] = React.useState(false)
+    const [isTouchDevice, setIsTouchDevice] = React.useState(false)
+
+    React.useEffect(() => {
+        const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)")
+        const handleMediaChange = () => setIsTouchDevice(mediaQuery.matches)
+        handleMediaChange()
+        if (typeof mediaQuery.addEventListener === "function") {
+            mediaQuery.addEventListener("change", handleMediaChange)
+            return () => mediaQuery.removeEventListener("change", handleMediaChange)
+        }
+        mediaQuery.addListener(handleMediaChange)
+        return () => mediaQuery.removeListener(handleMediaChange)
+    }, [])
+
+    return (
+        <TooltipTouchContext.Provider value={{ isTouchDevice, open, setOpen }}>
+            <TooltipPrimitive.Root
+                {...props}
+                open={isTouchDevice ? open : openProp}
+                onOpenChange={isTouchDevice ? setOpen : onOpenChangeProp}
+            >
+                {children}
+            </TooltipPrimitive.Root>
+        </TooltipTouchContext.Provider>
+    )
+}
+
+const TooltipTrigger = React.forwardRef<
+    React.ElementRef<typeof TooltipPrimitive.Trigger>,
+    React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger>
+>(({ onClick, ...props }, ref) => {
+    const touchState = React.useContext(TooltipTouchContext)
+
+    return (
+        <TooltipPrimitive.Trigger
+            ref={ref}
+            {...props}
+            onClick={(event) => {
+                onClick?.(event)
+                if (!touchState?.isTouchDevice) {
+                    return
+                }
+                event.preventDefault()
+                touchState.setOpen((prev) => !prev)
+            }}
+        />
+    )
+})
+TooltipTrigger.displayName = TooltipPrimitive.Trigger.displayName
 
 const TooltipContent = React.forwardRef<
     React.ElementRef<typeof TooltipPrimitive.Content>,

@@ -146,6 +146,8 @@ export default function DashboardClient({
     const staticBusinessDelta = totals150Static.totalLocalBusinessRevenue - totals75Static.totalLocalBusinessRevenue;
     const behavioralBusinessDelta =
         totals150Behavioral.totalLocalBusinessRevenue - totals75Behavioral.totalLocalBusinessRevenue;
+    const staticNetStateVatDelta = staticVatDelta + (staticBusinessDelta * taxRules.vat_rate);
+    const behavioralNetStateVatDelta = behavioralVatDelta + (behavioralBusinessDelta * taxRules.vat_rate);
 
     return (
         <div className="animate-in fade-in duration-500 space-y-8 md:space-y-10">
@@ -204,7 +206,7 @@ export default function DashboardClient({
                     <KpiCard
                         title='סך מע"מ נטו למדינה'
                         value={formatMillions(netStateVatActualIls)}
-                        valueColorClass="text-indigo-600"
+                        valueColorClass="text-rose-700"
                         tooltipText='גביית מע״מ מיבוא אישי בניכוי אומדן מע״מ עקיף שאובד מהסטת מחזור מקניות מקומיות לקניות מחו״ל.'
                     />
                 </div>
@@ -273,12 +275,14 @@ export default function DashboardClient({
                         <div className="space-y-2 rounded-xl border border-slate-200 bg-slate-50 p-4">
                             <h4 className="font-semibold text-slate-900">ללא שינוי התנהגותי</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={staticVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי בסך מע״מ נטו למדינה: <Amount value={staticNetStateVatDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={staticConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={staticBusinessDelta} signed /></p>
                         </div>
                         <div className="space-y-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
                             <h4 className="font-semibold text-slate-900">עם שינוי התנהגותי (אותה כמות, שווי ממוצע כפול)</h4>
                             <p className="text-sm text-slate-700">שינוי בגביית מע״מ: <Amount value={behavioralVatDelta} signed /></p>
+                            <p className="text-sm text-slate-700">שינוי בסך מע״מ נטו למדינה: <Amount value={behavioralNetStateVatDelta} signed /></p>
                             <p className="text-sm text-slate-700">חיסכון נוסף לצרכנים (במעבר מ-75 דולר ל-150 דולר): <Amount value={behavioralConsumerDelta} signed /></p>
                             <p className="text-sm text-slate-700">שינוי במחזור עסקים מקומיים: <Amount value={behavioralBusinessDelta} signed /></p>
                         </div>

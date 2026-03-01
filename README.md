@@ -1,99 +1,121 @@
-# מודל יבוא אישי – האם העלאת פטור המע״מ ל‑150$ טובה לציבור?
+# העלאת פטור המע"מ: 75$ מול 150$
 
-Interactive data project that explores a simple but important policy question in Israel:
+דשבורד נתונים בעברית שבוחן את ההשפעה של העלאת תקרת הפטור ממע"מ ביבוא אישי מ-75 דולר ל-150 דולר.
 
-> What happens if the VAT‑exemption threshold on **personal import parcels** is raised  
-> from **75 $ to 150 $**?  
-> Who benefits and who loses – consumers, the Israeli government, or local businesses?
+המטרה היא להציג לציבור תמונה ברורה של הטרייד-אוף:
+- חיסכון לצרכנים
+- שינוי בגביית מע"מ למדינה
+- פגיעה אפשרית בעסקים מקומיים
 
-The site is in **Hebrew** and built as a BI‑style dashboard that presents a **transparent scenario model** based on open data and explicit assumptions.
+## מה המודל מחשב כיום
 
----
+המודל משווה בין שני תרחישים:
+1. פטור עד 75$
+2. פטור עד 150$
 
-## 🎯 Project goals
+החישוב מתבסס על 3 רצועות שווי חבילה:
+- עד 75$
+- 75$-150$
+- מעל 150$
 
-- Present a **clear, visual comparison** between two policy scenarios:
-  - Current situation – VAT exemption up to **75 $**
-  - Proposed scenario – VAT exemption up to **150 $**
-- Quantify, in a simple way:
-  - Estimated **VAT revenue** for the state  
-  - Estimated **annual savings** for consumers  
-  - Approximate **shift of spending** from Israeli businesses to foreign sellers
-- Demonstrate **BI & data‑product skills**:
-  - Working with public datasets
-  - Building a transparent model with documented assumptions
-  - Designing a clean, user‑friendly dashboard in Hebrew
+כל רצועה מקבלת:
+- נתח מסך החבילות
+- שווי ממוצע לחבילה
 
----
+נוסחאות בסיס:
 
-## 🧠 Concept & data model
+```text
+totalVat = sum(vatCollectedIls per band)
 
-Because full, granular official data about personal import parcels is not public, this project uses a **scenario model**:
+consumerSavings(scenario) = totalVat(noExemption) - totalVat(scenario)
 
-- Assume an annual number of personal‑import parcels and split them into three value bands:
-  - `< 75 $`
-  - `75–150 $`
-  - `> 150 $`
-- For each band, assume an average parcel value and apply simplified VAT rules:
-  - Scenario A: exemption up to **75 $**
-  - Scenario B: exemption up to **150 $**
-- Compute for each scenario:
-  - Total VAT collected
-  - Difference in VAT (lost revenue for the state)
-  - Consumer savings (assuming all VAT savings flow to consumers)
-  - Rough estimate of spending shifted away from local businesses
-- All assumptions are stored in a JSON file and documented on the **Methodology** page so they can be easily reviewed and changed.
+businessLoss(150) = - declaredValue(75-150 band) * substitutionRate
+businessLoss(75) = 0
 
-This is **not** a forecast or an official model – it’s a transparent tool for discussion.
+estimatedDomesticVatLoss = abs(businessLoss) * vatRate
 
----
+netStateVatActual = vatCollectedFromImport - estimatedDomesticVatLoss
+```
 
-## 📊 Main features
+## KPI שמוצגים בדף הראשי
 
-- **Interactive scenario toggle**  
-  Switch between “פטור עד 75 $” and “פטור עד 150 $” and see all KPIs and charts update.
+1. מע"מ שנגבה ע"י המדינה  
+גביית מע"מ על יבוא אישי בלבד בתרחיש שנבחר.
 
-- **Key metrics (KPIs)**  
-  - Annual VAT collected from personal import parcels  
-  - Estimated annual savings for consumers  
-  - Estimated annual volume of spending shifted abroad  
-  - Context about Israel’s high cost of living compared to OECD countries
+2. חיסכון שנתי לצרכנים ממע"מ  
+פער מול מצב תיאורטי ללא פטור ממע"מ.
 
-- **Charts**  
-  - Bar chart: VAT collected by value band in each scenario  
-  - Donut/pie chart: “who gains and who loses” – consumers vs state vs local businesses  
+3. אובדן הכנסה לעסקים מקומיים  
+אומדן מחזור שעובר מקניות מקומיות לקניות מחו"ל (לפי הנחת תחליפיות).
 
-- **Methodology & data sources page**  
-  A dedicated page (in Hebrew) explaining:
-  - Data sources  
-  - Model structure  
-  - Core assumptions (with a table)  
-  - Limitations and caveats  
-  - Why this kind of BI visualization helps public debate
+4. סך מע"מ נטו למדינה  
+גביית מע"מ מיבוא אישי בניכוי אומדן מע"מ עקיף שאובד מהסטת מחזור מהשוק המקומי.
 
----
+## מצב "עם שינוי התנהגותי"
 
-## 🧩 Tech stack
+מצב זה זמין כאשר נבחר תרחיש פטור עד 150$.  
+הנחת העבודה:
+- אותה כמות חבילות כמו במצב הרגיל
+- שווי ממוצע לחבילה גבוה פי 2 בכל רצועות המחיר
 
-- **Framework:** Next.js (App Router) + TypeScript  
-- **Styling:** Tailwind CSS  
-- **Charts:** React‑based chart library (Recharts / Chart.js)  
-- **Data:**  
-  - Simplified scenario assumptions in local JSON  
-  - Reference to Israeli open‑data & official information sources (data.gov.il, Ministry of Economy, Kol Zchut, etc.)
+זהו מצב רגישות שמדגים איך תוצאות משתנות אם הצרכנים מגדילים את השווי הממוצע של הקניות.
 
-The architecture is intentionally simple: no database, no auth – just a small, focused data product that’s easy to deploy and maintain.
+## הנחות מודל נוכחיות
 
----
+מתוך `data/assumptions.json`:
 
-## 🚀 Getting started
+- `annual_parcels_total`: 64,000,000
+- `share_under_75`: 0.878
+- `share_75_to_150`: 0.09
+- `share_over_150`: 0.032
+- `avg_value_under_75`: 22.5$
+- `avg_value_75_to_150`: 112$
+- `avg_value_over_150`: 360$
+- `substitution_rate`: 0.22
+
+מתוך `data/tax_rules.json`:
+
+- `vat_rate`: 0.18
+- `exchange_rate_usd_ils`: 3.7
+
+## ויזואליזציות עיקריות
+
+- קלפי KPI לתרחיש הנבחר
+- תרשים "מי מרוויח ומי מפסיד?" (שינוי נטו בין 75$ ל-150$)
+- טבלת השוואת בעלי עניין
+- השוואת הנחות: ללא שינוי התנהגותי מול עם שינוי התנהגותי
+- תרשים רגישות לשיעור תחליפיות
+- תרשים קטגוריות מוצר (הנחת עבודה סינתטית)
+- תרשים CPI (הקשר מאקרו של יוקר המחיה)
+
+## מקורות נתונים בשימוש בפועל
+
+1. מרכז המחקר והמידע של הכנסת (2025)  
+https://fs.knesset.gov.il/globaldocs/MMM/51fb27d8-dddf-f011-a866-005056aa9911/2_51fb27d8-dddf-f011-a866-005056aa9911_11_21353.pdf
+
+2. רשות המסים - מיסוי יבוא מוצרים לישראל  
+https://www.gov.il/he/pages/tax-importsofproducts
+
+3. הלמ"ס - מדדי מחירים ו-CPI  
+https://www.cbs.gov.il/he/CBSNewBrand/Pages/siteToolsAndDatabases.aspx  
+https://www.cbs.gov.il/en/Pages/Main%20Price%20Indices.aspx
+
+## מגבלות חשובות
+
+- זהו מודל תרחישים להמחשה, לא תחזית רשמית.
+- המודל מתמקד במע"מ ולא מחשב את כל רכיבי המס המלאים בכל עסקה (למשל מס קנייה/מכס לכל פריט).
+- רכיב המע"מ העקיף מהשוק המקומי מחושב כאומדן פשוט לפי שיעור המע"מ התקני.
+- קיימים פערים מבניים בין רצועות הנתונים במסמך הרשמי (75-500) לבין פישוט המודל (75-150).
+
+## הרצה מקומית
 
 ```bash
-# install dependencies
 npm install
-
-# run dev server
 npm run dev
+```
 
-# open in browser
+ולאחר מכן לפתוח:
+
+```text
 http://localhost:3000
+```
